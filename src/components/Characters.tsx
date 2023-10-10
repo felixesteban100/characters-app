@@ -53,7 +53,7 @@ function Characters({ charactersFiltered, /* favorites, setFavorites, */ viewFav
                             {
                                 visibleResults.map((currentCharacter, index) => {
                                     return (
-                                        <DialogTrigger className='grid' key={currentCharacter._id}>
+                                        <DialogTrigger className='grid h-fit' key={currentCharacter._id}>
                                             <CharacterComponent
                                                 indexForTest={index}
                                                 setSelectedCharacter={setSelectedCharacter}

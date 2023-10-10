@@ -1,6 +1,7 @@
 import { useInView } from 'react-intersection-observer';
 import { Character } from '../types';
 import { publisherIMG, transitionImageCard } from '../functions';
+import useWindowWidth from '@/hooks/useWindowWidth';
 
 type CharacterProps = {
     // setSelectedCharacter: React.Dispatch<React.SetStateAction<Character>>
@@ -23,9 +24,11 @@ function CharacterComponent({ setSelectedCharacter, currentCharacter, indexForTe
         >
             <div
                 ref={ref}
+                // ${useWindowWidth() < 700 ? "card-new" : ""}
+                // card-new
                 className={
                     `${inView ? "animate-fadeIn" : "animate-fadeOut"} 
-                    md:card
+                    card-new
                     md:image-full
                     object-contain 
                     w-full 
@@ -39,7 +42,7 @@ function CharacterComponent({ setSelectedCharacter, currentCharacter, indexForTe
                     `
                 }
             >
-                <img className={`object-cover w-full h-full transition-opacity duration-200 ease-in-out rounded-md group-hover/item:blur-sm`} src={currentCharacter.images.md} alt={currentCharacter.name} loading='lazy' onLoadCapture={transitionImageCard} />
+                <img className={`object-cover w-full h-full transition-opacity duration-200 ease-in-out rounded-md md:group-hover/item:blur-sm`} src={currentCharacter.images.md} alt={currentCharacter.name} loading='lazy' onLoadCapture={transitionImageCard} />
 
                 <div
                     // className={`absolute z-[100] h-[80%] px-5 -translate-y-[18rem] lg:-translate-y-[20rem] group/edit md:invisible group-hover/item:visible transition delay-150 duration-300 ease-in-out flex flex-col justify-between gap-5`}
