@@ -31,10 +31,11 @@ function LoadingCharacters({ howMany }: LoadingCharactersProps) {
             {
                 howMany > 8 ?
                     <div data-test="paginationHandler" className="w-[70%] flex justify-center gap-1">
-                        <Button disabled className={`text-xl -pt-2`}>«</Button>
+                        <Button variant={'outline'} disabled className={`text-xl -pt-2`}>«</Button>
                         {new Array(3).fill(0).map((_, index) => {
                             return (
                                 <Button
+                                    variant={'outline'}
                                     key={index}
                                     disabled
                                 >
@@ -42,7 +43,7 @@ function LoadingCharacters({ howMany }: LoadingCharactersProps) {
                                 </Button>
                             )
                         })}
-                        <Button disabled className={`text-xl -pt-2`}>»</Button>
+                        <Button variant={'outline'} disabled className={`text-xl -pt-2`}>»</Button>
                     </div>
                     :
                     <></>

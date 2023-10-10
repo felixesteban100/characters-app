@@ -25,14 +25,14 @@ function CharacterComponent({ setSelectedCharacter, currentCharacter, indexForTe
                 ref={ref}
                 className={
                     `${inView ? "animate-fadeIn" : "animate-fadeOut"} 
-                    card
-                    image-full
+                    md:card
+                    md:image-full
                     object-contain 
                     w-full 
                     h-[20rem] md:h-[20rem] xl:h-[22rem] 
-                    hover:shadow-current 
-                    hover:shadow-2xl 
-                    hover:scale-110 
+                    md:hover:shadow-current 
+                    md:hover:shadow-lg 
+                    md:hover:scale-110 
                     relative
                     transition-all 
                     duration-700
@@ -41,7 +41,10 @@ function CharacterComponent({ setSelectedCharacter, currentCharacter, indexForTe
             >
                 <img className={`object-cover w-full h-full transition-opacity duration-200 ease-in-out rounded-md group-hover/item:blur-sm`} src={currentCharacter.images.md} alt={currentCharacter.name} loading='lazy' onLoadCapture={transitionImageCard} />
 
-                <div className={`absolute z-[100] h-[80%] px-5 -translate-y-[18rem] lg:-translate-y-[20rem] group/edit invisible group-hover/item:visible transition delay-150 duration-300 ease-in-out flex flex-col justify-between gap-5`}>
+                <div
+                    // className={`absolute z-[100] h-[80%] px-5 -translate-y-[18rem] lg:-translate-y-[20rem] group/edit md:invisible group-hover/item:visible transition delay-150 duration-300 ease-in-out flex flex-col justify-between gap-5`}
+                    className={`absolute z-[100] h-[80%] px-5 -translate-y-[18rem] lg:-translate-y-[20rem] group/edit group-hover/item:visible transition delay-150 duration-300 ease-in-out flex flex-col justify-between gap-5`}
+                >
                     <div>
                         <h2 className="font-bold text-foreground-muted text-xl md:text-2xl lg:text-3xl">{currentCharacter.name}</h2>
                     </div>

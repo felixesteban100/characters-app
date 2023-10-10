@@ -12,6 +12,7 @@ import SwitchWithIcon from "./components/SwitchWithIcon";
 import { Textarea } from "./ui/textarea";
 
 import { Eraser } from "lucide-react";
+import useWindowWidth from "@/hooks/useWindowWidth";
 
 type ChangeCharactersProps = {
     characterName: string;
@@ -35,6 +36,8 @@ type ChangeCharactersProps = {
 
 function ModalChangeCharacters({ characterName, howMany, asHowManyAsPossible, gender, side, universe, team, race, includeNameOrExactName, characterOrFullName, refetchCharacters, setHeroSection, isLoading, isFetching, setSearchDifferentCharacters, setSearchParams, viewFavorites }: ChangeCharactersProps) {
     const teamByUniverse: { name: string, value: string }[] = getTeamByUniverse(universe)
+    const windowWidth = useWindowWidth()
+    
     return (
         <>
             <div className="flex justify-center items-center gap-5 mb-5">
@@ -88,8 +91,6 @@ function ModalChangeCharacters({ characterName, howMany, asHowManyAsPossible, ge
                     <Eraser className="h-[1.2rem] w-[1.2rem]" />
                 </Button>
             </div>
-
-
 
             <div className="w-full">
                 <div className="grid grid-cols-5 items-center gap-2 mx-auto py-5">
@@ -272,12 +273,19 @@ function ModalChangeCharacters({ characterName, howMany, asHowManyAsPossible, ge
                     variantS={'secondary'}
                 />
 
-                <p className="text-xl font-bold">Shortcuts</p>
-                <div className="flex flex-col">
-                    <p>[Enter] = Reset ⭐</p>
-                    <p>[ctrl] + [z] = Favorites ⭐</p>
-                    <p>[ctrl] + [r] = Reset 🔁</p>
-                </div>
+                {
+                    windowWidth > 770 ?
+                        <>
+                            <p className="text-xl font-bold">Shortcuts</p>
+                            <div className="flex flex-col">
+                                <p>[Enter] = Reset ⭐</p>
+                                <p>[ctrl] + [z] = Favorites ⭐</p>
+                                <p>[ctrl] + [r] = Reset 🔁</p>
+                            </div>
+                        </>
+                        :
+                        null
+                }
             </div>
 
 
