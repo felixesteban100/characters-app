@@ -37,7 +37,7 @@ type ChangeCharactersProps = {
 function ModalChangeCharacters({ characterName, howMany, asHowManyAsPossible, gender, side, universe, team, race, includeNameOrExactName, characterOrFullName, refetchCharacters, setHeroSection, isLoading, isFetching, setSearchDifferentCharacters, setSearchParams, viewFavorites }: ChangeCharactersProps) {
     const teamByUniverse: { name: string, value: string }[] = getTeamByUniverse(universe)
     const windowWidth = useWindowWidth()
-    
+
     return (
         <>
             <div className="flex justify-center items-center gap-5 mb-5">
@@ -97,10 +97,12 @@ function ModalChangeCharacters({ characterName, howMany, asHowManyAsPossible, ge
                     <Button
                         variant={'outline'}
                         onClick={() => {
-                            setSearchParams((prev) => {
-                                prev.set('howMany', (howMany - 1).toString())
-                                return prev
-                            }, { replace: true })
+                            if (howMany - 1 >= 1) {
+                                setSearchParams((prev) => {
+                                    prev.set('howMany', (howMany - 1).toString())
+                                    return prev
+                                }, { replace: true })
+                            }
                         }}
                         disabled={asHowManyAsPossible}
                     >
@@ -112,9 +114,9 @@ function ModalChangeCharacters({ characterName, howMany, asHowManyAsPossible, ge
                         value={asHowManyAsPossible ? 'All' : howMany}
                         className="col-span-3 text-center"
                         min={1}
-                        max={700}
+                        max={710}
                         onChange={(event) => {
-                            if (parseInt(event.target.value) > 0 && parseInt(event.target.value) < 701) {
+                            if (parseInt(event.target.value) > 0 && parseInt(event.target.value) < 710) {
                                 setSearchParams((prev) => {
                                     prev.set('howMany', event.target.value.toString())
                                     return prev
@@ -131,10 +133,12 @@ function ModalChangeCharacters({ characterName, howMany, asHowManyAsPossible, ge
                     <Button
                         variant={'outline'}
                         onClick={() => {
-                            setSearchParams((prev) => {
-                                prev.set('howMany', (howMany + 1).toString())
-                                return prev
-                            }, { replace: true })
+                            if (howMany + 1 <= 710) {
+                                setSearchParams((prev) => {
+                                    prev.set('howMany', (howMany + 1).toString())
+                                    return prev
+                                }, { replace: true })
+                            }
                         }}
                         disabled={asHowManyAsPossible}
                     >

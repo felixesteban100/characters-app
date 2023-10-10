@@ -80,11 +80,12 @@ function Characters({ charactersFiltered, /* favorites, setFavorites, */ viewFav
 
             {
                 pagination.range.length > 1 ?
-                    <div data-test="paginationHandler" className="w-[70%] flex justify-center gap-1">
-                        <Button variant={'outline'} disabled={1 === pagination.active ? true : false} data-test="paginationBtn-prev" onClick={() => pagination.setPage(pagination.active - 1)} className={`text-xl -pt-2`}>«</Button>
+                    <div data-test="paginationHandler" className="w-[70%] flex justify-center">
+                        <Button size={windowWidth < 700 ? 'sm' : "default"} variant={'outline'} disabled={1 === pagination.active ? true : false} data-test="paginationBtn-prev" onClick={() => pagination.setPage(pagination.active - 1)} className={`text-xl -pt-2`}>«</Button>
                         {pagination.range.map((currentPage, index) => {
                             return (
                                 <Button
+                                    size={windowWidth < 700 ? 'sm' : "default"}
                                     variant={'outline'}
                                     data-test={currentPage === 'dots' ? "paginationBtnDisabled" : `paginationBtn-${index}`}
                                     key={`${currentPage}-${index}`}
@@ -96,7 +97,7 @@ function Characters({ charactersFiltered, /* favorites, setFavorites, */ viewFav
                                 </Button>
                             )
                         })}
-                        <Button variant={'outline'} disabled={pagination.range[pagination.range.length - 1] === pagination.active ? true : false} data-test="paginationBtn-next" onClick={() => pagination.setPage(pagination.active + 1)} className={`join-item btn btn-primary text-xl -pt-2`}>»</Button>
+                        <Button size={windowWidth < 700 ? 'sm' : "default"} variant={'outline'} disabled={pagination.range[pagination.range.length - 1] === pagination.active ? true : false} data-test="paginationBtn-next" onClick={() => pagination.setPage(pagination.active + 1)} className={`join-item btn btn-primary text-xl -pt-2`}>»</Button>
                     </div>
                     :
                     <></>

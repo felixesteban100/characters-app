@@ -44,7 +44,7 @@ function App() {
   const objectParams = {
     viewFavorites: searchParams.get("viewFavorites") === "" ? true : searchParams.get("viewFavorites") === "true",
     characterName: searchParams.get("characterName") ?? "",
-    howMany: parseInt(searchParams.get("howMany") ?? "2"),
+    howMany: parseInt(searchParams.get("howMany") ?? "8"),
     asHowManyAsPossible: searchParams.get("asHowManyAsPossible") === "true",
     side: searchParams.get("side") ?? "All",
     universe: searchParams.get("universe") ?? "All",
@@ -92,7 +92,7 @@ function App() {
         }, { replace: true })
       }
       setHeroSection({ imgs: teamIMG(team), title: team, description: team })
-      if (howMany === 691) {
+      if (howMany === 710) {
         setSearchParams((prev) => {
           prev.set('howMany', data.length.toString())
           return prev
@@ -162,10 +162,10 @@ function App() {
                 heroSection={heroSection}
               />
 
-              <div>
+              <div className='overflow-x-hidden'>
                 {
                   isLoading || isFetching ?
-                    <LoadingCharacters howMany={asHowManyAsPossible ? 621 : howMany} />
+                    <LoadingCharacters howMany={asHowManyAsPossible ? 710 : howMany} />
                     :
                     isError || charactersFiltered === undefined ?
                       <SectionCharacters>

@@ -127,6 +127,8 @@ export function publisherIMG(publisher: string) {
     case "Image Comics":
       return "https://www.cuartomundo.cl/wp-content/uploads/2015/09/Image-Comics-Logo.png"
 
+      case "IDW Publishing":
+      return "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Nickelodeon_Rise_of_the_Teenage_Mutant_Ninja_Turtles.svg/800px-Nickelodeon_Rise_of_the_Teenage_Mutant_Ninja_Turtles.svg.png"
     /**
      * "Angel"
      * "NBC - Heroes"
