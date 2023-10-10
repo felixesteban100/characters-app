@@ -36,7 +36,7 @@ export function resetCharactersSelection(
   // setIncludeNameOrExactName: (includeOrExact?: boolean) => void,
   // setCharacterOrFullName: (characOrFullName?: boolean) => void
 
-  
+
 ) {
   // localStorage.removeItem('CHARACTERS_APP_ALLCHARACTERS')
   // localStorage.removeItem("CHARACTERS_APP_CHARACTERSFILTERED");
@@ -85,7 +85,7 @@ export function resetCharactersSelection(
   // setCharacterOrFullName()
 }
 
-export function manageFavorite(action: string, characterSelected: Character, favorites: Character[],  setFavorites: (favoritesS: Character[]) => void /* setFavorites: React.Dispatch<React.SetStateAction<[] | Character[]>> */) {
+export function manageFavorite(action: string, characterSelected: Character, favorites: Character[], setFavorites: (favoritesS: Character[]) => void /* setFavorites: React.Dispatch<React.SetStateAction<[] | Character[]>> */) {
   switch (action) {
     case "add":
       // setFavorites(prev => [...prev, characterSelected])
@@ -122,37 +122,40 @@ export function publisherIMG(publisher: string) {
       return "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Warner_Bros_logo.svg/1965px-Warner_Bros_logo.svg.png"
 
     case "Dark Horse Comics":
-      return "https://i0.wp.com/www.comicsbeat.com/wp-content/uploads/2020/03/dark-horse-logo-banner.png?fit=1200%2C500&ssl=1"
+      return "https://d2lzb5v10mb0lj.cloudfront.net/dhc/common/dh_direct.png"
 
     case "Image Comics":
-      return "https://www.cuartomundo.cl/wp-content/uploads/2015/09/Image-Comics-Logo.png"
+      return "https://seeklogo.com/images/I/image-comics-logo-16D25B0126-seeklogo.com.png"
 
-      case "IDW Publishing":
+    case "IDW Publishing":
       return "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Nickelodeon_Rise_of_the_Teenage_Mutant_Ninja_Turtles.svg/800px-Nickelodeon_Rise_of_the_Teenage_Mutant_Ninja_Turtles.svg.png"
+
+    case "Microsoft":
+      return "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Microsoft_logo_%282012%29.svg/1280px-Microsoft_logo_%282012%29.svg.png";
     /**
-     * "Angel"
-     * "NBC - Heroes"
-     * Tempest
-     * SyFy
-     * ABC Studios
-     * Icon Comics
-     * Universal Studios
-     * Gemini V
-     * null
-     * Star Trek
-     * Goliath
-     * Deadpool
-     * Wildstorm
-     * South Park
-     * Sony Pictures
-     * Vindicator II
-     * Titan Books
-     * J. K. Rowling
-     * Microsoft
-     * She-Thing
-     * Rebellion
-     * 
-     */
+   * "Angel"
+   * "NBC - Heroes"
+   * Tempest
+   * SyFy
+   * ABC Studios
+   * Icon Comics
+   * Universal Studios
+   * Gemini V
+   * null
+   * Star Trek
+   * Goliath
+   * Deadpool
+   * Wildstorm
+   * South Park
+   * Sony Pictures
+   * Vindicator II
+   * Titan Books
+   * J. K. Rowling
+   * Microsoft
+   * She-Thing
+   * Rebellion
+   * 
+   */
 
     default:
       return "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRykZHBER1nS5QMUGvv0qJCJFuqtf5wPrliiiE_1hMMbCwvONjVOaYloiVHMeCyH710z7g&usqp=CAU"
