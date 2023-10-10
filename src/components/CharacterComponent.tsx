@@ -1,7 +1,6 @@
 import { useInView } from 'react-intersection-observer';
 import { Character } from '../types';
 import { publisherIMG, transitionImageCard } from '../functions';
-import useWindowWidth from '@/hooks/useWindowWidth';
 
 type CharacterProps = {
     // setSelectedCharacter: React.Dispatch<React.SetStateAction<Character>>
@@ -26,10 +25,10 @@ function CharacterComponent({ setSelectedCharacter, currentCharacter, indexForTe
                 ref={ref}
                 // ${useWindowWidth() < 700 ? "card-new" : ""}
                 // card-new
+                //md:image-full
                 className={
                     `${inView ? "animate-fadeIn" : "animate-fadeOut"} 
                     card-new
-                    md:image-full
                     object-contain 
                     w-full 
                     h-[20rem] md:h-[20rem] xl:h-[22rem] 
