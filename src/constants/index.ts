@@ -1,4 +1,3 @@
-import useWindowWidth from "@/hooks/useWindowWidth"
 import { Character } from "../types"
 
 
