@@ -56,6 +56,9 @@ module.exports = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      boxShadow: {
+        'inside-img': '0px 0px 500px 500px white inset',
+      },
       keyframes: {
         fadeIn: {
           '0%': {

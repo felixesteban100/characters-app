@@ -134,3 +134,5 @@ function DialogCharacters({ children, favorites, selectedCharacter, setFavorites
 }
 
 export default DialogCharacters
+
+

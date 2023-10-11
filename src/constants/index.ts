@@ -1,3 +1,4 @@
+import useWindowWidth from "@/hooks/useWindowWidth"
 import { Character } from "../types"
 
 
@@ -859,13 +860,28 @@ export const batmanandSpider_manObj: Character[] = [
     }
 ]
 
+// "https://media.tenor.com/TY1HfJK5qQYAAAAC/galaxy-pixel-art.gif",
 export const DEFAULT_HERO_SECTION = {
-    imgs: [
-        "https://media.tenor.com/TY1HfJK5qQYAAAAC/galaxy-pixel-art.gif",
-        "https://cdn.mos.cms.futurecdn.net/yD2Dhn28xkm6iigPB8v6qA.jpg",
-        "https://www.cardboard-display-stand.com/Content/upload/2018304635/201808201648017571975.png"
+    imgs:/*  window.innerWidth < 700 
+        ?*/ [
+            // "https://giffiles.alphacoders.com/126/12664.gif",
+            "https://images7.alphacoders.com/133/1330752.png",
+            "https://images6.alphacoders.com/705/705204.jpg",
+            "https://images3.alphacoders.com/218/218487.jpg",
+            // "https://qph.cf2.quoracdn.net/main-qimg-6a648838e80e15c41d30e00156210861-lq",
+            "https://cdn.mos.cms.futurecdn.net/yD2Dhn28xkm6iigPB8v6qA.jpg",
+            "https://www.cardboard-display-stand.com/Content/upload/2018304635/201808201648017571975.png"
 
-    ],
+        ]
+        /* : [
+            // "https://giffiles.alphacoders.com/126/12664.gif",
+            // "https://images7.alphacoders.com/133/1330752.png",
+            // "https://images6.alphacoders.com/705/705204.jpg",
+            // "https://images3.alphacoders.com/218/218487.jpg",
+            "https://qph.cf2.quoracdn.net/main-qimg-6a648838e80e15c41d30e00156210861-lq",
+            "https://cdn.mos.cms.futurecdn.net/yD2Dhn28xkm6iigPB8v6qA.jpg",
+            "https://www.cardboard-display-stand.com/Content/upload/2018304635/201808201648017571975.png"
+        ] */,
     title: "",
     description: ""
 }

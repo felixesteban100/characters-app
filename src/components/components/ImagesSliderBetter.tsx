@@ -48,8 +48,10 @@ function ImagesSlider({ imagesInfo }: ImagesSliderProps) {
           currentImage.classList.remove('animate-slideLeftIn');
           currentImage.classList.remove('animate-slideLeftOut');
 
+
+
           setTimeout(() => {
-            currentImage.classList.add('animate-slideLeftOut');
+            currentImage.classList.add('animate-slideRightOut');
           }, 1)
 
           setTimeout(() => {
@@ -60,9 +62,10 @@ function ImagesSlider({ imagesInfo }: ImagesSliderProps) {
             }
           }, 200)
 
+
           setTimeout(() => {
-            currentImage.classList.remove('animate-slideLeftOut');
-            currentImage.classList.add('animate-slideRightIn');
+            currentImage.classList.remove('animate-slideRightOut');
+            currentImage.classList.add('animate-slideLeftIn');
           }, 500)
           break;
 
@@ -73,12 +76,11 @@ function ImagesSlider({ imagesInfo }: ImagesSliderProps) {
           currentImage.classList.remove('animate-slideLeftOut');
 
           setTimeout(() => {
-            currentImage.classList.add('animate-slideRightOut');
+            currentImage.classList.add('animate-slideLeftOut');
           }, 1)
 
           setTimeout(() => {
             if (indexS !== undefined) {
-              
               setImageIndex(indexS)
             } else {
               showNextImage()
@@ -86,8 +88,8 @@ function ImagesSlider({ imagesInfo }: ImagesSliderProps) {
           }, 200)
 
           setTimeout(() => {
-            currentImage.classList.remove('animate-slideRightOut');
-            currentImage.classList.add('animate-slideLeftIn');
+            currentImage.classList.remove('animate-slideLeftOut');
+            currentImage.classList.add('animate-slideRightIn');
           }, 500)
           break;
       }
@@ -147,7 +149,7 @@ function ImagesSlider({ imagesInfo }: ImagesSliderProps) {
           size={"icon"}
           variant={"outline"}
         >
-          {autoMode ? <PauseIcon/> : <PlayIcon/>}
+          {autoMode ? <PauseIcon /> : <PlayIcon />}
         </Button>
         {
           imagesInfo.map((_, index) => {
@@ -178,7 +180,6 @@ type ImageComponentProps = {
 function ImageComponent({ url }: ImageComponentProps) {
   return (
     <img
-
       src={url}
       id="currentImage"
       className={`

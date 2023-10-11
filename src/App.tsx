@@ -57,7 +57,7 @@ function App() {
           return prev
         }, { replace: true })
         const characterForDialog = data.find((c) => c.id === selectedCharacterId)
-        if(characterForDialog !== undefined) setSelectedCharacter(characterForDialog)
+        if (characterForDialog !== undefined) setSelectedCharacter(characterForDialog)
         toast({ title: "Success ✅", description: "😃 Characters founded", })
       } else {
         toast({ title: "Success ❔", description: "😐 No Characters founded", })
@@ -85,8 +85,6 @@ function App() {
   const [heroSection, setHeroSection] = useLocalStorage("CHARACTERS_APP_HEROSECTION", DEFAULT_HERO_SECTION)
   const [favorites, setFavorites] = useLocalStorage<Character[] | []>("CHARACTERS_APP_FAVORITES", [])
   // const [isDialogOpen, setIsDialogOpen] = useLocalStorage("CHARACTERS_APP_DIALOGOPEN", false)
-
-
 
   useKeyPress('Enter', () => { setViewFavorites(false); refetchCharacters() });
   useKeyPress('z', () => setViewFavorites(!viewFavorites));
