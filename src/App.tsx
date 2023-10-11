@@ -3,7 +3,7 @@ import Characters from "./components/Characters"
 import Header from './components/Header';
 import ChangeCharacters from './components/ChangeCharacters';
 import { Character } from './types';
-import { DEFAULT_HERO_SECTION, DEFAULT_SEARCHPARAMS, batmanandSpider_manObj, characterEmpty, getSearchParamsFormatted, listOfTeamsWithImgInTheHeroSection, teamIMG } from './constants';
+import { DEFAULT_HERO_SECTION, DEFAULT_SEARCHPARAMS, batmanandSpider_manObj, getSearchParamsFormatted, listOfTeamsWithImgInTheHeroSection, teamIMG } from './constants';
 import { useQuery } from 'react-query';
 import axios from "axios"
 import LoadingCharacters from './components/LoadingCharacters';

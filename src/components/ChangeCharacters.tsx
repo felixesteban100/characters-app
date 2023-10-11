@@ -155,7 +155,7 @@ function ModalChangeCharacters({ characterName, howMany, asHowManyAsPossible, ge
                             return prev
                         }, { replace: true })}
                     />
-                    <Label htmlFor="ashowmanyaspossible">All characters in these categories</Label>
+                    <Label htmlFor="ashowmanyaspossible">As how many characters as possible</Label>
                 </div>
             </div>
 

@@ -13,7 +13,6 @@ import { useEffect, useState } from 'react';
 import CharacterFeatures from "./CharacterFeatures";
 import { motion } from "framer-motion"
 import ImageZoomDialog from "./ImageZoomDialog";
-import useLocalStorage from "@/hooks/useLocalStorage";
 
 
 type DialogCharactersProps = {
