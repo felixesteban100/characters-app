@@ -13,6 +13,7 @@ import { useEffect, useState } from 'react';
 import CharacterFeatures from "./CharacterFeatures";
 import { motion } from "framer-motion"
 import ImageZoomDialog from "./ImageZoomDialog";
+import useLocalStorage from "@/hooks/useLocalStorage";
 
 
 type DialogCharactersProps = {
@@ -20,12 +21,16 @@ type DialogCharactersProps = {
     favorites: Character[];
     selectedCharacter: Character;
     setFavorites: (favoritesS: Character[]) => void;
+    isDialogOpen: boolean
+    setIsDialogOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-function DialogCharacters({ children, favorites, selectedCharacter, setFavorites }: DialogCharactersProps) {
+function DialogCharacters({ children, favorites, selectedCharacter, setFavorites, isDialogOpen, setIsDialogOpen }: DialogCharactersProps) {
     const [isAnimating, setIsAnimating] = useState(true);
     const [currentImageToDisplay, setCurrentImageToDisplay] = useState<number>(0)
     const [lastCharacter, setLastCharacter] = useState("")
+
+    
 
     const allImages: string[] = [
         selectedCharacter.images.md,
@@ -40,8 +45,8 @@ function DialogCharacters({ children, favorites, selectedCharacter, setFavorites
     }, [selectedCharacter.name])
 
     return (
-        <Dialog>
-            {children}
+        <Dialog defaultOpen={isDialogOpen} onOpenChange={() => setIsDialogOpen(prev => !prev)}>
+        {children}
             <DialogContent
                 className="w-[80vw] max-w-[1500px] max-h-[90vh] overflow-y-scroll xl:overflow-hidden"
             >

@@ -135,7 +135,7 @@ export function teamIMG(teamName: string) {
             return ["https://i.pinimg.com/originals/c4/6b/4c/c46b4cad4416a382de72896f9e0d5b9f.jpg", "https://comicvine.gamespot.com/a/uploads/original/11134/111347244/7079315-4150626068-96446.jpg", "https://i.pinimg.com/736x/4e/e0/1f/4ee01f483be7ac031996b51e30e8e8e1--hulk-hulk-walter-obrien.jpg"]
 
         default:
-            return ["https://media.tenor.com/TY1HfJK5qQYAAAAC/galaxy-pixel-art.gif"]
+            return DEFAULT_HERO_SECTION.imgs
     }
 }
 
@@ -858,3 +858,50 @@ export const batmanandSpider_manObj: Character[] = [
         ]
     }
 ]
+
+export const DEFAULT_HERO_SECTION = {
+    imgs: [
+        "https://media.tenor.com/TY1HfJK5qQYAAAAC/galaxy-pixel-art.gif",
+        "https://cdn.mos.cms.futurecdn.net/yD2Dhn28xkm6iigPB8v6qA.jpg",
+        "https://www.cardboard-display-stand.com/Content/upload/2018304635/201808201648017571975.png"
+
+    ],
+    title: "",
+    description: ""
+}
+
+export const DEFAULT_SEARCHPARAMS = {
+    viewFavorites: 'false',
+    characterName: "",
+    howMany: "8",
+    asHowManyAsPossible: "false",
+    side: "All",
+    universe: "All",
+    team: "All",
+    gender: "All",
+    race: "All",
+    includeNameOrExactName: "true",
+    characterOrFullName: "false",
+    charactersFilteredIds: [620, 70, 846],
+    selectedCharacterId: "620",
+    isDialogOpen: "false"
+}
+
+export function getSearchParamsFormatted(searchParams: URLSearchParams) {
+    return {
+        viewFavorites: searchParams.get("viewFavorites") === "" ? true : searchParams.get("viewFavorites") === "true",
+        characterName: searchParams.get("characterName") ?? "",
+        howMany: parseInt(searchParams.get("howMany") ?? "8"),
+        asHowManyAsPossible: searchParams.get("asHowManyAsPossible") === "true",
+        side: searchParams.get("side") ?? "All",
+        universe: searchParams.get("universe") ?? "All",
+        team: searchParams.get("team") ?? "All",
+        gender: searchParams.get("gender") ?? "All",
+        race: searchParams.get("race") ?? "All",
+        includeNameOrExactName: searchParams.get("includeNameOrExactName") === "true",
+        characterOrFullName: searchParams.get("characterOrFullName") === "true",
+        charactersFilteredIds: searchParams.get("charactersFilteredIds") ?? JSON.stringify([620, 70, 846]),
+        selectedCharacterId: parseInt(searchParams.get("selectedCharacterId") ?? "620"),
+        isDialogOpen: searchParams.get("isDialogOpen") === "true"
+    }
+}

@@ -5,10 +5,6 @@ import ButtonSlider from "./ButtonSlider";
 import { useInView } from 'react-intersection-observer';
 
 type ImagesSliderProps = {
-  /* imagesInfo: {
-    url: string,
-    alt: string,
-  }[], */
   imagesInfo: string[]
 }
 

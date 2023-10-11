@@ -63,6 +63,8 @@ function Header({ children }: HeaderProps) {
                     </Button> */}
                 </div>
 
+                <Button variant={'outline'} disabled className='disabled:opacity-100'>CHARACTERS APP</Button>
+
                 <ModeToggle />
 
                 <SheetContent side={'left'} >

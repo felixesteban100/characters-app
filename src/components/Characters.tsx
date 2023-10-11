@@ -12,10 +12,11 @@ import { DialogTrigger } from './ui/dialog';
 type CharactersProps = {
     charactersFiltered: Character[]
     viewFavorites: boolean
-    setSelectedCharacter: (character: Character) => void
+    setSelectedCharacter: (character: Character) => void;
+    setSelectedCharacterId: (idSelected: number) => void;
 }
 
-function Characters({ charactersFiltered, /* favorites, setFavorites, */ viewFavorites, /* selectedCharacter, */ setSelectedCharacter }: CharactersProps) {
+function Characters({ charactersFiltered, viewFavorites, setSelectedCharacter, setSelectedCharacterId }: CharactersProps) {
     const windowWidth = useWindowWidth()
     const [charactersPerPage, setCharactersPerPage] = useState(8)
     const [visibleResults, setVisibleResults] = useState<Character[]>(charactersFiltered.slice(0, charactersPerPage))
@@ -57,6 +58,7 @@ function Characters({ charactersFiltered, /* favorites, setFavorites, */ viewFav
                                             <CharacterComponent
                                                 indexForTest={index}
                                                 setSelectedCharacter={setSelectedCharacter}
+                                                setSelectedCharacterId={setSelectedCharacterId}
                                                 currentCharacter={currentCharacter}
                                             />
                                         </DialogTrigger>

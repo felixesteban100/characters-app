@@ -1,5 +1,5 @@
 import { SetURLSearchParams } from "react-router-dom";
-import { getTeamByUniverse } from "../constants";
+import { DEFAULT_HERO_SECTION, getTeamByUniverse } from "../constants";
 import { Character } from "../types";
 
 export function resetCharactersSelection(
@@ -77,7 +77,7 @@ export function resetCharactersSelection(
     return prev
   }, { replace: true })
 
-  setHeroSection({ imgs: ["https://media.tenor.com/TY1HfJK5qQYAAAAC/galaxy-pixel-art.gif"], title: "", description: "" })
+  setHeroSection(DEFAULT_HERO_SECTION)
   // setTeamMembers([])
   // setIncludeNameOrExactName(false)
   // setIncludeNameOrExactName()
@@ -131,7 +131,7 @@ export function publisherIMG(publisher: string) {
       return "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Nickelodeon_Rise_of_the_Teenage_Mutant_Ninja_Turtles.svg/800px-Nickelodeon_Rise_of_the_Teenage_Mutant_Ninja_Turtles.svg.png"
 
     case "Microsoft":
-      return "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Microsoft_logo_%282012%29.svg/1280px-Microsoft_logo_%282012%29.svg.png";
+      return "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/2048px-Microsoft_logo.svg.png";
     /**
    * "Angel"
    * "NBC - Heroes"

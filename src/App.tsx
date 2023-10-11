@@ -3,7 +3,7 @@ import Characters from "./components/Characters"
 import Header from './components/Header';
 import ChangeCharacters from './components/ChangeCharacters';
 import { Character } from './types';
-import { characterEmpty, listOfTeamsWithImgInTheHeroSection, teamIMG } from './constants';
+import { DEFAULT_HERO_SECTION, DEFAULT_SEARCHPARAMS, batmanandSpider_manObj, characterEmpty, getSearchParamsFormatted, listOfTeamsWithImgInTheHeroSection, teamIMG } from './constants';
 import { useQuery } from 'react-query';
 import axios from "axios"
 import LoadingCharacters from './components/LoadingCharacters';
@@ -23,52 +23,18 @@ function App() {
     JSON.parse(
       localStorage.getItem("CHARACTERS_APP_SEARCHPARAMS")
       ??
-      JSON.stringify({
-        viewFavorites: 'false',
-        characterName: "",
-        howMany: "8",
-        asHowManyAsPossible: "false",
-        side: "All",
-        universe: "All",
-        team: "All",
-        gender: "All",
-        race: "All",
-        includeNameOrExactName: "true",
-        characterOrFullName: "false",
-        charactersFilteredIds: [620, 70, 846]
-      }
-      )
+      JSON.stringify(DEFAULT_SEARCHPARAMS)
     )
   )
 
-  const objectParams = {
-    viewFavorites: searchParams.get("viewFavorites") === "" ? true : searchParams.get("viewFavorites") === "true",
-    characterName: searchParams.get("characterName") ?? "",
-    howMany: parseInt(searchParams.get("howMany") ?? "8"),
-    asHowManyAsPossible: searchParams.get("asHowManyAsPossible") === "true",
-    side: searchParams.get("side") ?? "All",
-    universe: searchParams.get("universe") ?? "All",
-    team: searchParams.get("team") ?? "All",
-    gender: searchParams.get("gender") ?? "All",
-    race: searchParams.get("race") ?? "All",
-    includeNameOrExactName: searchParams.get("includeNameOrExactName") === "true",
-    characterOrFullName: searchParams.get("characterOrFullName") === "true",
-    charactersFilteredIds: searchParams.get("charactersFilteredIds") ?? JSON.stringify([620, 70, 846])
-  }
+  const { viewFavorites, characterName, howMany, asHowManyAsPossible, side, universe, team, gender, race, includeNameOrExactName, characterOrFullName, charactersFilteredIds, selectedCharacterId, isDialogOpen } = getSearchParamsFormatted(searchParams)
 
-  const { viewFavorites, characterName, howMany, asHowManyAsPossible, side, universe, team, gender, race, includeNameOrExactName, characterOrFullName, charactersFilteredIds } = objectParams
-
-  useEffect(() => localStorage.setItem("CHARACTERS_APP_SEARCHPARAMS", JSON.stringify(objectParams)), [searchParams]);
+  useEffect(() => localStorage.setItem("CHARACTERS_APP_SEARCHPARAMS", JSON.stringify(getSearchParamsFormatted(searchParams))), [searchParams]);
   useEffect(() => {
     if (viewFavorites) {
       toast({ title: "Favorites 🌟", description: "Your favorites characters ", })
     }
   }, [viewFavorites]);
-
-  const [selectedCharacter, setSelectedCharacter] = useState<Character>(characterEmpty)
-  const [searchDifferentCharacters, setSearchDifferentCharacters] = useState(false)
-  const [heroSection, setHeroSection] = useLocalStorage("CHARACTERS_APP_HEROSECTION", { imgs: ["https://media.tenor.com/TY1HfJK5qQYAAAAC/galaxy-pixel-art.gif"], title: "", description: "" })
-  const [favorites, setFavorites] = useLocalStorage<Character[] | []>("CHARACTERS_APP_FAVORITES", [])
 
   const { isLoading, isError, data: charactersFiltered, refetch: refetchCharacters, isFetching } = useQuery<Character[]>({
     enabled: true,
@@ -90,6 +56,11 @@ function App() {
           prev.set('charactersFilteredIds', JSON.stringify(data.map(c => c.id)))
           return prev
         }, { replace: true })
+        const characterForDialog = data.find((c) => c.id === selectedCharacterId)
+        if(characterForDialog !== undefined) setSelectedCharacter(characterForDialog)
+        toast({ title: "Success ✅", description: "😃 Characters founded", })
+      } else {
+        toast({ title: "Success ❔", description: "😐 No Characters founded", })
       }
       setHeroSection({ imgs: teamIMG(team), title: team, description: team })
       if (howMany === 710) {
@@ -97,11 +68,6 @@ function App() {
           prev.set('howMany', data.length.toString())
           return prev
         }, { replace: true })
-      }
-      if (data.length > 0) {
-        toast({ title: "Success ✅", description: "😃 Characters founded", })
-      } else {
-        toast({ title: "Success ❔", description: "😐 No Characters founded", })
       }
     },
     onSettled: () => {
@@ -113,12 +79,20 @@ function App() {
     },
   })
 
+
+  const [selectedCharacter, setSelectedCharacter] = useState<Character>(batmanandSpider_manObj[0])
+  const [searchDifferentCharacters, setSearchDifferentCharacters] = useState(false)
+  const [heroSection, setHeroSection] = useLocalStorage("CHARACTERS_APP_HEROSECTION", DEFAULT_HERO_SECTION)
+  const [favorites, setFavorites] = useLocalStorage<Character[] | []>("CHARACTERS_APP_FAVORITES", [])
+  // const [isDialogOpen, setIsDialogOpen] = useLocalStorage("CHARACTERS_APP_DIALOGOPEN", false)
+
+
+
   useKeyPress('Enter', () => { setViewFavorites(false); refetchCharacters() });
   useKeyPress('z', () => setViewFavorites(!viewFavorites));
   useKeyPress('r', () => {
     resetCharactersSelection(setSearchParams, setHeroSection);
     setViewFavorites(false);
-    // setTimeout(() => refetchCharacters(), 500) 
   });
 
   function setViewFavorites(f: boolean) {
@@ -178,18 +152,30 @@ function App() {
                           setFavorites={setFavorites}
                           favorites={favorites}
                           selectedCharacter={selectedCharacter}
+                          isDialogOpen={isDialogOpen}
+                          setIsDialogOpen={() => {
+                            setSearchParams((prev) => {
+                              prev.set("isDialogOpen", (!isDialogOpen).toString())
+                              return prev
+                            })
+                          }}
                         >
                           <Characters
                             charactersFiltered={viewFavorites ? favorites : charactersFiltered}
                             viewFavorites={viewFavorites}
                             setSelectedCharacter={setSelectedCharacter}
+                            setSelectedCharacterId={(idSelected: number) => {
+                              setSearchParams((prev) => {
+                                prev.set('selectedCharacterId', idSelected.toString())
+                                return prev
+                              })
+                            }}
                           />
                         </DialogCharacters>
                       </>
                 }
               </div>
               <br />
-              {/* <Footer /> */}
             </>
           }
         />

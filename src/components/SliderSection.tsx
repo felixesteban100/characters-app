@@ -1,4 +1,5 @@
-import ImagesSlider from "./components/ImagesSlider";
+// import ImagesSlider from "./components/ImagesSlider";
+import ImagesSliderBetter from "./components/ImagesSliderBetter";
 
 type SliderSectionProps = {
     selectedOne: string;
@@ -9,13 +10,13 @@ type SliderSectionProps = {
     }
 }
 
-function SliderSection({ /* selectedOne, */ heroSection }: SliderSectionProps) {
+function SliderSection({ heroSection }: SliderSectionProps) {
     return (
         <div
-            // className={`max-w-[100vw] w-full aspect-[2.5/4.5] md:aspect-[4.5/4.5] lg:aspect-[10/4.5] my-0 mx-auto`}
             className={`max-w-[100vw] w-full h-[95vh] my-0 mx-auto -translate-y-16 overflow-hidden`}
         >
-            <ImagesSlider imagesInfo={heroSection.imgs} />
+            {/* <ImagesSlider imagesInfo={heroSection.imgs} /> */}
+            <ImagesSliderBetter imagesInfo={heroSection.imgs} />
         </div>
     )
 }

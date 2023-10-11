@@ -138,6 +138,50 @@ module.exports = {
           }
         },
 
+        slideRightOut: {
+          '0%': {
+            transform: 'translateX(0px) ',
+            transformOrigin: '50% 50%',
+          },
+          '100%': {
+            transform: 'translateX(2000px) ',
+            transformOrigin: '0% 50%',
+          }
+        },
+
+        slideLeftIn: {
+          '0%': {
+            transform: 'translateX(-2000px) ',
+            transformOrigin: '100% 50%',
+          },
+          '100%': {
+            transform: 'translateX(0px) ',
+            transformOrigin: '50% 50%',
+          }
+        },
+
+        slideLeftOut: {
+          '0%': {
+            transform: 'translateX(0px) ',
+            transformOrigin: '50% 50%',
+          },
+          '100%': {
+            transform: 'translateX(-2000px) ',
+            transformOrigin: '100% 50%',
+          }
+        },
+
+        slideRightIn: {
+          '0%': {
+            transform: 'translateX(2000px) ',
+            transformOrigin: '0% 50%',
+          },
+          '100%': {
+            transform: 'translateX(0px) ',
+            transformOrigin: '50% 50%',
+          }
+        },
+
 
         "accordion-down": {
           from: { height: 0 },
@@ -160,6 +204,12 @@ module.exports = {
 
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+
+
+        'slideRightIn': 'slideRightIn 1s ease-out 1 forwards',
+        'slideRightOut': 'slideRightOut 1s ease-out 1 forwards',
+        'slideLeftIn': 'slideLeftIn 1s ease-out 1 forwards',
+        'slideLeftOut': 'slideLeftOut 1s ease-out 1 forwards',
       },
     },
   },

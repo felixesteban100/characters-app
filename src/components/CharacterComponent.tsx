@@ -4,12 +4,13 @@ import { publisherIMG, transitionImageCard } from '../functions';
 
 type CharacterProps = {
     // setSelectedCharacter: React.Dispatch<React.SetStateAction<Character>>
-    setSelectedCharacter: (character: Character) => void
     currentCharacter: Character;
-    indexForTest: number
+    indexForTest: number;
+    setSelectedCharacter: (character: Character) => void
+    setSelectedCharacterId: (idSelected: number) => void;
 }
 
-function CharacterComponent({ setSelectedCharacter, currentCharacter, indexForTest }: CharacterProps) {
+function CharacterComponent({ setSelectedCharacter, setSelectedCharacterId, currentCharacter, indexForTest }: CharacterProps) {
     const { ref, inView } = useInView({
         threshold: 0.8,
         initialInView: true,
@@ -18,7 +19,10 @@ function CharacterComponent({ setSelectedCharacter, currentCharacter, indexForTe
     return (
         <div
             data-test={`character-${indexForTest}`}
-            onClick={() => setSelectedCharacter(currentCharacter)}
+            onClick={() => {
+                setSelectedCharacterId(currentCharacter.id)
+                setSelectedCharacter(currentCharacter)
+            }}
             className={`cursor-pointer group/item`}
         >
             <div
