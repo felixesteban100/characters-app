@@ -20,7 +20,20 @@ function ImageZoomDialog({ children, isAnimating, setIsAnimating, currentImageTo
                 {children}
             </DialogTrigger>
 
-            <DialogContent className="w-[80vw] max-w-[500px] h-[80vh]">
+            <DialogContent
+                className="w-[80vw] max-w-[500px] h-[80vh]"
+            >
+                {/* <div
+                    style={{ 
+                        backgroundImage: `url(${allImages[currentImageToDisplay]})`, 
+                        backgroundRepeat: "no-repeat",
+                        backgroundSize: "cover",
+                        backdropFilter: "blur(50rem)"
+                    }}
+                    className='w-[80vw] max-w-[500px] h-[80vh]'
+                >
+                </div> */}
+                <img className='absolute blur-sm w-[80vw] max-w-[500px] h-[80vh]' src={allImages[currentImageToDisplay]} alt="" />
                 <TransformWrapper
                     initialScale={1}
                     initialPositionX={0}
@@ -28,9 +41,11 @@ function ImageZoomDialog({ children, isAnimating, setIsAnimating, currentImageTo
                 >
                     {({ zoomIn, zoomOut, resetTransform/* , ...rest  */ }) => {
                         return (
-                            <div className="w-full h-full flex justify-center overflow-scroll">
+                            <div
+                                className="absolute w-full h-full flex justify-center overflow-hidden"
+                            >
                                 <TransformComponent>
-                                    <img className={`${isAnimating ? "opacity-100 scale-100" : "opacity-0 scale-0"} transition-all duration-300 w-auto h-[70vh] object-cover rounded-md`} src={allImages[currentImageToDisplay]} alt={selectedCharacter.name} loading="lazy" />
+                                    <img className={`${isAnimating ? "opacity-100 scale-100" : "opacity-0 scale-0"} transition-all duration-300 w-auto h-[70vh] object-cover rounded-md translate-y-10`} src={allImages[currentImageToDisplay]} alt={selectedCharacter.name} loading="lazy" />
                                 </TransformComponent>
                                 <div className="absolute z-50 bottom-0">
                                     <Button

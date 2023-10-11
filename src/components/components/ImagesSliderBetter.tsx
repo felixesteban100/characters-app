@@ -48,8 +48,6 @@ function ImagesSlider({ imagesInfo }: ImagesSliderProps) {
           currentImage.classList.remove('animate-slideLeftIn');
           currentImage.classList.remove('animate-slideLeftOut');
 
-
-
           setTimeout(() => {
             currentImage.classList.add('animate-slideRightOut');
           }, 1)
@@ -142,12 +140,12 @@ function ImagesSlider({ imagesInfo }: ImagesSliderProps) {
       </ButtonSlider>
 
       <div
-        className="absolute bottom-[.5rem] left-[50%] -translate-x-[50%] flex items-center gap-[0.5rem]"
+        className="absolute bottom-0 left-[50%] -translate-x-[50%] flex items-center gap-[0.5rem] w-full justify-center bg-gradient-to-b from-10% from-transparent to-background to-90% p-16"
       >
         <Button
           onClick={() => setAutoMode(prev => !prev)}
           size={"icon"}
-          variant={"outline"}
+          variant={"default"}
         >
           {autoMode ? <PauseIcon /> : <PlayIcon />}
         </Button>
@@ -157,9 +155,9 @@ function ImagesSlider({ imagesInfo }: ImagesSliderProps) {
               <Button
                 key={index}
                 onClick={() => changeImageDots(index)}
-                className="block w-[1rem] h-[1rem] cursor-pointer rounded-full transition-all ease-in-out duration-500 hover:scale-[1.2] focus-visible:scale-[1.2]"
+                className="border-primary-foreground border-2 block w-[1rem] h-[1rem] cursor-pointer rounded-full transition-all ease-in-out duration-500 hover:scale-[1.2] focus-visible:scale-[1.2]"
                 aria-label={`View Image ${index + 1}`}
-                variant={imageIndex === index ? "default" : "outline"}
+                variant={imageIndex === index ? "default" : "secondary"}
               >
                 {/* {index === imageIndex ? <CircleDot aria-hidden className="fill-primary stroke-foreground w-full h-full" /> : <Circle aria-hidden className="fill-background stroke-primary w-full h-full" />} */}
               </Button>

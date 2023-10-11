@@ -31,7 +31,7 @@ export default function SelectInput({ value, options, onChangeFunction, forWhat/
                     onChangeFunction(valueS)
                 }}
             >
-                <SelectTrigger>
+                <SelectTrigger /* className="border-muted-foreground" */>
                     <SelectValue placeholder={`Pick the ${forWhat}`} />
                 </SelectTrigger>
                 <SelectContent>

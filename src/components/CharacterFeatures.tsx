@@ -130,7 +130,7 @@ function CharacterFeatures({ selectedCharacter }: CharacterFeaturesProps) {
                                 selectedCharacter.appearance.gender?.toLowerCase() === "female" ?
                                     "👱‍♀️"
                                     :
-                                    ""
+                                    "🙂"
                         }
                     />
                     <Separator />
@@ -192,10 +192,10 @@ function CharacterFeatures({ selectedCharacter }: CharacterFeaturesProps) {
                                 selectedCharacter.biography.alignment === "bad" ?
                                     "😡"
                                     :
-                                    selectedCharacter.biography.alignment === "neutral" ?
+                                    /* selectedCharacter.biography.alignment === "neutral" ? */
                                         "😐"
-                                        :
-                                        ""
+                                        /* :
+                                        "" */
                         }
                         dataTest="aligment-stat"
                     />

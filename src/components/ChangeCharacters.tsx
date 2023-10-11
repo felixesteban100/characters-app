@@ -73,7 +73,8 @@ function ModalChangeCharacters({ characterName, howMany, asHowManyAsPossible, ge
                 <Textarea
                     // id="name"
                     value={characterName === null ? "" : characterName}
-                    className="col-span-5 overflow-y-auto"
+                    //border-muted-foreground
+                    className="col-span-5 overflow-y-auto "
                     onChange={(event) => setSearchParams((prev) => {
                         prev.set('characterName', event.target.value)
                         return prev
@@ -87,6 +88,7 @@ function ModalChangeCharacters({ characterName, howMany, asHowManyAsPossible, ge
                         return prev
                     }, { replace: true })}
                     size="icon"
+                    // className="border-muted-foreground"
                 >
                     <Eraser className="h-[1.2rem] w-[1.2rem]" />
                 </Button>
@@ -105,6 +107,7 @@ function ModalChangeCharacters({ characterName, howMany, asHowManyAsPossible, ge
                             }
                         }}
                         disabled={asHowManyAsPossible}
+                        // className="border-muted-foreground"
                     >
                         {`-`}
                     </Button>
@@ -112,7 +115,8 @@ function ModalChangeCharacters({ characterName, howMany, asHowManyAsPossible, ge
                         type={asHowManyAsPossible ? 'string' : 'number'}
                         id="howMany"
                         value={asHowManyAsPossible ? 'All' : howMany}
-                        className="col-span-3 text-center"
+                        //border-muted-foreground
+                        className="col-span-3 text-center "
                         min={1}
                         max={710}
                         onChange={(event) => {
@@ -141,6 +145,7 @@ function ModalChangeCharacters({ characterName, howMany, asHowManyAsPossible, ge
                             }
                         }}
                         disabled={asHowManyAsPossible}
+                        // className="border-muted-foreground"
                     >
                         {`+`}
                     </Button>
@@ -279,14 +284,30 @@ function ModalChangeCharacters({ characterName, howMany, asHowManyAsPossible, ge
 
                 {
                     windowWidth > 770 ?
-                        <>
+                        <div className="flex flex-col gap-2">
                             <p className="text-xl font-bold">Shortcuts</p>
-                            <div className="flex flex-col">
-                                <p>[Enter] = Reset ⭐</p>
-                                <p>[ctrl] + [z] = Favorites ⭐</p>
-                                <p>[ctrl] + [r] = Reset 🔁</p>
+                            <div className="flex flex-col gap-2">
+                                <div className="flex items-center gap-2">
+                                    <p>Press</p>
+                                    <kbd className="bg-primary text-primary-foreground p-1 rounded-md shadow-sm shadow-accent">Enter</kbd>
+                                    <p>to Search 🔍</p>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <p>Press</p>
+                                    <kbd className="bg-primary text-primary-foreground p-1 rounded-md shadow-sm shadow-accent">Ctrl</kbd>
+                                    <p>+</p>
+                                    <kbd className="bg-primary text-primary-foreground p-1 rounded-md shadow-sm shadow-accent">z</kbd>
+                                    <p>to Favorites ⭐</p>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <p>Press</p>
+                                    <kbd className="bg-primary text-primary-foreground p-1 rounded-md shadow-sm shadow-accent">Ctrl</kbd>
+                                    <p>+</p>
+                                    <kbd className="bg-primary text-primary-foreground p-1 rounded-md shadow-sm shadow-accent">r</kbd>
+                                    <p>to Reset 🔁</p>
+                                </div>
                             </div>
-                        </>
+                        </div>
                         :
                         null
                 }

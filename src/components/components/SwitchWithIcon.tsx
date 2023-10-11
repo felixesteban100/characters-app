@@ -25,7 +25,7 @@ function SwitchWithIcon({ valueChecked, id, onCheckedChangeFunc, firstIcon, seco
                     valueChecked
                         ? <HoverCard>
                             <HoverCardTrigger asChild>
-                                <div className="active:animate-rotate-vert-center">{firstIcon}</div>
+                                <div className="active:animate-rotate-vert-center text-3xl">{firstIcon}</div>
                             </HoverCardTrigger>
                             <HoverCardContent className="w-80">
                                 <p>{firstText}</p>
@@ -33,7 +33,7 @@ function SwitchWithIcon({ valueChecked, id, onCheckedChangeFunc, firstIcon, seco
                         </HoverCard>
                         : <HoverCard>
                             <HoverCardTrigger asChild>
-                                <div className="active:animate-rotate-vert-center">{secondIcon}</div>
+                                <div className="active:animate-rotate-vert-center text-3xl">{secondIcon}</div>
                             </HoverCardTrigger>
                             <HoverCardContent className="w-80">
                                 <p>{secondText}</p>

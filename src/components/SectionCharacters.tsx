@@ -8,7 +8,8 @@ function SectionCharacters({children}: SectionCharactersProps) {
         <div
             id='section-characters'
             data-test="section-characters"
-            className='flex flex-col gap-10 min-h-[90vh] items-center justify-center'
+            //min-h-[90vh]
+            className='flex flex-col gap-10 items-center justify-center'
         >
             {children}
         </div>

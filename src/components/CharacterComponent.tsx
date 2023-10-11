@@ -49,7 +49,7 @@ function CharacterComponent({ setSelectedCharacter, setSelectedCharacterId, curr
 
                 <div
                     // className={`absolute z-[100] h-[80%] px-5 -translate-y-[18rem] lg:-translate-y-[20rem] group/edit md:invisible group-hover/item:visible transition delay-150 duration-300 ease-in-out flex flex-col justify-between gap-5`}
-                    className={`absolute z-[100] h-[80%] px-5 -translate-y-[18rem] lg:-translate-y-[20rem] group/edit group-hover/item:visible transition delay-150 duration-300 ease-in-out flex flex-col justify-between gap-5`}
+                    className={`absolute z-[100] h-[80%] px-5 -translate-y-[18rem] xl:-translate-y-[20rem] group/edit group-hover/item:visible transition delay-150 duration-300 ease-in-out flex flex-col justify-between gap-5`}
                 >
                     <div>
                         <h2 className="font-bold text-foreground-muted text-xl md:text-2xl lg:text-3xl">{currentCharacter.name}</h2>
