@@ -105,19 +105,19 @@ function ImagesSlider({ imagesInfo }: ImagesSliderProps) {
   }
 
 
-
   return (
-    <section aria-label="Image Slider" className="w-full h-full relative ">
-      <a href="#after-image-slider-controls" className="absolute w-[1px] h-[1px] p-0 -m-1 overflow-hidden border-0 focus-visible:top-0 focus-visible:left-0 focus-visible:border-2 focus-visible:bg-primary focus-visible:p-[0.5rem] focus-visible:h-auto focus-visible:w-auto focus-visible:m-0 focus-visible:text-primary-foreground focus-visible:z-[100] invisible motion-reduce:visible">Skip Image Slider Controls</a>
+    <section aria-label="Image Slider" className="w-full h-full">
       <div className="w-full h-full flex">
         <ImageComponent
           url={imagesInfo[imageIndex]}
         />
+        
       </div>
 
       <ButtonSlider
         functionClick={() => changeImage("prev")}
-        classNames="left-0"
+        //bg-gradient-to-r from-10% from-background to-100%
+        classNames="left-0 "
         label={'previous'}
       >
         <ArrowBigLeft
@@ -126,10 +126,9 @@ function ImagesSlider({ imagesInfo }: ImagesSliderProps) {
         />
       </ButtonSlider>
 
-
-
       <ButtonSlider
         functionClick={() => changeImage("next")}
+        //bg-gradient-to-l from-10% from-background to-100%
         classNames="right-0"
         label={'next'}
       >
@@ -140,7 +139,14 @@ function ImagesSlider({ imagesInfo }: ImagesSliderProps) {
       </ButtonSlider>
 
       <div
-        className="absolute bottom-0 left-[50%] -translate-x-[50%] flex items-center gap-[0.5rem] w-full justify-center bg-gradient-to-b from-10% from-transparent to-background to-90% p-16"
+        className={`
+          absolute bottom-0 left-[50%] 
+          -translate-x-[50%] 
+          flex items-center gap-[0.5rem] 
+          w-full 
+          justify-center 
+          bg-gradient-to-t from-5% from-background p-16
+        `}
       >
         <Button
           onClick={() => setAutoMode(prev => !prev)}
@@ -158,9 +164,7 @@ function ImagesSlider({ imagesInfo }: ImagesSliderProps) {
                 className="border-primary-foreground border-2 block w-[1rem] h-[1rem] cursor-pointer rounded-full transition-all ease-in-out duration-500 hover:scale-[1.2] focus-visible:scale-[1.2]"
                 aria-label={`View Image ${index + 1}`}
                 variant={imageIndex === index ? "default" : "secondary"}
-              >
-                {/* {index === imageIndex ? <CircleDot aria-hidden className="fill-primary stroke-foreground w-full h-full" /> : <Circle aria-hidden className="fill-background stroke-primary w-full h-full" />} */}
-              </Button>
+              />
             )
           })
         }
@@ -190,3 +194,20 @@ function ImageComponent({ url }: ImageComponentProps) {
 }
 
 export default ImagesSlider
+
+
+/* <div
+          style={{
+            backgroundImage: `url(${imagesInfo[imageIndex]})`,
+            backgroundAttachment: "fixed",
+            height: "100%",
+            backgroundSize: 'cover',
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: 'center'
+          }}
+          id="currentImage"
+          className={`
+            transition-all duration-300 ease-in-out object-cover block w-full h-full 
+            flex-shrink-0 flex-grow-0 motion-reduce:transition-none
+          `}
+        /> */

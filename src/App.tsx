@@ -15,6 +15,7 @@ import { Route, Routes, useSearchParams } from 'react-router-dom';
 import SliderSection from './components/SliderSection';
 import { useToast } from "@/components/ui/use-toast"
 import DialogCharacters from './components/DialogCharacters';
+import notificationSound from './assets/notificationSound.mp3'
 
 function App() {
   const { toast } = useToast()
@@ -31,9 +32,7 @@ function App() {
 
   useEffect(() => localStorage.setItem("CHARACTERS_APP_SEARCHPARAMS", JSON.stringify(getSearchParamsFormatted(searchParams))), [searchParams]);
   useEffect(() => {
-    if (viewFavorites) {
-      toast({ title: "Favorites 🌟", description: "Your favorites characters ", })
-    }
+    if (viewFavorites) toast({ title: "Favorites 🌟", description: "Your favorites characters ", })
   }, [viewFavorites]);
 
   const { isLoading, isError, data: charactersFiltered, refetch: refetchCharacters, isFetching } = useQuery<Character[]>({
@@ -72,6 +71,7 @@ function App() {
     },
     onSettled: () => {
       setSearchDifferentCharacters(false)
+      new Audio(notificationSound).play()
     },
     onError: (error) => {
       console.log(error)
@@ -84,7 +84,6 @@ function App() {
   const [searchDifferentCharacters, setSearchDifferentCharacters] = useState(false)
   const [heroSection, setHeroSection] = useLocalStorage("CHARACTERS_APP_HEROSECTION", DEFAULT_HERO_SECTION)
   const [favorites, setFavorites] = useLocalStorage<Character[] | []>("CHARACTERS_APP_FAVORITES", [])
-  // const [isDialogOpen, setIsDialogOpen] = useLocalStorage("CHARACTERS_APP_DIALOGOPEN", false)
 
   useKeyPress('Enter', () => { setViewFavorites(false); refetchCharacters() });
   useKeyPress('z', () => setViewFavorites(!viewFavorites));
@@ -174,6 +173,7 @@ function App() {
                 }
               </div>
               <br />
+
             </>
           }
         />

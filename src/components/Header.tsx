@@ -45,7 +45,17 @@ function Header({ children }: HeaderProps) {
 
     return (
         <Sheet>
-            <div className={cn(`flex justify-between ${showBackground === false ? ' bg-secondary/50' : 'bg-secondary'} items-center px-5 pt-4 pb-2 md:py-2 gap-5 sticky top-0 z-[20] transition duration-500`)}>
+            <div className={
+                // ${showBackground === false ? ' bg-secondary/50' : 'bg-secondary'}
+                cn(
+                    `flex justify-between 
+                    items-center px-5 pt-4 pb-2 md:py-2 
+                    gap-5 
+                    bg-secondary
+                    sticky top-0 z-[20] 
+                    transition duration-500`
+                )
+            }>
                 <div className='flex justify-center items-center gap-5'>
                     <SheetTrigger asChild>
                         {/* <Button variant="outline">CHARACTERS APP</Button> */}

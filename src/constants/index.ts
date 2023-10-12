@@ -865,6 +865,7 @@ export const DEFAULT_HERO_SECTION = {
         ?*/ [
             // "https://giffiles.alphacoders.com/126/12664.gif",
             "https://images7.alphacoders.com/133/1330752.png",
+            "https://images.alphacoders.com/440/44051.jpg",
             "https://images6.alphacoders.com/705/705204.jpg",
             "https://images3.alphacoders.com/218/218487.jpg",
             // "https://qph.cf2.quoracdn.net/main-qimg-6a648838e80e15c41d30e00156210861-lq",

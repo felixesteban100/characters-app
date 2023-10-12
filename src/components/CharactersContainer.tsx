@@ -11,6 +11,7 @@ function CharactersContainer({ children }: CharactersContainerProps) {
                 min-h-[82vh] lg:min-h-[85vh]
                 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 
                 w-[90%] sm:w-[90%] md:w-[90%] lg:w-[70%] 
+                h-[90%]
                 gap-10 mx-auto 
                 pt-[5rem] md:pt-[2rem] 
                 `
