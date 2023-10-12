@@ -12,6 +12,7 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet"
 import { ModeToggle } from './components/mode-toogle';
+import { ScrollArea } from "./ui/scroll-area";
 
 // const TOP_OFFSET = 66;
 
@@ -84,9 +85,9 @@ function Header({ children }: HeaderProps) {
                             Select characters by using these filters below
                         </SheetDescription>
                     </SheetHeader>
-                    <div className="py-4">
+                    <ScrollArea className="py-4 h-[91vh] pr-5">
                         {children}
-                    </div>
+                    </ScrollArea>
                 </SheetContent>
             </div>
         </Sheet>

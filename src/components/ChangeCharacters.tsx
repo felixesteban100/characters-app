@@ -9,10 +9,17 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Button } from "./ui/button";
 
 import SwitchWithIcon from "./components/SwitchWithIcon";
-import { Textarea } from "./ui/textarea";
+// import { Textarea } from "./ui/textarea";
 
-import { Eraser } from "lucide-react";
+// import { Eraser } from "lucide-react";
 import useWindowWidth from "@/hooks/useWindowWidth";
+
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from "@/components/ui/accordion"
 
 type ChangeCharactersProps = {
     characterName: string;
@@ -39,7 +46,7 @@ function ModalChangeCharacters({ characterName, howMany, asHowManyAsPossible, ge
     const windowWidth = useWindowWidth()
 
     return (
-        <>
+        <div className="min-h-[102vh]">
             <div className="flex justify-center items-center gap-5 mb-5">
                 <SwitchWithIcon
                     valueChecked={includeNameOrExactName}
@@ -69,29 +76,32 @@ function ModalChangeCharacters({ characterName, howMany, asHowManyAsPossible, ge
             </div>
 
             <div className="grid grid-cols-6 items-center gap-4">
-                {/* <Label htmlFor="name" className="text-right">Name/s</Label> */}
-                <Textarea
-                    // id="name"
-                    value={characterName === null ? "" : characterName}
-                    //border-muted-foreground
-                    className="col-span-5 overflow-y-auto "
-                    onChange={(event) => setSearchParams((prev) => {
-                        prev.set('characterName', event.target.value)
-                        return prev
-                    }, { replace: true })}
-                    placeholder={characterOrFullName === false ? "Batman / Batman, Spider-Man..." : "Bruce Wayne, Peter Parker..."}
-                />
-                <Button
+                <div className="col-span-6 flex flex-col w-full justify-center gap-1.5">
+                    {/* <Label htmlFor="name" className="text-left">Name/s</Label> */}
+                    <Input
+                        // id="name"
+                        type="search"
+                        value={characterName === null ? "" : characterName}
+                        //border-muted-foreground
+                        className="col-span-5 overflow-y-auto "
+                        onChange={(event) => setSearchParams((prev) => {
+                            prev.set('characterName', event.target.value)
+                            return prev
+                        }, { replace: true })}
+                        placeholder={characterOrFullName === false ? "Batman / Batman, Spider-Man..." : "Bruce Wayne, Peter Parker..."}
+                    />
+                </div>
+                {/* <Button
                     variant={'outline'}
                     onClick={() => setSearchParams((prev) => {
                         prev.set('characterName', "")
                         return prev
                     }, { replace: true })}
                     size="icon"
-                    // className="border-muted-foreground"
+                // className="border-muted-foreground"
                 >
                     <Eraser className="h-[1.2rem] w-[1.2rem]" />
-                </Button>
+                </Button> */}
             </div>
 
             <div className="w-full">
@@ -107,7 +117,7 @@ function ModalChangeCharacters({ characterName, howMany, asHowManyAsPossible, ge
                             }
                         }}
                         disabled={asHowManyAsPossible}
-                        // className="border-muted-foreground"
+                    // className="border-muted-foreground"
                     >
                         {`-`}
                     </Button>
@@ -145,7 +155,7 @@ function ModalChangeCharacters({ characterName, howMany, asHowManyAsPossible, ge
                             }
                         }}
                         disabled={asHowManyAsPossible}
-                        // className="border-muted-foreground"
+                    // className="border-muted-foreground"
                     >
                         {`+`}
                     </Button>
@@ -286,27 +296,42 @@ function ModalChangeCharacters({ characterName, howMany, asHowManyAsPossible, ge
                     windowWidth > 770 ?
                         <div className="flex flex-col gap-2">
                             <p className="text-xl font-bold">Shortcuts</p>
-                            <div className="flex flex-col gap-2">
-                                <div className="flex items-center gap-2">
-                                    <p>Press</p>
-                                    <kbd className="bg-primary text-primary-foreground p-1 rounded-md shadow-sm shadow-accent">Enter</kbd>
-                                    <p>to Search 🔍</p>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                    <p>Press</p>
-                                    <kbd className="bg-primary text-primary-foreground p-1 rounded-md shadow-sm shadow-accent">Ctrl</kbd>
-                                    <p>+</p>
-                                    <kbd className="bg-primary text-primary-foreground p-1 rounded-md shadow-sm shadow-accent">z</kbd>
-                                    <p>to Favorites ⭐</p>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                    <p>Press</p>
-                                    <kbd className="bg-primary text-primary-foreground p-1 rounded-md shadow-sm shadow-accent">Ctrl</kbd>
-                                    <p>+</p>
-                                    <kbd className="bg-primary text-primary-foreground p-1 rounded-md shadow-sm shadow-accent">r</kbd>
-                                    <p>to Reset 🔁</p>
-                                </div>
-                            </div>
+                            <Accordion type="single" collapsible className="w-full">
+                                <AccordionItem value="item-1">
+                                    <AccordionTrigger>Is it accessible?</AccordionTrigger>
+                                    <AccordionContent>
+                                        <div className="flex items-center gap-2">
+                                            <p>Press</p>
+                                            <kbd className="bg-primary text-primary-foreground p-1 rounded-md shadow-sm shadow-accent">Enter</kbd>
+                                            <p>to Search 🔍</p>
+                                        </div>
+                                    </AccordionContent>
+                                </AccordionItem>
+                                <AccordionItem value="item-2">
+                                    <AccordionTrigger>Is it styled?</AccordionTrigger>
+                                    <AccordionContent>
+                                        <div className="flex items-center gap-2">
+                                            <p>Press</p>
+                                            <kbd className="bg-primary text-primary-foreground p-1 rounded-md shadow-sm shadow-accent">Ctrl</kbd>
+                                            <p>+</p>
+                                            <kbd className="bg-primary text-primary-foreground p-1 rounded-md shadow-sm shadow-accent">z</kbd>
+                                            <p>to Favorites ⭐</p>
+                                        </div>
+                                    </AccordionContent>
+                                </AccordionItem>
+                                <AccordionItem value="item-3">
+                                    <AccordionTrigger>Is it animated?</AccordionTrigger>
+                                    <AccordionContent>
+                                        <div className="flex items-center gap-2">
+                                            <p>Press</p>
+                                            <kbd className="bg-primary text-primary-foreground p-1 rounded-md shadow-sm shadow-accent">Ctrl</kbd>
+                                            <p>+</p>
+                                            <kbd className="bg-primary text-primary-foreground p-1 rounded-md shadow-sm shadow-accent">r</kbd>
+                                            <p>to Reset 🔁</p>
+                                        </div>
+                                    </AccordionContent>
+                                </AccordionItem>
+                            </Accordion>
                         </div>
                         :
                         null
@@ -314,7 +339,7 @@ function ModalChangeCharacters({ characterName, howMany, asHowManyAsPossible, ge
             </div>
 
 
-        </>
+        </div>
     )
 }
 
