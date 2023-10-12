@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+// import { useState, useEffect } from 'react'
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { AlignJustifyIcon } from "lucide-react"
@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/sheet"
 import { ModeToggle } from './components/mode-toogle';
 
-const TOP_OFFSET = 66;
+// const TOP_OFFSET = 66;
 
 type HeaderProps = {
     children: JSX.Element
@@ -27,21 +27,21 @@ function Header({ children }: HeaderProps) {
         }
     }; */
 
-    const [showBackground, setShowBackground] = useState(false);
+    // const [showBackground, setShowBackground] = useState(false);
 
-    useEffect(() => {
-        const handleScroll = () => {
-            if (window.scrollY >= TOP_OFFSET) {
-                setShowBackground(true)
-            } else {
-                setShowBackground(false)
-            }
-        }
-        window.addEventListener('scroll', handleScroll);
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        }
-    }, []);
+    // useEffect(() => {
+    //     const handleScroll = () => {
+    //         if (window.scrollY >= TOP_OFFSET) {
+    //             setShowBackground(true)
+    //         } else {
+    //             setShowBackground(false)
+    //         }
+    //     }
+    //     window.addEventListener('scroll', handleScroll);
+    //     return () => {
+    //         window.removeEventListener('scroll', handleScroll);
+    //     }
+    // }, []);
 
     return (
         <Sheet>
