@@ -48,7 +48,7 @@
     --ring: 212.7 26.8% 83.9;
   } */
 
-  :root {
+  /* :root {
     --background: 0 0% 100%;
     --foreground: 20 14.3% 4.1%;
     --card: 0 0% 100%;
@@ -91,9 +91,36 @@
     --border: 12 6.5% 15.1%;
     --input: 12 6.5% 15.1%;
     --ring: 20.5 90.2% 48.2%;
-  }
+  } */
 
-  /* :root {
+  :root {
+    /* Name: custom color palette
+       Author: Ilias Ism
+       URL: https://gradient.page */
+    /* CSS: .bg-gradient { background: var(--gradient) } */
+    --gradient: #215f00;
+    --background: 105 100% 98.38%;
+    --foreground: 105 10% 0.76%;
+    --muted: 105 10% 91.9%;
+    --muted-foreground: 105 5% 41.9%;
+    --popover: 105 10% 91.9%;
+    --popover-foreground: 105 10% 0.95%;
+    --card: 105 10% 91.9%;
+    --card-foreground: 105 10% 0.95%;
+    --border: 105 15% 89.76%;
+    --input: 105 15% 89.76%;
+    --primary: 105 100% 19%;
+    --primary-foreground: 105 2% 91.9%;
+    --secondary: 105 5% 95.95%;
+    --secondary-foreground: 105 7% 11.9%;
+    --accent: 105 5% 95.95%;
+    --accent-foreground: 105 7% 11.9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --ring: 105 100% 19%;
+    --radius: 0.5rem;
+  }
+  .dark {
     --gradient: #FDFC47;
     --background: 63 63.699999999999996% 5.12%;
     --foreground: 63 9.8% 98.2%;
@@ -114,29 +141,9 @@
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 63 9.8% 98.2%;
     --ring: 63 98% 64%;
-  } */
-  /* :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 72.2% 50.6%;
-    --primary-foreground: 0 85.7% 97.3%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 72.2% 50.6%;
-    --radius: 0.5rem;
-  } */
+  }
+
+
   /* :root {
     --gradient: #c21500;
     --background: 7 65% 3.04%;

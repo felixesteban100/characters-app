@@ -46,7 +46,7 @@ function ModalChangeCharacters({ characterName, howMany, asHowManyAsPossible, ge
     const windowWidth = useWindowWidth()
 
     return (
-        <div className="min-h-[102vh]">
+        <div className="min-h-fit">
             <div className="flex justify-center items-center gap-5 mb-5">
                 <SwitchWithIcon
                     valueChecked={includeNameOrExactName}

@@ -102,7 +102,7 @@ function Characters({ charactersFiltered, viewFavorites, setSelectedCharacter, s
                         <Button size={windowWidth < 700 ? 'sm' : "default"} variant={'outline'} disabled={pagination.range[pagination.range.length - 1] === pagination.active ? true : false} data-test="paginationBtn-next" onClick={() => pagination.setPage(pagination.active + 1)} className={`join-item btn btn-primary text-xl -pt-2`}>»</Button>
                     </div>
                     :
-                    <></>
+                    <div className="w-[70%] flex justify-center"></div>
             }
         </SectionCharacters>
     )

@@ -46,7 +46,7 @@ function LoadingCharacters({ howMany }: LoadingCharactersProps) {
                         <Button variant={'outline'} disabled className={`text-xl -pt-2`}>»</Button>
                     </div>
                     :
-                    <></>
+                    <div className="w-[70%] flex justify-center"></div>
             }
         </SectionCharacters>
     )
