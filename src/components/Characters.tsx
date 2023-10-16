@@ -1,5 +1,5 @@
 import { Character } from '../types';
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { usePagination } from "@mantine/hooks";
 
 import CharacterComponent from './CharacterComponent';
@@ -21,9 +21,9 @@ function Characters({ charactersFiltered, viewFavorites, setSelectedCharacter, s
     const [charactersPerPage, setCharactersPerPage] = useState(8)
     const [visibleResults, setVisibleResults] = useState<Character[]>(charactersFiltered.slice(0, charactersPerPage))
 
-    useEffect(() => { setVisibleResults(charactersFiltered.slice(0, charactersPerPage)) }, [charactersFiltered, charactersPerPage])
+    const scrollRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => { pagination.setPage(1) }, [charactersFiltered])
+    useEffect(() => { pagination.setPage(1); setVisibleResults(charactersFiltered.slice(0, charactersPerPage)) }, [charactersFiltered, charactersPerPage])
 
     useEffect(() => {
         switch (true) {
@@ -33,13 +33,23 @@ function Characters({ charactersFiltered, viewFavorites, setSelectedCharacter, s
         }
     }, [windowWidth])
 
+    useEffect(() => {
+        setTimeout(() => {
+            if (scrollRef.current) {
+              scrollRef.current.scrollIntoView({ behavior: "smooth" });
+            }
+          }, 100);
+    }, [visibleResults]);
+
     const pagination = usePagination({
         total: Math.ceil(charactersFiltered.length / charactersPerPage),
         initialPage: 1,
         onChange(page: number) {
             const start = (page - 1) * charactersPerPage
             const end = start + charactersPerPage
-            setVisibleResults(charactersFiltered.slice(start, end))
+            const newVisibleResults = charactersFiltered.slice(start, end)
+            setVisibleResults(newVisibleResults)
+            // /* if(newVisibleResults.length < 2)  */ scrollBottom()
         },
         boundaries: 1,
         siblings: 1
@@ -82,8 +92,8 @@ function Characters({ charactersFiltered, viewFavorites, setSelectedCharacter, s
 
             {
                 pagination.range.length > 1 ?
-                    <div data-test="paginationHandler" className="w-[70%] flex justify-center">
-                        <Button size={windowWidth < 700 ? 'sm' : "default"} variant={'outline'} disabled={1 === pagination.active ? true : false} data-test="paginationBtn-prev" onClick={() => pagination.setPage(pagination.active - 1)} className={`text-xl -pt-2`}>«</Button>
+                    <div ref={scrollRef} id="pagination-buttons" className="w-[70%] flex justify-center">
+                        <Button size={windowWidth < 700 ? 'sm' : "default"} variant={'outline'} disabled={1 === pagination.active ? true : false} data-test="paginationBtn-prev" onClick={() => { pagination.setPage(pagination.active - 1); }} className={`text-xl -pt-2`}>«</Button>
                         {pagination.range.map((currentPage, index) => {
                             return (
                                 <Button
@@ -91,7 +101,7 @@ function Characters({ charactersFiltered, viewFavorites, setSelectedCharacter, s
                                     variant={'outline'}
                                     data-test={currentPage === 'dots' ? "paginationBtnDisabled" : `paginationBtn-${index}`}
                                     key={`${currentPage}-${index}`}
-                                    onClick={() => pagination.setPage(currentPage !== 'dots' ? currentPage : 1)}
+                                    onClick={() => { pagination.setPage(currentPage !== 'dots' ? currentPage : 1); }}
                                     // className={`${pagination.active === currentPage ? "bg-primary/50 text-foreground" : ""}`}
                                     disabled={currentPage === 'dots' || pagination.active === currentPage ? true : false}
                                 >
@@ -99,7 +109,7 @@ function Characters({ charactersFiltered, viewFavorites, setSelectedCharacter, s
                                 </Button>
                             )
                         })}
-                        <Button size={windowWidth < 700 ? 'sm' : "default"} variant={'outline'} disabled={pagination.range[pagination.range.length - 1] === pagination.active ? true : false} data-test="paginationBtn-next" onClick={() => pagination.setPage(pagination.active + 1)} className={`join-item btn btn-primary text-xl -pt-2`}>»</Button>
+                        <Button size={windowWidth < 700 ? 'sm' : "default"} variant={'outline'} disabled={pagination.range[pagination.range.length - 1] === pagination.active ? true : false} data-test="paginationBtn-next" onClick={() => { pagination.setPage(pagination.active + 1); }} className={`join-item btn btn-primary text-xl -pt-2`}>»</Button>
                     </div>
                     :
                     <div className="w-[70%] flex justify-center"></div>

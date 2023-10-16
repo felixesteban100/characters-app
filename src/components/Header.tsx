@@ -13,36 +13,15 @@ import {
 } from "@/components/ui/sheet"
 import { ModeToggle } from './components/mode-toogle';
 import { ScrollArea } from "./ui/scroll-area";
+// import { scrollDown } from "@/functions";
 
 // const TOP_OFFSET = 66;
 
 type HeaderProps = {
-    children: JSX.Element
+    children: JSX.Element;
 }
 
 function Header({ children }: HeaderProps) {
-    /* function scrollToSection(sectionId: string) {
-        const section = document.getElementById(sectionId);
-        if (section) {
-            section.scrollIntoView({ behavior: 'smooth' });
-        }
-    }; */
-
-    // const [showBackground, setShowBackground] = useState(false);
-
-    // useEffect(() => {
-    //     const handleScroll = () => {
-    //         if (window.scrollY >= TOP_OFFSET) {
-    //             setShowBackground(true)
-    //         } else {
-    //             setShowBackground(false)
-    //         }
-    //     }
-    //     window.addEventListener('scroll', handleScroll);
-    //     return () => {
-    //         window.removeEventListener('scroll', handleScroll);
-    //     }
-    // }, []);
 
     return (
         <Sheet>
@@ -74,7 +53,7 @@ function Header({ children }: HeaderProps) {
                     </Button> */}
                 </div>
 
-                <Button variant={'outline'} disabled className='disabled:opacity-100'>CHARACTERS APP</Button>
+                <Button /* onClick={() => scrollDown(scrollRef)} */ variant={'outline'} /* disabled className='disabled:opacity-100' */>CHARACTERS APP</Button>
 
                 <ModeToggle />
 

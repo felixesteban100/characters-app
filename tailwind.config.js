@@ -196,7 +196,7 @@ module.exports = {
         },
       },
       animation: {
-        'fadeIn': "fadeIn 3s ease 1 normal forwards",
+        'fadeIn': "fadeIn 1s ease 1 normal forwards",
         'fadeOut': "fadeOut 1s ease 1 normal forwards",
         'fadeOutAlert': "fadeOutAlert 1s ease-out 1 forwards",
         'flipInHorBottom': "flipInHorBottom 1s ease-out 1 forwards",

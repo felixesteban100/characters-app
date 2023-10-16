@@ -13,7 +13,7 @@ type CharacterProps = {
 function CharacterComponent({ setSelectedCharacter, setSelectedCharacterId, currentCharacter, indexForTest }: CharacterProps) {
     const { ref, inView } = useInView({
         threshold: 0.8,
-        initialInView: true,
+        initialInView: false,
     });
 
     return (
@@ -31,17 +31,17 @@ function CharacterComponent({ setSelectedCharacter, setSelectedCharacterId, curr
                 // card-new
                 //md:image-full
                 className={
-                    `${inView ? "animate-fadeIn" : "animate-fadeOut"} 
+                    `${inView ? "animate-fadeIn " : "animate-fadeOut"} 
                     card-new
                     object-contain 
                     w-full 
                     h-[20rem] md:h-[20rem] xl:h-[22rem] 
+                    hover:transition-all
+                    hover:duration-700
                     md:hover:shadow-current 
                     md:hover:shadow-lg 
                     md:hover:scale-110 
                     relative
-                    transition-all 
-                    duration-700
                     `
                 }
             >
@@ -57,7 +57,7 @@ function CharacterComponent({ setSelectedCharacter, setSelectedCharacterId, curr
 
                     <div className="card-actions justify-end">
                         <div className='flex w-full justify-between'>
-                            {currentCharacter.biography.publisher === "DC Comics" || currentCharacter.biography.publisher === "Warner Bros"
+                            {currentCharacter.biography.publisher === "DC Comics" || currentCharacter.biography.publisher === "Warner Bros" || currentCharacter.biography.publisher === "Microsoft"
                                 ? <img className='h-[3rem] w-[3rem] sm:h-[5rem] sm:w-[5rem] md:h-[5rem] md:w-[5rem] lg:h-[5rem] lg:w-[5rem] self-center' src={publisherIMG(currentCharacter.biography.publisher)} alt={`Logo ${currentCharacter.biography.publisher}`} loading="lazy" />
                                 : <img className='h-[7vw] w-[15vw] sm:h-[7vw] sm:w-[15vw] md:h-[3rem] md:w-[7rem] lg:h-[3rem] lg:w-[7rem] self-center' src={publisherIMG(currentCharacter.biography.publisher)} alt={`Logo ${currentCharacter.biography.publisher}`} loading="lazy" />
                             }

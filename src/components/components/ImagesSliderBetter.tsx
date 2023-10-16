@@ -111,7 +111,6 @@ function ImagesSlider({ imagesInfo }: ImagesSliderProps) {
         <ImageComponent
           url={imagesInfo[imageIndex]}
         />
-        
       </div>
 
       <ButtonSlider

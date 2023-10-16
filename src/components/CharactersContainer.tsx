@@ -15,7 +15,6 @@ function CharactersContainer({ children }: CharactersContainerProps) {
                 h-[90%]
                 justify-center items-center
                 gap-10 mx-auto 
-                
                 `
             }
         >

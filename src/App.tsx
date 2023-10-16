@@ -20,13 +20,7 @@ import notificationSound from './assets/notificationSound.mp3'
 function App() {
   const { toast } = useToast()
 
-  const [searchParams, setSearchParams] = useSearchParams(
-    JSON.parse(
-      localStorage.getItem("CHARACTERS_APP_SEARCHPARAMS")
-      ??
-      JSON.stringify(DEFAULT_SEARCHPARAMS)
-    )
-  )
+  const [searchParams, setSearchParams] = useSearchParams(JSON.parse( localStorage.getItem("CHARACTERS_APP_SEARCHPARAMS") ?? JSON.stringify(DEFAULT_SEARCHPARAMS)))
 
   const { viewFavorites, characterName, howMany, asHowManyAsPossible, side, universe, team, gender, race, includeNameOrExactName, characterOrFullName, charactersFilteredIds, selectedCharacterId, isDialogOpen } = getSearchParamsFormatted(searchParams)
 
@@ -79,7 +73,6 @@ function App() {
     },
   })
 
-
   const [selectedCharacter, setSelectedCharacter] = useState<Character>(batmanandSpider_manObj[0])
   const [searchDifferentCharacters, setSearchDifferentCharacters] = useState(false)
   const [heroSection, setHeroSection] = useLocalStorage("CHARACTERS_APP_HEROSECTION", DEFAULT_HERO_SECTION)
@@ -87,10 +80,8 @@ function App() {
 
   useKeyPress('Enter', () => { setViewFavorites(false); refetchCharacters() });
   useKeyPress('z', () => setViewFavorites(!viewFavorites));
-  useKeyPress('r', () => {
-    resetCharactersSelection(setSearchParams, setHeroSection);
-    setViewFavorites(false);
-  });
+  useKeyPress('r', () => { resetCharactersSelection(setSearchParams, setHeroSection); setViewFavorites(false); });
+
 
   function setViewFavorites(f: boolean) {
     setSearchParams((prev) => {
@@ -133,7 +124,7 @@ function App() {
                 heroSection={heroSection}
               />
 
-              <div className='overflow-x-hidden'>
+              <div className=''>
                 {
                   isLoading || isFetching ?
                     <LoadingCharacters howMany={asHowManyAsPossible ? 710 : howMany} />
