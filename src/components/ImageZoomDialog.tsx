@@ -3,6 +3,8 @@ import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { Button } from "./ui/button";
 import { Character } from '@/types';
 
+import { ArrowBigLeft, ArrowBigRight, PlusIcon, MinusIcon, RotateCcw } from 'lucide-react'
+
 type ImageZoomDialogProps = {
     children: JSX.Element;
     isAnimating: boolean;
@@ -45,9 +47,9 @@ function ImageZoomDialog({ children, isAnimating, setIsAnimating, currentImageTo
                                 className="absolute w-full h-full flex justify-center overflow-hidden"
                             >
                                 <TransformComponent>
-                                    <img className={`${isAnimating ? "opacity-100 scale-100" : "opacity-0 scale-0"} transition-all duration-300 w-auto h-[70vh] object-cover rounded-md translate-y-10`} src={allImages[currentImageToDisplay]} alt={selectedCharacter.name} loading="lazy" />
+                                    <img className={`${isAnimating ? "opacity-100 scale-100" : "opacity-0 scale-0"} transition-all duration-300 w-auto h-[75vh] object-cover rounded-md translate-y-10`} src={allImages[currentImageToDisplay]} alt={selectedCharacter.name} loading="lazy" />
                                 </TransformComponent>
-                                <div className="absolute z-50 bottom-0">
+                                <div className="absolute z-50 bottom-0 flex gap-2">
                                     <Button
                                         onClick={() => {
                                             setIsAnimating(false);
@@ -60,11 +62,11 @@ function ImageZoomDialog({ children, isAnimating, setIsAnimating, currentImageTo
                                             }, 1000);
                                         }}
                                     >
-                                        {'<'}
+                                        <ArrowBigLeft/>
                                     </Button>
-                                    <Button onClick={() => zoomIn()}>+</Button>
-                                    <Button onClick={() => zoomOut()}>-</Button>
-                                    <Button onClick={() => resetTransform()}>x</Button>
+                                    <Button onClick={() => zoomIn()}><PlusIcon/></Button>
+                                    <Button onClick={() => zoomOut()}><MinusIcon/></Button>
+                                    <Button onClick={() => resetTransform()}><RotateCcw/></Button>
                                     <Button
                                         onClick={() => {
                                             setIsAnimating(false);
@@ -77,7 +79,7 @@ function ImageZoomDialog({ children, isAnimating, setIsAnimating, currentImageTo
                                             }, 1000);
                                         }}
                                     >
-                                        {'>'}
+                                        <ArrowBigRight/>
                                     </Button>
                                 </div>
                             </div>

@@ -82,7 +82,6 @@ function App() {
   useKeyPress('z', () => setViewFavorites(!viewFavorites));
   useKeyPress('r', () => { resetCharactersSelection(setSearchParams, setHeroSection); setViewFavorites(false); });
 
-
   function setViewFavorites(f: boolean) {
     setSearchParams((prev) => {
       prev.set('viewFavorites', f.toString())

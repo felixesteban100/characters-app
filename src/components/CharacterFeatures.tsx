@@ -23,12 +23,22 @@ import {
     TooltipTrigger,
 } from "@/components/ui/tooltip"
 
+import { useState } from 'react'
+import ImageZoomDialog from "./ImageZoomDialog";
+
 type CharacterFeaturesProps = {
     selectedCharacter: Character;
 }
 
 function CharacterFeatures({ selectedCharacter }: CharacterFeaturesProps) {
     const windowWidth = useWindowWidth()
+
+    const [isAnimating, setIsAnimating] = useState(true);
+    const [currentImageToDisplay, setCurrentImageToDisplay] = useState<number>(0)
+
+    const allImages: string[] = [
+        ...Object.entries(organizedComicsProperty(selectedCharacter.comics, selectedCharacter.biography.publisher)).filter(([key, value]) => key !== "md" && value !== "-" && value !== "" && !value.includes('/api/images/xs/')).map(c => c[1])
+    ]
 
     return (
         <Tabs
@@ -42,7 +52,6 @@ function CharacterFeatures({ selectedCharacter }: CharacterFeaturesProps) {
                 <TabsTrigger className='text-base-content' value="Teams">{windowWidth > 770 ? 'Teams' : '👪'}</TabsTrigger>
                 <TabsTrigger className='text-base-content' value="Comics">{windowWidth > 770 ? 'Comics' : '📕'}</TabsTrigger>
             </TabsList>
-
 
             <FeatureTabContainer
                 valueTab="Stats"
@@ -67,7 +76,6 @@ function CharacterFeatures({ selectedCharacter }: CharacterFeaturesProps) {
                         icon="🧠"
                     />
                     <Separator />
-
 
                     <StatNumber
                         statName="Power"
@@ -291,13 +299,22 @@ function CharacterFeatures({ selectedCharacter }: CharacterFeaturesProps) {
                         <div className="h-full w-full flex flex-col justify-center items-center gap-5">
                             {organizedComicsProperty(selectedCharacter.comics, selectedCharacter.biography.publisher).map((comic, index) => {
                                 return (
-                                    <img
+                                    <ImageZoomDialog
                                         key={`${selectedCharacter._id}-${index}`}
-                                        className="h-auto w-full"
-                                        src={comic}
-                                        // onClick={() => setSelectedImageZoomModal(comic)}
-                                        loading="lazy"
-                                    />
+                                        isAnimating={isAnimating}
+                                        setIsAnimating={setIsAnimating}
+                                        currentImageToDisplay={currentImageToDisplay}
+                                        setCurrentImageToDisplay={setCurrentImageToDisplay}
+                                        allImages={allImages}
+                                        selectedCharacter={selectedCharacter}
+                                    >
+                                        <img
+                                            onClick={() => setCurrentImageToDisplay(index)}
+                                            className="h-auto w-full"
+                                            src={comic}
+                                            loading="lazy"
+                                        />
+                                    </ImageZoomDialog>
                                 )
                             })}
                         </div>

@@ -139,7 +139,7 @@
     --ring: 63 98% 64%;
   } */
 
-  :root {
+  /* :root {
     --background: 0 0% 100%;
     --foreground: 0 0% 3.9%;
     --card: 0 0% 100%;
@@ -182,7 +182,7 @@
     --border: 0 0% 14.9%;
     --input: 0 0% 14.9%;
     --ring: 0 72.2% 50.6%;
-  }
+  } */
 
   /* :root {
     --gradient: #c21500;
@@ -205,9 +205,9 @@
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 7 10% 96.9%;
     --ring: 7 100% 38%;
-  } */
+  }
 
-  /* .dark {
+  .dark {
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
     --card: 0 0% 3.9%;
@@ -229,7 +229,7 @@
     --ring: 0 72.2% 50.6%;
   } */
 
-  /* :root {
+  :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
@@ -272,7 +272,7 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9;
-  } */
+  }
 }
 
 @layer base {

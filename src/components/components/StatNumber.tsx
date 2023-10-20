@@ -19,8 +19,8 @@ export default function StatNumber({ statName, statValue, icon }: StatNumberProp
     }, [])
 
     return (
-        <div className="flex flex-row justify-between items-center gap-5 my-5">
-            <div className="flex items-center gap-2">
+        <div className="grid grid-cols-8 justify-between items-center gap-6 my-5">
+            <div className="flex items-center gap-2 col-span-1 md:col-span-2">
                 <p className='text-2xl md:text-3xl'>{icon}</p>
                 {
                     windowWidth > 770
@@ -28,9 +28,8 @@ export default function StatNumber({ statName, statValue, icon }: StatNumberProp
                         : null
                 }
             </div>
-            <Progress value={progress} className="w-[60%]" />
-            <p className="font-bold">{progress}</p>
-            {/* <div className="stat-value text-2xl md:text-5xl lg:text-5xl">{statValue}</div> */}
+            <Progress value={progress} className="w-[90%] ml-5 col-span-5" />
+            <p className="font-bold col-span-1">{progress}</p>
         </div>
     )
 }

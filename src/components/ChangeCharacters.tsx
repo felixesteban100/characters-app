@@ -9,9 +9,6 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Button } from "./ui/button";
 
 import SwitchWithIcon from "./components/SwitchWithIcon";
-// import { Textarea } from "./ui/textarea";
-
-// import { Eraser } from "lucide-react";
 import useWindowWidth from "@/hooks/useWindowWidth";
 
 import {
@@ -21,6 +18,7 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion"
 
+ 
 type ChangeCharactersProps = {
     characterName: string;
     howMany: number

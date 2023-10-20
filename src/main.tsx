@@ -7,7 +7,7 @@ import { QueryClientProvider, QueryClient } from 'react-query';
 import { ThemeProvider } from "@/components/components/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
 
-const queryClient = new QueryClient();
+export const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
