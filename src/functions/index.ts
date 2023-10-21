@@ -176,7 +176,7 @@ export function getRandomImage(images: string[]) {
   return images[randomIndex];
 }
 
-export function transitionImageCard() {
+/* export function transitionImageCard() {
   //https://www.npmjs.com/package/react-lazy-load-image-component
   //https://www.youtube.com/watch?v=QAR9VIqx1qQ&ab_channel=MichaelBreitung
   //https://www.youtube.com/watch?v=2U7yZ3wvFBM&ab_channel=SonnySangha
@@ -188,11 +188,11 @@ export function transitionImageCard() {
       image.classList.replace("opacity-0", "opacity-100");
     }, 3000);
   });
-}
+} */
 
 export function getLoadingCards(windowWidth: number, howMany: number) {
   switch (true) {
-    case windowWidth > 782 && windowWidth < 1110 && howMany > 6:
+    case windowWidth > 782 && windowWidth < 1410 && howMany > 6:
       return 6;
 
     case windowWidth < 782 && howMany > 4:

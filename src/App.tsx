@@ -16,9 +16,10 @@ import SliderSection from './components/SliderSection';
 import { useToast } from "@/components/ui/use-toast"
 import DialogCharacters from './components/DialogCharacters';
 import notificationSound from './assets/notificationSound.mp3'
+import favoriteSound from './assets/favoriteSound.mp3'
 
 function App() {
-  const { toast } = useToast()
+  const { toast, dismiss } = useToast()
 
   const [searchParams, setSearchParams] = useSearchParams(JSON.parse( localStorage.getItem("CHARACTERS_APP_SEARCHPARAMS") ?? JSON.stringify(DEFAULT_SEARCHPARAMS)))
 
@@ -26,7 +27,11 @@ function App() {
 
   useEffect(() => localStorage.setItem("CHARACTERS_APP_SEARCHPARAMS", JSON.stringify(getSearchParamsFormatted(searchParams))), [searchParams]);
   useEffect(() => {
-    if (viewFavorites) toast({ title: "Favorites 🌟", description: "Your favorites characters ", })
+    if (viewFavorites) {
+      toast({ title: "Favorites 🌟", description: "Your favorites characters ", })
+      new Audio(favoriteSound).play()
+    }
+    if (!viewFavorites) dismiss()
   }, [viewFavorites]);
 
   const { isLoading, isError, data: charactersFiltered, refetch: refetchCharacters, isFetching } = useQuery<Character[]>({
@@ -123,7 +128,7 @@ function App() {
                 heroSection={heroSection}
               />
 
-              <div className=''>
+              <>
                 {
                   isLoading || isFetching ?
                     <LoadingCharacters howMany={asHowManyAsPossible ? 710 : howMany} />
@@ -161,7 +166,7 @@ function App() {
                         </DialogCharacters>
                       </>
                 }
-              </div>
+              </>
               <br />
             </>
           }

@@ -4,7 +4,7 @@ import StatNumber from "./components/StatNumber";
 import StatString from "./components/StatString";
 import StatAccordion from "./components/StatAccordion";
 import useWindowWidth from "./../hooks/useWindowWidth";
-import { getTeamsImagesByCharacter } from "./../functions";
+import { getTeamsImagesByCharacter, publisherIMG } from "./../functions";
 import { organizedComicsProperty } from "./../constants";
 
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -200,20 +200,22 @@ function CharacterFeatures({ selectedCharacter }: CharacterFeaturesProps) {
                                 selectedCharacter.biography.alignment === "bad" ?
                                     "😡"
                                     :
-                                    /* selectedCharacter.biography.alignment === "neutral" ? */
-                                        "😐"
-                                        /* :
-                                        "" */
+                                    "😐"
                         }
                         dataTest="aligment-stat"
                     />
                     <Separator />
-                    <StatString
-                        statName="Publisher"
-                        statValue={selectedCharacter.biography.publisher}
-                        icon="📚"
-                        dataTest="publisher-stat"
-                    />
+                    <div className="flex flex-row justify-between items-center gap-5 my-5">
+                        <div className="flex items-center gap-2">
+                            <p className='text-2xl md:text-3xl'>📚</p>
+                            {
+                                windowWidth > 770
+                                    ? <p>Publisher</p>
+                                    : null
+                            }
+                        </div>
+                        <div className="font-bold capitalize"><img className="h-10" src={publisherIMG(selectedCharacter.biography.publisher)} alt="publisher" /></div>
+                    </div>
                     <Separator />
                     <Accordion type="single" collapsible className="w-full">
                         <StatAccordion

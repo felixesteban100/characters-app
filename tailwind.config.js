@@ -114,13 +114,32 @@ module.exports = {
         },
         scaleForwardEntrance: {
           '0%': {
-            transform: 'scale(0)'
+            transform: 'scale(0)',
           },
           '100%': {
             transform: 'scale(1)'
           }
         },
         scaleForwardExit: {
+          '0%': {
+            // opacity: 0,
+            transform: 'scale(1)'
+          },
+          '100%': {
+            transform: 'scale(0)'
+          }
+        },
+
+
+        scaleForwardEntranceCardInfo: {
+          '0%': {
+            transform: 'scale(0)',
+          },
+          '100%': {
+            transform: 'scale(1)'
+          }
+        },
+        scaleForwardExitCardInfo: {
           '0%': {
             // opacity: 0,
             transform: 'scale(1)'
@@ -201,13 +220,16 @@ module.exports = {
         'fadeOutAlert': "fadeOutAlert 1s ease-out 1 forwards",
         'flipInHorBottom': "flipInHorBottom 1s ease-out 1 forwards",
         'flipOutHorTop': "flipOutHorTop 1s ease-out 1 forwards",
-        'scaleForwardEntrance': 'scaleForwardEntrance 1s ease 0s 1 normal both',
+        'scaleForwardEntrance': 'scaleForwardEntrance 1s ease 1 normal forwards',
         'scaleForwardExit': 'scaleForwardExit 1s ease 0s 1 normal both',
-        "rotate-vert-center": "rotate-vert-center 3s ease 1 normal forwards",
 
+        'scaleForwardEntranceCardInfo': 'scaleForwardEntranceCardInfo 1.5s ease 1 normal forwards',
+        'scaleForwardExitCardInfo': 'scaleForwardExitCardInfo 1.5s ease 0s 1 normal both',
+        
+        
+        "rotate-vert-center": "rotate-vert-center 3s ease 1 normal forwards",
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-
 
         'slideRightIn': 'slideRightIn 1s ease-out 1 forwards',
         'slideRightOut': 'slideRightOut 1s ease-out 1 forwards',
