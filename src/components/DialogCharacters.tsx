@@ -77,8 +77,8 @@ function DialogCharacters({ children, favorites, selectedCharacter, setFavorites
                                         selectedCharacter={selectedCharacter}
                                     >
                                         <label className='group cursor-pointer w-full h-full' htmlFor={`my-modal-imageZoom`}>
-                                            <motion.img /* animate={{ opacity: isAnimating ? 1 : 0 }} */ className={`transition-all duration-300 absolute w-full h-full object-cover blur-sm group-focus-visible:animate-pulse group-hover:animate-pulse `} src={allImages[currentImageToDisplay]} alt={selectedCharacter.name} loading="lazy" />
-                                            <motion.img /* animate={{ opacity: isAnimating ? 1 : 0 }} */ className={` ${isAnimating ? "opacity-100 scale-100" : "opacity-0 scale-0"} transition-all duration-300 absolute w-[90%] h-[90%] object-cover rounded-md ml-3 md:ml-5 mt-5`} src={allImages[currentImageToDisplay]} alt={selectedCharacter.name} loading="lazy" />
+                                            <motion.img className={`transition-all duration-300 absolute w-full h-full object-cover blur-sm group-focus-visible:animate-pulse group-hover:animate-pulse `} src={allImages[currentImageToDisplay]} alt={selectedCharacter.name} loading="lazy" />
+                                            <motion.img className={` ${isAnimating ? "opacity-100 scale-100" : "opacity-0 scale-0"} transition-all duration-300 absolute w-[90%] h-[90%] object-cover rounded-md ml-3 md:ml-5 mt-5`} src={allImages[currentImageToDisplay]} alt={selectedCharacter.name} loading="lazy" />
                                         </label>
                                     </ImageZoomDialog>
 

@@ -15,19 +15,6 @@ function LoadingCharacters({ howMany }: LoadingCharactersProps) {
 
     return (
         <SectionCharacters>
-            <CharactersContainer>
-                <>
-                    {
-                        Array(getLoadingCards(windowWidth, howMany)).fill(characterEmpty).map((_, index) => {
-                            return (
-                                <div key={index}>
-                                    <LoadingCard />
-                                </div>
-                            )
-                        })
-                    }
-                </>
-            </CharactersContainer>
             {
                 howMany > 8 ?
                     <div data-test="paginationHandler" className="w-[70%] flex justify-center gap-1">
@@ -48,6 +35,19 @@ function LoadingCharacters({ howMany }: LoadingCharactersProps) {
                     :
                     <div className="w-[70%] flex justify-center"></div>
             }
+            <CharactersContainer>
+                <>
+                    {
+                        Array(getLoadingCards(windowWidth, howMany)).fill(characterEmpty).map((_, index) => {
+                            return (
+                                <div key={index}>
+                                    <LoadingCard />
+                                </div>
+                            )
+                        })
+                    }
+                </>
+            </CharactersContainer>
         </SectionCharacters>
     )
 }

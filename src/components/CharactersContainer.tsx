@@ -14,8 +14,9 @@ function CharactersContainer({ children }: CharactersContainerProps) {
                 w-[90%] sm:w-[90%] md:w-[90%] lg:w-[70%] 
                 h-[90%]
                 justify-center items-center
-                gap-10 mx-auto 
+                gap-10 gap-y-12 mx-auto 
                 `
+                //
             }
         >
             {children}
