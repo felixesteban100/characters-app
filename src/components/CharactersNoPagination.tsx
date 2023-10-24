@@ -1,14 +1,8 @@
 import { Character } from '../types';
-import { useEffect, useState, useRef } from 'react'
-import { usePagination } from "@mantine/hooks";
-
 import CharacterComponent from './CharacterComponent';
 import CharactersContainer from './CharactersContainer';
-import useWindowWidth from '../hooks/useWindowWidth';
 import SectionCharacters from './SectionCharacters';
-import { Button } from './ui/button';
 import { DialogTrigger } from './ui/dialog';
-import useLocalStorage from '@/hooks/useLocalStorage';
 
 type CharactersProps = {
     charactersFiltered: Character[]
