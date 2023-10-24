@@ -126,7 +126,7 @@ export function teamIMG(teamName: string) {
             return ["https://i.pinimg.com/originals/56/81/f2/5681f244b6d26283fa5e535e176613e9.jpg", "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/5c014b4c-5206-41f3-a2f2-d24f96e3b43a/dfhwk74-83d3082a-b435-4dc9-81f6-b42aba70ee97.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzVjMDE0YjRjLTUyMDYtNDFmMy1hMmYyLWQyNGY5NmUzYjQzYVwvZGZod2s3NC04M2QzMDgyYS1iNDM1LTRkYzktODFmNi1iNDJhYmE3MGVlOTcuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.kPC69MFKByFc_2E4X2na6DpU4o4zgqzDGIt-Idnsnaw"]
 
         case "New Guardians":
-            return ["https://digitalspyuk.cdnds.net/12/40/comics_new_guardians_2.jpg", "https://e1.pxfuel.com/desktop-wallpaper/769/825/desktop-wallpaper-i-redesigned-kyle-s-white-lantern-suit-original-art-by-tyler-kirkham-from-green-lantern-new-guardians-%E2%80%A6-lantern-corps-suits.jpg"]
+            return ["https://images.squarespace-cdn.com/content/v1/593f201de3df288fc6465e6f/1536788587165-DQC6TWZURXFEC7J7TBPQ/a9e6fbdbc85018e3a2bb7b3809a0caa2.jpg", "https://digitalspyuk.cdnds.net/12/40/comics_new_guardians_2.jpg", "https://e1.pxfuel.com/desktop-wallpaper/769/825/desktop-wallpaper-i-redesigned-kyle-s-white-lantern-suit-original-art-by-tyler-kirkham-from-green-lantern-new-guardians-%E2%80%A6-lantern-corps-suits.jpg"]
 
         case "Lantern Corps":
             return ["https://qph.cf2.quoracdn.net/main-qimg-2673d6d36ab6b962fecea97a8dc6f231-lq"]
@@ -868,8 +868,10 @@ export const DEFAULT_HERO_SECTION = {
             "https://images.alphacoders.com/440/44051.jpg",
             "https://images6.alphacoders.com/705/705204.jpg",
             "https://images3.alphacoders.com/218/218487.jpg",
+            "https://i.imgur.com/j23OCEF.png",
+            "https://i.imgur.com/0Ypbj7B.png",
             // "https://qph.cf2.quoracdn.net/main-qimg-6a648838e80e15c41d30e00156210861-lq",
-            "https://cdn.mos.cms.futurecdn.net/yD2Dhn28xkm6iigPB8v6qA.jpg",
+            // "https://cdn.mos.cms.futurecdn.net/yD2Dhn28xkm6iigPB8v6qA.jpg",
             "https://www.cardboard-display-stand.com/Content/upload/2018304635/201808201648017571975.png"
 
         ]

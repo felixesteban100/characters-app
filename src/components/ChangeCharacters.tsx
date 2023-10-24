@@ -18,6 +18,7 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion"
 import { Switch } from "./ui/switch";
+import { Separator } from "./ui/separator";
 
 
 type ChangeCharactersProps = {
@@ -40,9 +41,11 @@ type ChangeCharactersProps = {
     viewFavorites: boolean;
     setWithPagination: React.Dispatch<React.SetStateAction<boolean>>;
     withPagination: boolean;
+    howManyRows: number;
+    setHowManyRows: React.Dispatch<React.SetStateAction<number>>;
 }
 
-function ModalChangeCharacters({ characterName, howMany, asHowManyAsPossible, gender, side, universe, team, race, includeNameOrExactName, characterOrFullName, refetchCharacters, setHeroSection, isLoading, isFetching, setSearchDifferentCharacters, setSearchParams, viewFavorites, setWithPagination, withPagination }: ChangeCharactersProps) {
+function ModalChangeCharacters({ characterName, howMany, asHowManyAsPossible, gender, side, universe, team, race, includeNameOrExactName, characterOrFullName, refetchCharacters, setHeroSection, isLoading, isFetching, setSearchDifferentCharacters, setSearchParams, viewFavorites, setWithPagination, withPagination, howManyRows, setHowManyRows }: ChangeCharactersProps) {
     const teamByUniverse: { name: string, value: string }[] = getTeamByUniverse(universe)
     const windowWidth = useWindowWidth()
 
@@ -294,58 +297,102 @@ function ModalChangeCharacters({ characterName, howMany, asHowManyAsPossible, ge
                     variantS={'secondary'}
                 />
 
-                <div className="flex items-center space-x-2">
-                    <Switch
-                        id="setPagination"
-                        checked={withPagination}
-                        onCheckedChange={() => setWithPagination(prev => !prev)}
-                    />
-                    <Label htmlFor="setPagination">
-                        With Pagination
-                    </Label>
+                <Separator className="my-2" />
+                <p className="text-[1.1rem] font-bold text-center">Characters view settings</p>
+                <div>
+                    <div className="flex items-center justify-center gap-2">
+                        <Switch
+                            id="setPagination"
+                            checked={withPagination}
+                            onCheckedChange={() => setWithPagination(prev => !prev)}
+                        />
+                        <Label htmlFor="setPagination">
+                            With Pagination
+                        </Label>
+                    </div>
+
+                    <div className="w-full flex flex-row justify-center items-center gap-2">
+                        <div className="grid grid-cols-4 items-center gap-2 mx-auto py-5 flex-shrink">
+                            <Button
+                                variant={'outline'}
+                                onClick={() => {
+                                    setHowManyRows(prev => prev - 1)
+                                }}
+                                disabled={howManyRows === 1}
+                            >
+                                {`-`}
+                            </Button>
+                            <Input
+                                type={'number'}
+                                id="howManyRows"
+                                value={howManyRows}
+                                className="col-span-2 text-center disabled:opacity-100 disabled:cursor-default"
+                                min={1}
+                                max={4}
+                                onChange={(event) => {
+                                    setHowManyRows(parseInt(event.target.value))
+                                }}
+                                disabled={true}
+                            />
+                            <Button
+                                variant={'outline'}
+                                onClick={() => {
+                                    setHowManyRows(prev => prev + 1)
+                                }}
+                                disabled={howManyRows === 4}
+                            >
+                                {`+`}
+                            </Button>
+                        </div>
+                        <p className="flex-shrink-0"># Rows</p>
+                    </div>
                 </div>
+
 
                 {
                     windowWidth > 770 ?
-                        <div className="flex flex-col gap-2">
-                            <p className="text-xl font-bold">Shortcuts</p>
-                            <Accordion type="single" collapsible className="w-full">
-                                <AccordionItem value="item-1">
-                                    <AccordionTrigger>Is it accessible?</AccordionTrigger>
-                                    <AccordionContent>
-                                        <div className="flex items-center gap-2">
-                                            <p>Press</p>
-                                            <kbd className="bg-primary text-primary-foreground p-1 rounded-md shadow-sm shadow-accent">Enter</kbd>
-                                            <p>to Search 🔍</p>
-                                        </div>
-                                    </AccordionContent>
-                                </AccordionItem>
-                                <AccordionItem value="item-2">
-                                    <AccordionTrigger>Is it styled?</AccordionTrigger>
-                                    <AccordionContent>
-                                        <div className="flex items-center gap-2">
-                                            <p>Press</p>
-                                            <kbd className="bg-primary text-primary-foreground p-1 rounded-md shadow-sm shadow-accent">Ctrl</kbd>
-                                            <p>+</p>
-                                            <kbd className="bg-primary text-primary-foreground p-1 rounded-md shadow-sm shadow-accent">z</kbd>
-                                            <p>to Favorites ⭐</p>
-                                        </div>
-                                    </AccordionContent>
-                                </AccordionItem>
-                                <AccordionItem value="item-3">
-                                    <AccordionTrigger>Is it animated?</AccordionTrigger>
-                                    <AccordionContent>
-                                        <div className="flex items-center gap-2">
-                                            <p>Press</p>
-                                            <kbd className="bg-primary text-primary-foreground p-1 rounded-md shadow-sm shadow-accent">Ctrl</kbd>
-                                            <p>+</p>
-                                            <kbd className="bg-primary text-primary-foreground p-1 rounded-md shadow-sm shadow-accent">r</kbd>
-                                            <p>to Reset 🔁</p>
-                                        </div>
-                                    </AccordionContent>
-                                </AccordionItem>
-                            </Accordion>
-                        </div>
+                        <>
+                            <Separator className="my-2" />
+                            <div className="flex flex-col gap-2">
+                                <p className="text-[1.1rem] font-bold text-center">Shortcuts</p>
+                                <Accordion type="single" collapsible className="w-full">
+                                    <AccordionItem value="item-1">
+                                        <AccordionTrigger>Is it accessible?</AccordionTrigger>
+                                        <AccordionContent>
+                                            <div className="flex items-center gap-2">
+                                                <p>Press</p>
+                                                <kbd className="bg-primary text-primary-foreground p-1 rounded-md shadow-sm shadow-accent">Enter</kbd>
+                                                <p>to Search 🔍</p>
+                                            </div>
+                                        </AccordionContent>
+                                    </AccordionItem>
+                                    <AccordionItem value="item-2">
+                                        <AccordionTrigger>Is it styled?</AccordionTrigger>
+                                        <AccordionContent>
+                                            <div className="flex items-center gap-2">
+                                                <p>Press</p>
+                                                <kbd className="bg-primary text-primary-foreground p-1 rounded-md shadow-sm shadow-accent">Ctrl</kbd>
+                                                <p>+</p>
+                                                <kbd className="bg-primary text-primary-foreground p-1 rounded-md shadow-sm shadow-accent">z</kbd>
+                                                <p>to Favorites ⭐</p>
+                                            </div>
+                                        </AccordionContent>
+                                    </AccordionItem>
+                                    <AccordionItem value="item-3">
+                                        <AccordionTrigger>Is it animated?</AccordionTrigger>
+                                        <AccordionContent>
+                                            <div className="flex items-center gap-2">
+                                                <p>Press</p>
+                                                <kbd className="bg-primary text-primary-foreground p-1 rounded-md shadow-sm shadow-accent">Ctrl</kbd>
+                                                <p>+</p>
+                                                <kbd className="bg-primary text-primary-foreground p-1 rounded-md shadow-sm shadow-accent">r</kbd>
+                                                <p>to Reset 🔁</p>
+                                            </div>
+                                        </AccordionContent>
+                                    </AccordionItem>
+                                </Accordion>
+                            </div>
+                        </>
                         :
                         null
                 }

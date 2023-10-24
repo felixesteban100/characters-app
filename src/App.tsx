@@ -88,6 +88,8 @@ function App() {
 
   const [withPagination, setWithPagination] = useLocalStorage<boolean>("CHARACTERS_APP_WITHPAGINATION", false)
 
+  const [howManyRows, setHowManyRows] = useLocalStorage("CHARACTERS_APP_HOWMANYROWS", 1)
+
   useKeyPress('Enter', () => { setViewFavorites(false); refetchCharacters() });
   useKeyPress('z', () => setViewFavorites(!viewFavorites));
   useKeyPress('r', () => { resetCharactersSelection(setSearchParams, setHeroSection); setViewFavorites(false); });
@@ -127,6 +129,9 @@ function App() {
                   viewFavorites={viewFavorites}
                   setWithPagination={setWithPagination}
                   withPagination={withPagination}
+
+                  howManyRows={howManyRows}
+                  setHowManyRows={setHowManyRows}
                 />
               </Header>
 
@@ -173,6 +178,7 @@ function App() {
                                 }}
                                 initialRender={initialRender}
                                 setInitialRender={setInitialRender}
+                                howManyRows={howManyRows}
                               />
                               :
                               <CharactersNoPagination

@@ -31,7 +31,7 @@ function Header({ children }: HeaderProps) {
                     `flex justify-between 
                     items-center px-5 pt-4 pb-2 md:py-2 
                     gap-5 
-                    bg-secondary
+                    bg-card
                     sticky top-0 z-[20] 
                     transition duration-500`
                 )
@@ -57,14 +57,14 @@ function Header({ children }: HeaderProps) {
 
                 <ModeToggle />
 
-                <SheetContent side={'left'} >
+                <SheetContent side={'left'} className="bg-card" >
                     <SheetHeader>
                         <SheetTitle>Select characters features</SheetTitle>
                         <SheetDescription>
                             Select characters by using these filters below
                         </SheetDescription>
                     </SheetHeader>
-                    <ScrollArea className="py-4 h-[91vh] pr-5">
+                    <ScrollArea className="py-4 h-[91vh] pr-5 ">
                         {children}
                     </ScrollArea>
                 </SheetContent>

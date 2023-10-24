@@ -16,10 +16,11 @@ type CharactersProps = {
     setSelectedCharacter: (character: Character) => void;
     setSelectedCharacterId: (idSelected: number) => void;
     initialRender: boolean
-    setInitialRender: React.Dispatch<React.SetStateAction<boolean>>
+    setInitialRender: React.Dispatch<React.SetStateAction<boolean>>;
+    howManyRows: number;
 }
 
-function Characters({ charactersFiltered, viewFavorites, setSelectedCharacter, setSelectedCharacterId, initialRender, setInitialRender }: CharactersProps) {
+function Characters({ charactersFiltered, viewFavorites, setSelectedCharacter, setSelectedCharacterId, initialRender, setInitialRender, howManyRows }: CharactersProps) {
     
     const windowWidth = useWindowWidth()
     const [charactersPerPage, setCharactersPerPage] = useState(8)
@@ -41,13 +42,13 @@ function Characters({ charactersFiltered, viewFavorites, setSelectedCharacter, s
         let newValue
         switch (true) {
             case windowWidth > 782 && windowWidth < 1285:
-                newValue = 6
+                newValue = howManyRows * 3 //6
                 break;
             case windowWidth < 782:
-                newValue = 4;
+                newValue = howManyRows * 2 //4;
                 break;
             default:
-                newValue = 8;
+                newValue = howManyRows * 4 //8;
                 break;
         }
         setCharactersPerPage(newValue);
@@ -55,7 +56,7 @@ function Characters({ charactersFiltered, viewFavorites, setSelectedCharacter, s
             pagination.setPage(1);
             setVisibleResults(charactersFiltered.slice(0, newValue));
         }
-    }, [windowWidth])
+    }, [windowWidth, howManyRows])
 
     const pagination = usePagination({
         total: Math.ceil(charactersFiltered.length / charactersPerPage),
