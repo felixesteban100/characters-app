@@ -17,11 +17,14 @@ import { useToast } from "@/components/ui/use-toast"
 import DialogCharacters from './components/DialogCharacters';
 import notificationSound from './assets/notificationSound.mp3'
 import favoriteSound from './assets/favoriteSound.mp3'
+import CharactersNoPagination from './components/CharactersNoPagination';
 
 function App() {
+  const [initialRender, setInitialRender] = useState(true);
+
   const { toast, dismiss } = useToast()
 
-  const [searchParams, setSearchParams] = useSearchParams(JSON.parse( localStorage.getItem("CHARACTERS_APP_SEARCHPARAMS") ?? JSON.stringify(DEFAULT_SEARCHPARAMS)))
+  const [searchParams, setSearchParams] = useSearchParams(JSON.parse(localStorage.getItem("CHARACTERS_APP_SEARCHPARAMS") ?? JSON.stringify(DEFAULT_SEARCHPARAMS)))
 
   const { viewFavorites, characterName, howMany, asHowManyAsPossible, side, universe, team, gender, race, includeNameOrExactName, characterOrFullName, charactersFilteredIds, selectedCharacterId, isDialogOpen } = getSearchParamsFormatted(searchParams)
 
@@ -83,6 +86,8 @@ function App() {
   const [heroSection, setHeroSection] = useLocalStorage("CHARACTERS_APP_HEROSECTION", DEFAULT_HERO_SECTION)
   const [favorites, setFavorites] = useLocalStorage<Character[] | []>("CHARACTERS_APP_FAVORITES", [])
 
+  const [withPagination, setWithPagination] = useLocalStorage<boolean>("CHARACTERS_APP_WITHPAGINATION", false)
+
   useKeyPress('Enter', () => { setViewFavorites(false); refetchCharacters() });
   useKeyPress('z', () => setViewFavorites(!viewFavorites));
   useKeyPress('r', () => { resetCharactersSelection(setSearchParams, setHeroSection); setViewFavorites(false); });
@@ -120,6 +125,8 @@ function App() {
                   setSearchDifferentCharacters={setSearchDifferentCharacters}
                   setSearchParams={setSearchParams}
                   viewFavorites={viewFavorites}
+                  setWithPagination={setWithPagination}
+                  withPagination={withPagination}
                 />
               </Header>
 
@@ -152,17 +159,34 @@ function App() {
                             })
                           }}
                         >
-                          <Characters
-                            charactersFiltered={viewFavorites ? favorites : charactersFiltered}
-                            viewFavorites={viewFavorites}
-                            setSelectedCharacter={setSelectedCharacter}
-                            setSelectedCharacterId={(idSelected: number) => {
-                              setSearchParams((prev) => {
-                                prev.set('selectedCharacterId', idSelected.toString())
-                                return prev
-                              })
-                            }}
-                          />
+                          {
+                            withPagination ?
+                              <Characters
+                                charactersFiltered={viewFavorites ? favorites : charactersFiltered}
+                                viewFavorites={viewFavorites}
+                                setSelectedCharacter={setSelectedCharacter}
+                                setSelectedCharacterId={(idSelected: number) => {
+                                  setSearchParams((prev) => {
+                                    prev.set('selectedCharacterId', idSelected.toString())
+                                    return prev
+                                  })
+                                }}
+                                initialRender={initialRender}
+                                setInitialRender={setInitialRender}
+                              />
+                              :
+                              <CharactersNoPagination
+                                charactersFiltered={viewFavorites ? favorites : charactersFiltered}
+                                viewFavorites={viewFavorites}
+                                setSelectedCharacter={setSelectedCharacter}
+                                setSelectedCharacterId={(idSelected: number) => {
+                                  setSearchParams((prev) => {
+                                    prev.set('selectedCharacterId', idSelected.toString())
+                                    return prev
+                                  })
+                                }}
+                              />
+                          }
                         </DialogCharacters>
                       </>
                 }

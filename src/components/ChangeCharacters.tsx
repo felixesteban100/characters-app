@@ -17,8 +17,9 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion"
+import { Switch } from "./ui/switch";
 
- 
+
 type ChangeCharactersProps = {
     characterName: string;
     howMany: number
@@ -36,10 +37,12 @@ type ChangeCharactersProps = {
     isFetching: boolean;
     setSearchDifferentCharacters: React.Dispatch<React.SetStateAction<boolean>>;
     setSearchParams: SetURLSearchParams;
-    viewFavorites: boolean
+    viewFavorites: boolean;
+    setWithPagination: React.Dispatch<React.SetStateAction<boolean>>;
+    withPagination: boolean;
 }
 
-function ModalChangeCharacters({ characterName, howMany, asHowManyAsPossible, gender, side, universe, team, race, includeNameOrExactName, characterOrFullName, refetchCharacters, setHeroSection, isLoading, isFetching, setSearchDifferentCharacters, setSearchParams, viewFavorites }: ChangeCharactersProps) {
+function ModalChangeCharacters({ characterName, howMany, asHowManyAsPossible, gender, side, universe, team, race, includeNameOrExactName, characterOrFullName, refetchCharacters, setHeroSection, isLoading, isFetching, setSearchDifferentCharacters, setSearchParams, viewFavorites, setWithPagination, withPagination }: ChangeCharactersProps) {
     const teamByUniverse: { name: string, value: string }[] = getTeamByUniverse(universe)
     const windowWidth = useWindowWidth()
 
@@ -170,6 +173,7 @@ function ModalChangeCharacters({ characterName, howMany, asHowManyAsPossible, ge
                     />
                     <Label htmlFor="ashowmanyaspossible">As how many characters as possible</Label>
                 </div>
+
             </div>
 
             <SelectInput
@@ -289,6 +293,17 @@ function ModalChangeCharacters({ characterName, howMany, asHowManyAsPossible, ge
                     forWhat="Reset filters 🔁"
                     variantS={'secondary'}
                 />
+
+                <div className="flex items-center space-x-2">
+                    <Switch
+                        id="setPagination"
+                        checked={withPagination}
+                        onCheckedChange={() => setWithPagination(prev => !prev)}
+                    />
+                    <Label htmlFor="setPagination">
+                        With Pagination
+                    </Label>
+                </div>
 
                 {
                     windowWidth > 770 ?

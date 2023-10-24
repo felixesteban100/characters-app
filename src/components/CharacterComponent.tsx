@@ -12,7 +12,7 @@ type CharacterProps = {
 
 function CharacterComponent({ setSelectedCharacter, setSelectedCharacterId, currentCharacter, indexForTest }: CharacterProps) {
     const { ref, inView } = useInView({
-        threshold: 0.8,
+        threshold: 0.5,
         initialInView: true,
     });
 

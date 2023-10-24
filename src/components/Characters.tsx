@@ -8,48 +8,69 @@ import useWindowWidth from '../hooks/useWindowWidth';
 import SectionCharacters from './SectionCharacters';
 import { Button } from './ui/button';
 import { DialogTrigger } from './ui/dialog';
+import useLocalStorage from '@/hooks/useLocalStorage';
 
 type CharactersProps = {
     charactersFiltered: Character[]
     viewFavorites: boolean
     setSelectedCharacter: (character: Character) => void;
     setSelectedCharacterId: (idSelected: number) => void;
+    initialRender: boolean
+    setInitialRender: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-function Characters({ charactersFiltered, viewFavorites, setSelectedCharacter, setSelectedCharacterId }: CharactersProps) {
+function Characters({ charactersFiltered, viewFavorites, setSelectedCharacter, setSelectedCharacterId, initialRender, setInitialRender }: CharactersProps) {
+    
     const windowWidth = useWindowWidth()
     const [charactersPerPage, setCharactersPerPage] = useState(8)
-    const [visibleResults, setVisibleResults] = useState<Character[]>(charactersFiltered.slice(0, charactersPerPage))
+    const [visibleResults, setVisibleResults] = useLocalStorage<Character[]>("CHARACTERS_APP_VISIBLERESULTS", charactersFiltered.slice(0, charactersPerPage))
+
+    const [pageActive, setPageActive] = useLocalStorage<number>("CHARACTERS_APP_PAGEACTIVE", 1)
 
     const scrollRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => { pagination.setPage(1); setVisibleResults(charactersFiltered.slice(0, charactersPerPage)) }, [charactersFiltered, charactersPerPage])
+    useEffect(() => {
+        if (initialRender) {
+            setInitialRender(false);
+        } else {
+            setVisibleResults(charactersFiltered.slice(0, charactersPerPage))
+        }
+    }, [charactersFiltered])
 
     useEffect(() => {
+        let newValue
         switch (true) {
-            case windowWidth > 782 && windowWidth < 1285: setCharactersPerPage(6); break;
-            case windowWidth < 782: setCharactersPerPage(4); break;
-            default: setCharactersPerPage(8); break;
+            case windowWidth > 782 && windowWidth < 1285:
+                newValue = 6
+                break;
+            case windowWidth < 782:
+                newValue = 4;
+                break;
+            default:
+                newValue = 8;
+                break;
+        }
+        setCharactersPerPage(newValue);
+        if (!initialRender) {
+            pagination.setPage(1);
+            setVisibleResults(charactersFiltered.slice(0, newValue));
         }
     }, [windowWidth])
 
-    useEffect(() => {
-        setTimeout(() => {
-            if (scrollRef.current) {
-              scrollRef.current.scrollIntoView({ behavior: "smooth" });
-            }
-          }, 600);
-    }, [visibleResults]);
-
     const pagination = usePagination({
         total: Math.ceil(charactersFiltered.length / charactersPerPage),
-        initialPage: 1,
+        page: pageActive,
         onChange(page: number) {
             const start = (page - 1) * charactersPerPage
             const end = start + charactersPerPage
             const newVisibleResults = charactersFiltered.slice(start, end)
             setVisibleResults(newVisibleResults)
-            // /* if(newVisibleResults.length < 2)  */ scrollBottom()
+            setPageActive(page)
+            setTimeout(() => {
+                if (scrollRef.current) {
+                    scrollRef.current.scrollIntoView({ behavior: "smooth" });
+                }
+            }, 600);
         },
         boundaries: 1,
         siblings: 1
@@ -69,7 +90,6 @@ function Characters({ charactersFiltered, viewFavorites, setSelectedCharacter, s
                                     data-test={currentPage === 'dots' ? "paginationBtnDisabled" : `paginationBtn-${index}`}
                                     key={`${currentPage}-${index}`}
                                     onClick={() => { pagination.setPage(currentPage !== 'dots' ? currentPage : 1); }}
-                                    // className={`${pagination.active === currentPage ? "bg-primary/50 text-foreground" : ""}`}
                                     disabled={currentPage === 'dots' || pagination.active === currentPage ? true : false}
                                 >
                                     {currentPage === "dots" ? <p className="text-base">...</p> : currentPage}
@@ -114,10 +134,9 @@ function Characters({ charactersFiltered, viewFavorites, setSelectedCharacter, s
                     </div>
             }
 
-            
+
         </SectionCharacters>
     )
 }
-
 
 export default Characters
