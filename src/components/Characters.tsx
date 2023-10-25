@@ -9,6 +9,7 @@ import SectionCharacters from './SectionCharacters';
 import { Button } from './ui/button';
 import { DialogTrigger } from './ui/dialog';
 import useLocalStorage from '@/hooks/useLocalStorage';
+import { useInView } from 'react-intersection-observer';
 
 type CharactersProps = {
     charactersFiltered: Character[]
@@ -28,7 +29,10 @@ function Characters({ charactersFiltered, viewFavorites, setSelectedCharacter, s
 
     const [pageActive, setPageActive] = useLocalStorage<number>("CHARACTERS_APP_PAGEACTIVE", 1)
 
-    const scrollRef = useRef<HTMLDivElement>(null);
+    const { ref, inView } = useInView({
+        threshold: 0.5,
+        initialInView: true,
+    });
 
     useEffect(() => {
         if (initialRender) {
@@ -67,11 +71,13 @@ function Characters({ charactersFiltered, viewFavorites, setSelectedCharacter, s
             const newVisibleResults = charactersFiltered.slice(start, end)
             setVisibleResults(newVisibleResults)
             setPageActive(page)
-            setTimeout(() => {
-                if (scrollRef.current) {
-                    scrollRef.current.scrollIntoView({ behavior: "smooth" });
-                }
-            }, 600);
+            // if(howManyRows === 2){
+            //     setTimeout(() => {
+            //         if (ref.current) {
+            //             ref.current.scrollIntoView({ behavior: "smooth" });
+            //         }
+            //     }, 600);
+            // }
         },
         boundaries: 1,
         siblings: 1
@@ -81,7 +87,7 @@ function Characters({ charactersFiltered, viewFavorites, setSelectedCharacter, s
         <SectionCharacters>
             {
                 pagination.range.length > 1 ?
-                    <div ref={scrollRef} id="pagination-buttons" className="w-[70%] flex justify-center">
+                    <div ref={ref} id="pagination-buttons" className={`w-[70%] flex justify-center ${inView ? "scale-100" : "scale-0"} duration-500 transition-all`}>
                         <Button size={windowWidth < 700 ? 'sm' : "default"} variant={'outline'} disabled={1 === pagination.active ? true : false} data-test="paginationBtn-prev" onClick={() => { pagination.setPage(pagination.active - 1); }} className={`text-xl -pt-2`}>«</Button>
                         {pagination.range.map((currentPage, index) => {
                             return (
@@ -92,6 +98,7 @@ function Characters({ charactersFiltered, viewFavorites, setSelectedCharacter, s
                                     key={`${currentPage}-${index}`}
                                     onClick={() => { pagination.setPage(currentPage !== 'dots' ? currentPage : 1); }}
                                     disabled={currentPage === 'dots' || pagination.active === currentPage ? true : false}
+                                    className={currentPage !== 'dots' ? 'disabled:opacity-100 disabled:bg-primary disabled:text-primary-foreground' : ""}
                                 >
                                     {currentPage === "dots" ? <p className="text-base">...</p> : currentPage}
                                 </Button>

@@ -7,16 +7,18 @@ import { characterEmpty } from "../constants";
 import { Button } from "./ui/button";
 
 type LoadingCharactersProps = {
-    howMany: number
+    howMany: number;
+    howManyRows: number;
+    withPagination: boolean
 }
 
-function LoadingCharacters({ howMany }: LoadingCharactersProps) {
+function LoadingCharacters({ howMany, howManyRows, withPagination }: LoadingCharactersProps) {
     const windowWidth = useWindowWidth()
 
     return (
         <SectionCharacters>
             {
-                howMany > 8 ?
+                howMany > 8 && withPagination ?
                     <div data-test="paginationHandler" className="w-[70%] flex justify-center gap-1">
                         <Button variant={'outline'} disabled className={`text-xl -pt-2`}>«</Button>
                         {new Array(3).fill(0).map((_, index) => {
@@ -38,7 +40,7 @@ function LoadingCharacters({ howMany }: LoadingCharactersProps) {
             <CharactersContainer>
                 <>
                     {
-                        Array(getLoadingCards(windowWidth, howMany)).fill(characterEmpty).map((_, index) => {
+                        Array(getLoadingCards(windowWidth, howMany, howManyRows, withPagination)).fill(characterEmpty).map((_, index) => {
                             return (
                                 <div key={index}>
                                     <LoadingCard />

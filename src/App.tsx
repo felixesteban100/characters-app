@@ -143,7 +143,7 @@ function App() {
               <>
                 {
                   isLoading || isFetching ?
-                    <LoadingCharacters howMany={asHowManyAsPossible ? 710 : howMany} />
+                    <LoadingCharacters howManyRows={howManyRows} withPagination={withPagination}  howMany={asHowManyAsPossible ? 710 : howMany} />
                     :
                     isError || charactersFiltered === undefined ?
                       <SectionCharacters>

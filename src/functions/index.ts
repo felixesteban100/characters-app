@@ -190,19 +190,27 @@ export function getRandomImage(images: string[]) {
   });
 } */
 
-export function getLoadingCards(windowWidth: number, howMany: number) {
+export function getLoadingCards(
+  windowWidth: number,
+  howMany: number,
+  howManyRows: number,
+  withPagination: boolean
+) {
   switch (true) {
-    case windowWidth > 782 && windowWidth < 1410 && howMany > 6:
-      return 6;
+    case windowWidth > 782 && windowWidth < 1410 && withPagination:
+      return howManyRows * 3;
 
-    case windowWidth < 782 && howMany > 4:
-      return 4;
+    case windowWidth < 782 && withPagination:
+      return howManyRows * 2;
 
-    case howMany > 8:
-      return 8;
+    case withPagination:
+      return howManyRows * 4;
+
+    case !withPagination:
+      return howMany;
 
     default:
-      return howMany;
+      return howManyRows * 4;
   }
 }
 

@@ -23,7 +23,7 @@ function ImageZoomDialog({ children, isAnimating, setIsAnimating, currentImageTo
             </DialogTrigger>
 
             <DialogContent
-                className="w-[80vw] max-w-[500px] h-[80vh]"
+                className="w-[80vw] max-w-[500px] h-[80vh] xl:w-[80vw] xl:max-w-[600px] xl:h-[95vh]"
             >
                 {/* <div
                     style={{ 
@@ -35,7 +35,8 @@ function ImageZoomDialog({ children, isAnimating, setIsAnimating, currentImageTo
                     className='w-[80vw] max-w-[500px] h-[80vh]'
                 >
                 </div> */}
-                <img className='absolute blur-sm w-[80vw] max-w-[500px] h-[80vh]' src={allImages[currentImageToDisplay]} alt="" />
+                {/* w-[80vw] max-w-[500px] h-[80vh] */}
+                <img className={`${isAnimating ? "opacity-100 " : "opacity-0"} duration-1000 absolute blur-sm h-full w-full object-cover`} src={allImages[currentImageToDisplay]} alt="" />
                 <TransformWrapper
                     initialScale={1}
                     initialPositionX={0}
@@ -46,8 +47,18 @@ function ImageZoomDialog({ children, isAnimating, setIsAnimating, currentImageTo
                             <div
                                 className="absolute w-full h-full flex justify-center overflow-hidden"
                             >
-                                <TransformComponent>
-                                    <img className={`${isAnimating ? "opacity-100 scale-100" : "opacity-0 scale-0"} transition-all duration-300 w-auto h-[75vh] object-cover rounded-md translate-y-10`} src={allImages[currentImageToDisplay]} alt={selectedCharacter.name} loading="lazy" />
+                                <TransformComponent contentClass='w-[75vw] h-[75vh] xl:w-[75vw] xl:h-[90vh] max-w-[450px] xl:max-w-[550px]'>
+                                    <img
+                                        //w-[75vh] xl:w-[60vh]
+                                        className={
+                                            `${isAnimating ? "opacity-100 scale-100" : "opacity-0 scale-0"} 
+                                            transition-all duration-300  
+                                            object-cover rounded-md xl:translate-y-10`
+                                        }
+                                        src={allImages[currentImageToDisplay]}
+                                        alt={selectedCharacter.name}
+                                        loading="lazy"
+                                    />
                                 </TransformComponent>
                                 <div className="absolute z-50 bottom-0 flex gap-2">
                                     <Button
@@ -62,11 +73,11 @@ function ImageZoomDialog({ children, isAnimating, setIsAnimating, currentImageTo
                                             }, 1000);
                                         }}
                                     >
-                                        <ArrowBigLeft/>
+                                        <ArrowBigLeft />
                                     </Button>
-                                    <Button onClick={() => zoomIn()}><PlusIcon/></Button>
-                                    <Button onClick={() => zoomOut()}><MinusIcon/></Button>
-                                    <Button onClick={() => resetTransform()}><RotateCcw/></Button>
+                                    <Button onClick={() => zoomIn()}><PlusIcon /></Button>
+                                    <Button onClick={() => zoomOut()}><MinusIcon /></Button>
+                                    <Button onClick={() => resetTransform()}><RotateCcw /></Button>
                                     <Button
                                         onClick={() => {
                                             setIsAnimating(false);
@@ -79,7 +90,7 @@ function ImageZoomDialog({ children, isAnimating, setIsAnimating, currentImageTo
                                             }, 1000);
                                         }}
                                     >
-                                        <ArrowBigRight/>
+                                        <ArrowBigRight />
                                     </Button>
                                 </div>
                             </div>
