@@ -1,5 +1,5 @@
 import { Character } from '../types';
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState } from 'react'
 import { usePagination } from "@mantine/hooks";
 
 import CharacterComponent from './CharacterComponent';
