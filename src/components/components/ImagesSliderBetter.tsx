@@ -179,11 +179,44 @@ type ImageComponentProps = {
 }
 
 function ImageComponent({ url }: ImageComponentProps) {
+  const [moveImage, setMoveImage] = useState(false)
+  const [position, setPosition] = useState(0)
+
+  useEffect(() => {
+    if (moveImage) {
+      const interval = setInterval(() => {
+        setPosition(prev => {
+          if (prev + 1 > 2) return 0
+          return prev + 1
+        })
+      }, 1000);
+
+      return () => clearInterval(interval);
+    }
+  }, [moveImage])
+
+  function getPosition(position: number) {
+    switch (position) {
+      case 0:
+        return "object-top"
+
+      case 1:
+        return "object-center"
+
+      case 2:
+        return "object-bottom"
+
+      default: return ""
+    }
+  }
+
+
   return (
     <img
+      onClick={() => setMoveImage(prev => !prev)}
       src={url}
       id="currentImage"
-      className={`
+      className={`${getPosition(position)}
         transition-all duration-300 ease-in-out object-cover block w-full h-full 
         flex-shrink-0 flex-grow-0 motion-reduce:transition-none
         `

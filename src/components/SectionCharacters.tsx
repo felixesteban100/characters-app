@@ -9,7 +9,8 @@ function SectionCharacters({children}: SectionCharactersProps) {
             id='section-characters'
             data-test="section-characters"
             //min-h-[90vh]
-            className='flex flex-col gap-10 items-center justify-center -mt-15'
+            //-mt-[25rem] md:-mt-72 lg:-mt-20
+            className='flex flex-col gap-10 items-center justify-center'
         >
             {children}
         </div>

@@ -17,6 +17,21 @@ function LoadingCharacters({ howMany, howManyRows, withPagination }: LoadingChar
 
     return (
         <SectionCharacters>
+
+            <CharactersContainer>
+                <>
+                    {
+                        Array(getLoadingCards(windowWidth, howMany, howManyRows, withPagination)).fill(characterEmpty).map((_, index) => {
+                            return (
+                                <div key={index}>
+                                    <LoadingCard />
+                                </div>
+                            )
+                        })
+                    }
+                </>
+            </CharactersContainer>
+
             {
                 howMany > 8 && withPagination ?
                     <div data-test="paginationHandler" className="w-[70%] flex justify-center gap-1">
@@ -37,19 +52,6 @@ function LoadingCharacters({ howMany, howManyRows, withPagination }: LoadingChar
                     :
                     <div className="w-[70%] flex justify-center"></div>
             }
-            <CharactersContainer>
-                <>
-                    {
-                        Array(getLoadingCards(windowWidth, howMany, howManyRows, withPagination)).fill(characterEmpty).map((_, index) => {
-                            return (
-                                <div key={index}>
-                                    <LoadingCard />
-                                </div>
-                            )
-                        })
-                    }
-                </>
-            </CharactersContainer>
         </SectionCharacters>
     )
 }

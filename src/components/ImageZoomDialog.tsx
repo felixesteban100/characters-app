@@ -23,7 +23,7 @@ function ImageZoomDialog({ children, isAnimating, setIsAnimating, currentImageTo
             </DialogTrigger>
 
             <DialogContent
-                className="w-[80vw] max-w-[500px] h-[80vh] xl:w-[80vw] xl:max-w-[600px] xl:h-[95vh]"
+                className="w-[80vw] max-w-[500px] h-[80vh] xl:w-[80vw] xl:max-w-[600px] xl:h-[95vh] bg-card"
             >
                 {/* <div
                     style={{ 
@@ -51,7 +51,7 @@ function ImageZoomDialog({ children, isAnimating, setIsAnimating, currentImageTo
                                     <img
                                         //w-[75vh] xl:w-[60vh]
                                         className={
-                                            `${isAnimating ? "opacity-100 scale-100" : "opacity-0 scale-0"} 
+                                            `w-full ${isAnimating ? "opacity-100 scale-100" : "opacity-0 scale-0"} 
                                             transition-all duration-300  
                                             object-cover rounded-md xl:translate-y-10`
                                         }

@@ -31,7 +31,7 @@ function CharacterComponent({ setSelectedCharacter, setSelectedCharacterId, curr
                 // card-new
                 //md:image-full
                 className={
-                    `${inView ? "animate-fadeIn " : `animate-fadeOut` } 
+                    `${inView ? "animate-fadeIn " : `animate-fadeOut`} 
                     card-new
                     object-contain 
                     w-full 
@@ -44,7 +44,13 @@ function CharacterComponent({ setSelectedCharacter, setSelectedCharacterId, curr
                     relative`
                 }
             >
-                <img className={`absolute object-cover w-full h-full transition-opacity duration-200 ease-in-out rounded-md md:group-hover/item:blur-sm`} src={currentCharacter.images.md} alt={currentCharacter.name} loading='lazy' /* onLoadCapture={transitionImageCard} */ />
+                <img
+                    //object-top
+                    className={` absolute object-cover w-full h-full transition-opacity duration-200 ease-in-out rounded-md md:group-hover/item:blur-sm`}
+                    src={currentCharacter.images.md}
+                    alt={currentCharacter.name}
+                    loading='lazy'
+                />
                 <div
                     // className={`absolute z-[100] h-[80%] px-5 -translate-y-[18rem] lg:-translate-y-[20rem] group/edit md:invisible group-hover/item:visible transition delay-150 duration-300 ease-in-out flex flex-col justify-between gap-5`}
                     // className={`absolute z-[100] h-[80%] px-5 -translate-y-[18rem] xl:-translate-y-[20rem] group/edit group-hover/item:visible transition delay-150 duration-300 ease-in-out flex flex-col justify-between gap-5`}

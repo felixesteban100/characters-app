@@ -22,7 +22,6 @@ type CharactersProps = {
 }
 
 function Characters({ charactersFiltered, viewFavorites, setSelectedCharacter, setSelectedCharacterId, initialRender, setInitialRender, howManyRows }: CharactersProps) {
-    
     const windowWidth = useWindowWidth()
     const [charactersPerPage, setCharactersPerPage] = useState(8)
     const [visibleResults, setVisibleResults] = useLocalStorage<Character[]>("CHARACTERS_APP_VISIBLERESULTS", charactersFiltered.slice(0, charactersPerPage))
@@ -85,30 +84,7 @@ function Characters({ charactersFiltered, viewFavorites, setSelectedCharacter, s
 
     return (
         <SectionCharacters>
-            {
-                pagination.range.length > 1 ?
-                    <div ref={ref} id="pagination-buttons" className={`w-[70%] flex justify-center ${inView ? "scale-100" : "scale-0"} duration-500 transition-all`}>
-                        <Button size={windowWidth < 700 ? 'sm' : "default"} variant={'outline'} disabled={1 === pagination.active ? true : false} data-test="paginationBtn-prev" onClick={() => { pagination.setPage(pagination.active - 1); }} className={`text-xl -pt-2`}>«</Button>
-                        {pagination.range.map((currentPage, index) => {
-                            return (
-                                <Button
-                                    size={windowWidth < 700 ? 'sm' : "default"}
-                                    variant={'outline'}
-                                    data-test={currentPage === 'dots' ? "paginationBtnDisabled" : `paginationBtn-${index}`}
-                                    key={`${currentPage}-${index}`}
-                                    onClick={() => { pagination.setPage(currentPage !== 'dots' ? currentPage : 1); }}
-                                    disabled={currentPage === 'dots' || pagination.active === currentPage ? true : false}
-                                    className={currentPage !== 'dots' ? 'disabled:opacity-100 disabled:bg-primary disabled:text-primary-foreground' : ""}
-                                >
-                                    {currentPage === "dots" ? <p className="text-base">...</p> : currentPage}
-                                </Button>
-                            )
-                        })}
-                        <Button size={windowWidth < 700 ? 'sm' : "default"} variant={'outline'} disabled={pagination.range[pagination.range.length - 1] === pagination.active ? true : false} data-test="paginationBtn-next" onClick={() => { pagination.setPage(pagination.active + 1); }} className={`join-item btn btn-primary text-xl -pt-2`}>»</Button>
-                    </div>
-                    :
-                    <div className="w-[70%] flex justify-center"></div>
-            }
+
             {
                 visibleResults.length > 0 ?
                     <CharactersContainer>
@@ -140,6 +116,31 @@ function Characters({ charactersFiltered, viewFavorites, setSelectedCharacter, s
                             }
                         </p>
                     </div>
+            }
+
+            {
+                pagination.range.length > 1 ?
+                    <div ref={ref} id="pagination-buttons" className={`w-[70%] flex justify-center ${inView ? "scale-100" : "scale-0"} duration-500 transition-all`}>
+                        <Button size={windowWidth < 700 ? 'sm' : "default"} variant={'outline'} disabled={1 === pagination.active ? true : false} data-test="paginationBtn-prev" onClick={() => { pagination.setPage(pagination.active - 1); }} className={`text-xl -pt-2`}>«</Button>
+                        {pagination.range.map((currentPage, index) => {
+                            return (
+                                <Button
+                                    size={windowWidth < 700 ? 'sm' : "default"}
+                                    variant={'outline'}
+                                    data-test={currentPage === 'dots' ? "paginationBtnDisabled" : `paginationBtn-${index}`}
+                                    key={`${currentPage}-${index}`}
+                                    onClick={() => { pagination.setPage(currentPage !== 'dots' ? currentPage : 1); }}
+                                    disabled={currentPage === 'dots' || pagination.active === currentPage ? true : false}
+                                    className={currentPage !== 'dots' ? 'disabled:opacity-100 disabled:bg-primary disabled:text-primary-foreground' : ""}
+                                >
+                                    {currentPage === "dots" ? <p className="text-base">...</p> : currentPage}
+                                </Button>
+                            )
+                        })}
+                        <Button size={windowWidth < 700 ? 'sm' : "default"} variant={'outline'} disabled={pagination.range[pagination.range.length - 1] === pagination.active ? true : false} data-test="paginationBtn-next" onClick={() => { pagination.setPage(pagination.active + 1); }} className={`join-item btn btn-primary text-xl -pt-2`}>»</Button>
+                    </div>
+                    :
+                    <div className="w-[70%] flex justify-center"></div>
             }
 
 
