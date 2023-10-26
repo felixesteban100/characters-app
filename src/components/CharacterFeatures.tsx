@@ -45,7 +45,7 @@ function CharacterFeatures({ selectedCharacter }: CharacterFeaturesProps) {
             defaultValue="Stats"
             className="w-full"
         >
-            <TabsList className={`grid w-full grid-cols-5  bg-accent/80`}>
+            <TabsList className={`grid w-full grid-cols-5 bg-accent`}>
                 <TabsTrigger className='text-base-content' value="Stats">{windowWidth > 770 ? 'Stats' : '📊'}</TabsTrigger>
                 <TabsTrigger className='text-base-content' value="Appereance">{windowWidth > 770 ? 'Appereance' : '👀'}</TabsTrigger>
                 <TabsTrigger className='text-base-content' value="Biography">{windowWidth > 770 ? 'Biography' : '📜'}</TabsTrigger>

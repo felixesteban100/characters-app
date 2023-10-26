@@ -3,7 +3,7 @@ function LoadingCard() {
     return (
         <div>
             {/* hover:shadow-current hover:shadow-lg hover:scale-110 */}
-            <div className='animate-pulse w-full h-[20rem] md:h-[20rem] xl:h-[22rem] group/item transition-all duration-700 bg-foreground/10 rounded-xl'>
+            <div className='animate-pulse w-full h-[20rem] md:h-[20rem] xl:h-[22rem] group/item transition-all duration-700 bg-accent opacity-10 rounded-xl'>
                 {/* <div className="animate-pulse flex space-x-4">
                     <div className="flex-1 space-y-6 py-1">
                         <div className="space-y-3">
