@@ -124,7 +124,7 @@ function Image({ index, img, tweenValues }: ImageProps) {
     return (
         <div
             ref={ref}
-            className="flex-grow-0 flex-shrink-0 w-[80%] min-h-[500px] max-h-[850px] relative"
+            className="flex-grow-0 flex-shrink-0 w-[80%] min-h-[500px] max-h-[850px] relative pl-5"
         >
             <div className="h-[100%] overflow-x-hidden">
                 <div

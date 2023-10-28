@@ -1,11 +1,4 @@
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-} from "@/components/ui/dialog"
-import { Character } from "@/types"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import FavoriteCharacterButton from "./FavoriteCharacterButton"
 
 import { useEffect, useState } from 'react';
@@ -13,21 +6,21 @@ import { useEffect, useState } from 'react';
 import CharacterFeatures from "./CharacterFeatures";
 import { motion } from "framer-motion"
 import ImageZoomDialog from "./ImageZoomDialog";
-
+import { useSelectedCharacter } from "@/state/selectedCharacter";
+import { useSearchParamsForTheApp } from "@/hooks/useSearchParamsForTheApp";
 
 type DialogCharactersProps = {
     children: JSX.Element;
-    favorites: Character[];
-    selectedCharacter: Character;
-    setFavorites: (favoritesS: Character[]) => void;
-    isDialogOpen: boolean
-    setIsDialogOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-function DialogCharacters({ children, favorites, selectedCharacter, setFavorites, isDialogOpen, setIsDialogOpen }: DialogCharactersProps) {
+function DialogCharacters({ children }: DialogCharactersProps) {
     const [isAnimating, setIsAnimating] = useState(true);
     const [currentImageToDisplay, setCurrentImageToDisplay] = useState<number>(0)
     const [lastCharacter, setLastCharacter] = useState("")
+
+    const { selectedCharacter } = useSelectedCharacter()
+
+    const { isDialogOpen, setSearchParams } = useSearchParamsForTheApp()
 
     const allImages: string[] = [
         selectedCharacter.images.md,
@@ -41,24 +34,28 @@ function DialogCharacters({ children, favorites, selectedCharacter, setFavorites
         }
     }, [selectedCharacter.name])
 
+
     return (
-        <Dialog defaultOpen={isDialogOpen} onOpenChange={() => setIsDialogOpen(prev => !prev)}>
-        {children}
+        <Dialog
+            defaultOpen={isDialogOpen}
+            onOpenChange={() => {
+                setSearchParams((prev) => {
+                    prev.set("isDialogOpen", (!isDialogOpen).toString())
+                    return prev
+                })
+            }}
+        >
+            {children}
             <DialogContent
                 className="w-[80vw] max-w-[1500px] max-h-[90vh] overflow-y-scroll xl:overflow-hidden"
             >
                 <DialogHeader>
                     <DialogTitle className="flex items-center gap-5">
-                        {/* {selectedCharacter.name} */}
                         <FavoriteCharacterButton
-                            favorites={favorites}
-                            setFavorites={setFavorites}
                             selectedCharacter={selectedCharacter}
                         />
                     </DialogTitle>
-                    <DialogDescription className="flex items-center gap-5">
-                        {/* {selectedCharacter.slug} */}
-                    </DialogDescription>
+                    {/* <DialogDescription className="flex items-center gap-5"></DialogDescription> */}
                 </DialogHeader>
 
                 <div className='flex flex-col gap-5'>
@@ -119,7 +116,7 @@ function DialogCharacters({ children, favorites, selectedCharacter, setFavorites
                             </div>
 
                             <div className="flex flex-col xl:h-[60vh] w-[90%] xl:w-[50%] mx-auto mt-5 xl:mt-0">
-                                <CharacterFeatures selectedCharacter={selectedCharacter}/>
+                                <CharacterFeatures selectedCharacter={selectedCharacter} />
                             </div>
                         </div>
                     </div>

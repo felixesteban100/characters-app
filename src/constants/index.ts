@@ -1,5 +1,5 @@
+import { HeroSection } from "../state/heroSection"
 import { Character } from "../types"
-
 
 export const characterEmpty: Character = {
     powerstats: {
@@ -859,34 +859,34 @@ export const batmanandSpider_manObj: Character[] = [
     }
 ]
 
-// "https://media.tenor.com/TY1HfJK5qQYAAAAC/galaxy-pixel-art.gif",
-export const DEFAULT_HERO_SECTION = {
-    imgs:/*  window.innerWidth < 700 
-        ?*/ [
-            // "https://giffiles.alphacoders.com/126/12664.gif",
-            "https://images7.alphacoders.com/133/1330752.png",
-            "https://images.alphacoders.com/440/44051.jpg",
-            "https://images6.alphacoders.com/705/705204.jpg",
-            "https://images3.alphacoders.com/218/218487.jpg",
-            "https://i.imgur.com/j23OCEF.png",
-            "https://i.imgur.com/0Ypbj7B.png",
-            // "https://qph.cf2.quoracdn.net/main-qimg-6a648838e80e15c41d30e00156210861-lq",
-            // "https://cdn.mos.cms.futurecdn.net/yD2Dhn28xkm6iigPB8v6qA.jpg",
-            "https://www.cardboard-display-stand.com/Content/upload/2018304635/201808201648017571975.png"
 
-        ]
-        /* : [
-            // "https://giffiles.alphacoders.com/126/12664.gif",
-            // "https://images7.alphacoders.com/133/1330752.png",
-            // "https://images6.alphacoders.com/705/705204.jpg",
-            // "https://images3.alphacoders.com/218/218487.jpg",
-            "https://qph.cf2.quoracdn.net/main-qimg-6a648838e80e15c41d30e00156210861-lq",
-            "https://cdn.mos.cms.futurecdn.net/yD2Dhn28xkm6iigPB8v6qA.jpg",
-            "https://www.cardboard-display-stand.com/Content/upload/2018304635/201808201648017571975.png"
-        ] */,
-    title: "",
-    description: ""
-}
+export const DEFAULT_HERO_SECTION: HeroSection = {
+    imgs: /*  window.innerWidth < 700 
+          ?*/ [
+      // "https://giffiles.alphacoders.com/126/12664.gif",
+      "https://images7.alphacoders.com/133/1330752.png",
+      "https://images.alphacoders.com/440/44051.jpg",
+      "https://images6.alphacoders.com/705/705204.jpg",
+      "https://images3.alphacoders.com/218/218487.jpg",
+      "https://i.imgur.com/j23OCEF.png",
+      "https://i.imgur.com/0Ypbj7B.png",
+      // "https://qph.cf2.quoracdn.net/main-qimg-6a648838e80e15c41d30e00156210861-lq",
+      // "https://cdn.mos.cms.futurecdn.net/yD2Dhn28xkm6iigPB8v6qA.jpg",
+      "https://www.cardboard-display-stand.com/Content/upload/2018304635/201808201648017571975.png",
+    ],
+    /* : [
+              // "https://giffiles.alphacoders.com/126/12664.gif",
+              // "https://images7.alphacoders.com/133/1330752.png",
+              // "https://images6.alphacoders.com/705/705204.jpg",
+              // "https://images3.alphacoders.com/218/218487.jpg",
+              "https://qph.cf2.quoracdn.net/main-qimg-6a648838e80e15c41d30e00156210861-lq",
+              "https://cdn.mos.cms.futurecdn.net/yD2Dhn28xkm6iigPB8v6qA.jpg",
+              "https://www.cardboard-display-stand.com/Content/upload/2018304635/201808201648017571975.png"
+          ] */ title: "",
+    description: "",
+  };
+
+// "https://media.tenor.com/TY1HfJK5qQYAAAAC/galaxy-pixel-art.gif",
 
 export const DEFAULT_SEARCHPARAMS = {
     viewFavorites: 'false',
@@ -922,4 +922,12 @@ export function getSearchParamsFormatted(searchParams: URLSearchParams) {
         selectedCharacterId: parseInt(searchParams.get("selectedCharacterId") ?? "620"),
         isDialogOpen: searchParams.get("isDialogOpen") === "true"
     }
+}
+
+export const REACT_QUERY_DEFAULT_PROPERTIES = {
+    enabled: true,
+    refetchOnMount: false,
+    refetchOnReconnect: false,
+    refetchOnWindowFocus: false,
+    onError: (error: any) => console.log(error),
 }

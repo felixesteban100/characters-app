@@ -14,14 +14,12 @@ import { useInView } from 'react-intersection-observer';
 type CharactersProps = {
     charactersFiltered: Character[]
     viewFavorites: boolean
-    setSelectedCharacter: (character: Character) => void;
-    setSelectedCharacterId: (idSelected: number) => void;
     initialRender: boolean
     setInitialRender: React.Dispatch<React.SetStateAction<boolean>>;
     howManyRows: number;
 }
 
-function Characters({ charactersFiltered, viewFavorites, setSelectedCharacter, setSelectedCharacterId, initialRender, setInitialRender, howManyRows }: CharactersProps) {
+function Characters({ charactersFiltered, viewFavorites, initialRender, setInitialRender, howManyRows }: CharactersProps) {
     const windowWidth = useWindowWidth()
     const [charactersPerPage, setCharactersPerPage] = useState(8)
     const [visibleResults, setVisibleResults] = useLocalStorage<Character[]>("CHARACTERS_APP_VISIBLERESULTS", charactersFiltered.slice(0, charactersPerPage))
@@ -95,8 +93,6 @@ function Characters({ charactersFiltered, viewFavorites, setSelectedCharacter, s
                                         <DialogTrigger className='grid h-fit' key={currentCharacter._id}>
                                             <CharacterComponent
                                                 indexForTest={index}
-                                                setSelectedCharacter={setSelectedCharacter}
-                                                setSelectedCharacterId={setSelectedCharacterId}
                                                 currentCharacter={currentCharacter}
                                             />
                                         </DialogTrigger>

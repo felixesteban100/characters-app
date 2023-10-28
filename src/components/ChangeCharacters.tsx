@@ -1,4 +1,3 @@
-import { SetURLSearchParams } from "react-router-dom";
 import { ALLALIGMENTS, ALLGENDERS, ALLRACES, ALLUNIVERSE, getTeamByUniverse } from "../constants";
 import { resetCharactersSelection } from "../functions";
 import ButtonChangeCharacter from "./components/ButtonChangeCharacter";
@@ -11,41 +10,31 @@ import { Button } from "./ui/button";
 import SwitchWithIcon from "./components/SwitchWithIcon";
 import useWindowWidth from "@/hooks/useWindowWidth";
 
-import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger,
-} from "@/components/ui/accordion"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Switch } from "./ui/switch";
 import { Separator } from "./ui/separator";
+import { useSearchParamsForTheApp } from "@/hooks/useSearchParamsForTheApp";
+import { useSearchDifferentCharacters } from "@/state/searchDifferentCharacters";
+import useQueryCharacters from "@/api/useQueryCharacters";
+import { useHeroSection } from "../state/heroSection";
 
 
 type ChangeCharactersProps = {
-    characterName: string;
-    howMany: number
-    asHowManyAsPossible: boolean
-    side: string
-    universe: string;
-    team: string;
-    gender: string;
-    race: string;
-    includeNameOrExactName: boolean;
-    characterOrFullName: boolean,
-    refetchCharacters: () => void
-    setHeroSection: React.Dispatch<React.SetStateAction<{ imgs: string[]; title: string; description: string; }>>
-    isLoading: boolean;
-    isFetching: boolean;
-    setSearchDifferentCharacters: React.Dispatch<React.SetStateAction<boolean>>;
-    setSearchParams: SetURLSearchParams;
-    viewFavorites: boolean;
     setWithPagination: React.Dispatch<React.SetStateAction<boolean>>;
     withPagination: boolean;
     howManyRows: number;
     setHowManyRows: React.Dispatch<React.SetStateAction<number>>;
 }
 
-function ModalChangeCharacters({ characterName, howMany, asHowManyAsPossible, gender, side, universe, team, race, includeNameOrExactName, characterOrFullName, refetchCharacters, setHeroSection, isLoading, isFetching, setSearchDifferentCharacters, setSearchParams, viewFavorites, setWithPagination, withPagination, howManyRows, setHowManyRows }: ChangeCharactersProps) {
+function ModalChangeCharacters({ setWithPagination, withPagination, howManyRows, setHowManyRows }: ChangeCharactersProps) {
+    const { asHowManyAsPossible, characterName, characterOrFullName, gender, howMany, includeNameOrExactName, race, side, team, universe, viewFavorites, setSearchParams } = useSearchParamsForTheApp()
+
+    const { setSearchDifferentCharacters } = useSearchDifferentCharacters()
+
+    const { isLoading, isFetching, refetchCharacters } = useQueryCharacters()
+
+    const { changeHeroSection }= useHeroSection()
+
     const teamByUniverse: { name: string, value: string }[] = getTeamByUniverse(universe)
     const windowWidth = useWindowWidth()
 
@@ -81,12 +70,9 @@ function ModalChangeCharacters({ characterName, howMany, asHowManyAsPossible, ge
 
             <div className="grid grid-cols-6 items-center gap-4">
                 <div className="col-span-6 flex flex-col w-full justify-center gap-1.5">
-                    {/* <Label htmlFor="name" className="text-left">Name/s</Label> */}
                     <Input
-                        // id="name"
                         type="search"
                         value={characterName === null ? "" : characterName}
-                        //border-muted-foreground
                         className="col-span-5 overflow-y-auto "
                         onChange={(event) => setSearchParams((prev) => {
                             prev.set('characterName', event.target.value)
@@ -95,17 +81,6 @@ function ModalChangeCharacters({ characterName, howMany, asHowManyAsPossible, ge
                         placeholder={characterOrFullName === false ? "Batman / Batman, Spider-Man..." : "Bruce Wayne, Peter Parker..."}
                     />
                 </div>
-                {/* <Button
-                    variant={'outline'}
-                    onClick={() => setSearchParams((prev) => {
-                        prev.set('characterName', "")
-                        return prev
-                    }, { replace: true })}
-                    size="icon"
-                // className="border-muted-foreground"
-                >
-                    <Eraser className="h-[1.2rem] w-[1.2rem]" />
-                </Button> */}
             </div>
 
             <div className="w-full">
@@ -121,7 +96,6 @@ function ModalChangeCharacters({ characterName, howMany, asHowManyAsPossible, ge
                             }
                         }}
                         disabled={asHowManyAsPossible}
-                    // className="border-muted-foreground"
                     >
                         {`-`}
                     </Button>
@@ -129,7 +103,6 @@ function ModalChangeCharacters({ characterName, howMany, asHowManyAsPossible, ge
                         type={asHowManyAsPossible ? 'string' : 'number'}
                         id="howMany"
                         value={asHowManyAsPossible ? 'All' : howMany}
-                        //border-muted-foreground
                         className="col-span-3 text-center "
                         min={1}
                         max={710}
@@ -159,7 +132,6 @@ function ModalChangeCharacters({ characterName, howMany, asHowManyAsPossible, ge
                             }
                         }}
                         disabled={asHowManyAsPossible}
-                    // className="border-muted-foreground"
                     >
                         {`+`}
                     </Button>
@@ -285,7 +257,7 @@ function ModalChangeCharacters({ characterName, howMany, asHowManyAsPossible, ge
                     dataTest="btn-Reset"
                     classNameSended="btn-danger"
                     functionSended={() => {
-                        resetCharactersSelection(setSearchParams, setHeroSection)
+                        resetCharactersSelection(setSearchParams, changeHeroSection)
                         setSearchParams((prev) => {
                             prev.set('viewFavorites', (false).toString())
                             return prev
@@ -348,7 +320,6 @@ function ModalChangeCharacters({ characterName, howMany, asHowManyAsPossible, ge
                     </div>
                 </div>
 
-
                 {
                     windowWidth > 770 ?
                         <>
@@ -397,8 +368,6 @@ function ModalChangeCharacters({ characterName, howMany, asHowManyAsPossible, ge
                         null
                 }
             </div>
-
-
         </div>
     )
 }

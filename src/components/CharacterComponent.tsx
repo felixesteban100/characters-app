@@ -1,16 +1,19 @@
 import { useInView } from 'react-intersection-observer';
 import { Character } from '../types';
 import { publisherIMG/* , transitionImageCard */ } from '../functions';
+import { useSelectedCharacter } from '@/state/selectedCharacter';
+import { useSearchParamsForTheApp } from '@/hooks/useSearchParamsForTheApp';
 
 type CharacterProps = {
-    // setSelectedCharacter: React.Dispatch<React.SetStateAction<Character>>
     currentCharacter: Character;
     indexForTest: number;
-    setSelectedCharacter: (character: Character) => void
-    setSelectedCharacterId: (idSelected: number) => void;
 }
 
-function CharacterComponent({ setSelectedCharacter, setSelectedCharacterId, currentCharacter, indexForTest }: CharacterProps) {
+function CharacterComponent({ currentCharacter, indexForTest }: CharacterProps) {
+    const { changeSelectedCharacter } = useSelectedCharacter()
+
+    const { setSearchParams } = useSearchParamsForTheApp()
+
     const { ref, inView } = useInView({
         threshold: 0.5,
         initialInView: true,
@@ -20,8 +23,11 @@ function CharacterComponent({ setSelectedCharacter, setSelectedCharacterId, curr
         <div
             data-test={`character-${indexForTest}`}
             onClick={() => {
-                setSelectedCharacterId(currentCharacter.id)
-                setSelectedCharacter(currentCharacter)
+                setSearchParams((prev) => {
+                    prev.set('selectedCharacterId', currentCharacter.id.toString())
+                    return prev
+                })
+                changeSelectedCharacter(currentCharacter)
             }}
             className={`cursor-pointer group/item`}
         >

@@ -1,65 +1,15 @@
 import { SetURLSearchParams } from "react-router-dom";
 import { DEFAULT_HERO_SECTION, getTeamByUniverse } from "../constants";
 import { Character } from "../types";
+import { HeroSection } from "../state/heroSection";
 
 export function resetCharactersSelection(
   setSearchParams: SetURLSearchParams,
-
-  // setCharacterName: React.Dispatch<React.SetStateAction<string>>,
-  // setHowMany: React.Dispatch<React.SetStateAction<number>>,
-  // setAsHowManyAsPossible: React.Dispatch<React.SetStateAction<boolean>>,
-  // setSide: React.Dispatch<React.SetStateAction<string>>,
-  // setUniverse: React.Dispatch<React.SetStateAction<string>>,
-  // setTeam: React.Dispatch<React.SetStateAction<string>>,
-  // setGender: React.Dispatch<React.SetStateAction<string>>,
-  setHeroSection: React.Dispatch<
-    React.SetStateAction<{
-      imgs: string[];
-      title: string;
-      description: string;
-    }>
-  >
-  // setTeamMembers: React.Dispatch<React.SetStateAction<Character[]>>,
-
-  // setCharacterName: (name: string) => void,
-  // setHowMany: (num: number) => void,
-  // setAsHowManyAsPossible: (howManyAsP?: boolean) => void,
-  // setSide: (sideS: string) => void,
-  // setUniverse: (universeS: string) => void,
-  // setTeam: (teamS: string) => void,
-  // setGender: (genderS: string) => void,
-  // setRace: (raceS: string) => void,
-  // setHeroSection: (heroSec: {
-  //   imgs: string[];
-  //   title: string;
-  //   description: string;
-  // }) => void,
-  // setTeamMembers: (name: Character[]) => void,
-  // setIncludeNameOrExactName: (includeOrExact?: boolean) => void,
-  // setCharacterOrFullName: (characOrFullName?: boolean) => void
+  changeHeroSection: (heroSection: HeroSection) => void,
 ) {
-  // localStorage.removeItem('CHARACTERS_APP_ALLCHARACTERS')
-  // localStorage.removeItem("CHARACTERS_APP_CHARACTERSFILTERED");
-  // localStorage.removeItem("CHARACTERS_APP_NAME");
-  // localStorage.removeItem("CHARACTERS_APP_HOWMANY");
-  // localStorage.removeItem("CHARACTERS_APP_ASHOWMANYASPOSSIBLE");
-  // localStorage.removeItem("CHARACTERS_APP_SIDE");
-  // localStorage.removeItem("CHARACTERS_APP_UNIVERSE");
-  // localStorage.removeItem("CHARACTERS_APP_TEAM");
-  // localStorage.removeItem("CHARACTERS_APP_GENDER");
-  // localStorage.removeItem("CHARACTERS_APP_RACE");
-  // localStorage.removeItem("CHARACTERS_APP_TEAMMEMBERS");
+ 
   localStorage.removeItem("CHARACTERS_APP_HEROSECTION");
   localStorage.removeItem("CHARACTERS_APP_SEARCHPARAMS");
-
-  // setCharacterName("")
-  // setHowMany(8)
-  // setAsHowManyAsPossible(false)
-  // setSide("All")
-  // setUniverse("All")
-  // setTeam("All")
-  // setGender("All")
-  // setRace("All")
 
   setSearchParams(
     (prev) => {
@@ -80,12 +30,7 @@ export function resetCharactersSelection(
     { replace: true }
   );
 
-  setHeroSection(DEFAULT_HERO_SECTION);
-  // setTeamMembers([])
-  // setIncludeNameOrExactName(false)
-  // setIncludeNameOrExactName()
-  // setCharacterOrFullName(false)
-  // setCharacterOrFullName()
+  changeHeroSection(DEFAULT_HERO_SECTION);
 }
 
 export function manageFavorite(

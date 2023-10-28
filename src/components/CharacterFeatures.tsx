@@ -16,12 +16,7 @@ import {
 } from "@/components/ui/accordion"
 import FeatureTabContainer from "./components/FeatureTabContainer";
 
-import {
-    Tooltip,
-    TooltipContent,
-    TooltipProvider,
-    TooltipTrigger,
-} from "@/components/ui/tooltip"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 
 import { useState } from 'react'
 import ImageZoomDialog from "./ImageZoomDialog";

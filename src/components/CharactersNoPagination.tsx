@@ -7,12 +7,9 @@ import { DialogTrigger } from './ui/dialog';
 type CharactersProps = {
     charactersFiltered: Character[]
     viewFavorites: boolean
-    setSelectedCharacter: (character: Character) => void;
-    setSelectedCharacterId: (idSelected: number) => void;
 }
 
-function CharactersNoPagination({ charactersFiltered, viewFavorites, setSelectedCharacter, setSelectedCharacterId }: CharactersProps) {
-
+function CharactersNoPagination({ charactersFiltered, viewFavorites }: CharactersProps) {
     return (
         <SectionCharacters>
             {
@@ -25,8 +22,6 @@ function CharactersNoPagination({ charactersFiltered, viewFavorites, setSelected
                                         <DialogTrigger className='grid h-fit' key={currentCharacter._id}>
                                             <CharacterComponent
                                                 indexForTest={index}
-                                                setSelectedCharacter={setSelectedCharacter}
-                                                setSelectedCharacterId={setSelectedCharacterId}
                                                 currentCharacter={currentCharacter}
                                             />
                                         </DialogTrigger>
