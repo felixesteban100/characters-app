@@ -1,9 +1,9 @@
 import { Dialog, DialogContent, DialogTrigger } from './ui/dialog';
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { Button } from "./ui/button";
-import { Character } from '@/types';
 
 import { ArrowBigLeft, ArrowBigRight, PlusIcon, MinusIcon, RotateCcw } from 'lucide-react'
+import { useSelectedCharacter } from '@/state/selectedCharacter';
 
 type ImageZoomDialogProps = {
     children: JSX.Element;
@@ -12,10 +12,11 @@ type ImageZoomDialogProps = {
     currentImageToDisplay: number;
     setCurrentImageToDisplay: React.Dispatch<React.SetStateAction<number>>
     allImages: string[];
-    selectedCharacter: Character
 }
 
-function ImageZoomDialog({ children, isAnimating, setIsAnimating, currentImageToDisplay, setCurrentImageToDisplay, allImages, selectedCharacter }: ImageZoomDialogProps) {
+function ImageZoomDialog({ children, isAnimating, setIsAnimating, currentImageToDisplay, setCurrentImageToDisplay, allImages }: ImageZoomDialogProps) {
+    const { selectedCharacter } = useSelectedCharacter()
+
     return (
         <Dialog>
             <DialogTrigger className='flex'>

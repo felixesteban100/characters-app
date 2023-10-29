@@ -1,13 +1,12 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import FavoriteCharacterButton from "./FavoriteCharacterButton"
-
 import { useEffect, useState } from 'react';
-
 import CharacterFeatures from "./CharacterFeatures";
 import { motion } from "framer-motion"
 import ImageZoomDialog from "./ImageZoomDialog";
 import { useSelectedCharacter } from "@/state/selectedCharacter";
 import { useSearchParamsForTheApp } from "@/hooks/useSearchParamsForTheApp";
+import { DialogDescription } from "@radix-ui/react-dialog";
 
 type DialogCharactersProps = {
     children: JSX.Element;
@@ -51,11 +50,9 @@ function DialogCharacters({ children }: DialogCharactersProps) {
             >
                 <DialogHeader>
                     <DialogTitle className="flex items-center gap-5">
-                        <FavoriteCharacterButton
-                            selectedCharacter={selectedCharacter}
-                        />
+                        <FavoriteCharacterButton/>
                     </DialogTitle>
-                    {/* <DialogDescription className="flex items-center gap-5"></DialogDescription> */}
+                    <DialogDescription className="flex items-center gap-5">{selectedCharacter.slug}</DialogDescription>
                 </DialogHeader>
 
                 <div className='flex flex-col gap-5'>
@@ -71,14 +68,12 @@ function DialogCharacters({ children }: DialogCharactersProps) {
                                         currentImageToDisplay={currentImageToDisplay}
                                         setCurrentImageToDisplay={setCurrentImageToDisplay}
                                         allImages={allImages}
-                                        selectedCharacter={selectedCharacter}
                                     >
                                         <label className='group cursor-pointer w-full h-full' htmlFor={`my-modal-imageZoom`}>
                                             <motion.img className={`transition-all duration-300 absolute w-full h-full object-cover blur-sm group-focus-visible:animate-pulse group-hover:animate-pulse `} src={allImages[currentImageToDisplay]} alt={selectedCharacter.name} loading="lazy" />
                                             <motion.img className={` ${isAnimating ? "opacity-100 scale-100" : "opacity-0 scale-0"} transition-all duration-300 absolute w-[90%] h-[90%] object-cover rounded-md ml-3 md:ml-5 mt-5`} src={allImages[currentImageToDisplay]} alt={selectedCharacter.name} loading="lazy" />
                                         </label>
                                     </ImageZoomDialog>
-
                                 </div>
 
                                 <div className='self-center mt-5'>
@@ -116,7 +111,7 @@ function DialogCharacters({ children }: DialogCharactersProps) {
                             </div>
 
                             <div className="flex flex-col xl:h-[60vh] w-[90%] xl:w-[50%] mx-auto mt-5 xl:mt-0">
-                                <CharacterFeatures selectedCharacter={selectedCharacter} />
+                                <CharacterFeatures />
                             </div>
                         </div>
                     </div>
@@ -127,5 +122,3 @@ function DialogCharacters({ children }: DialogCharactersProps) {
 }
 
 export default DialogCharacters
-
-

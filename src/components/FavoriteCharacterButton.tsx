@@ -1,17 +1,17 @@
 import { useFavorites } from '@/state/favorites'
 import { manageFavorite } from '../functions'
-import { Character } from '../types'
 
 import { Label } from './ui/label'
 import { Switch } from './ui/switch'
+import { useSelectedCharacter } from '@/state/selectedCharacter'
 
 type FavoriteCharacterButtonProps = {
-    selectedCharacter: Character
 }
 
-function FavoriteCharacterButton({ selectedCharacter }: FavoriteCharacterButtonProps) {
+function FavoriteCharacterButton({ }: FavoriteCharacterButtonProps) {
     const { favorites, setFavorites } = useFavorites()
-    
+    const { selectedCharacter } = useSelectedCharacter()
+
     return (
         <div className="flex items-center gap-2">
             <Switch
