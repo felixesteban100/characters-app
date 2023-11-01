@@ -33,7 +33,7 @@ function LoadingCharacters({ howMany, howManyRows, withPagination }: LoadingChar
             </CharactersContainer>
 
             {
-                howMany > 8 && withPagination ?
+                /* howMany > 8 &&  */withPagination === true ?
                     <div data-test="paginationHandler" className="w-[70%] flex justify-center gap-1">
                         <Button variant={'outline'} disabled className={`text-xl -pt-2`}>«</Button>
                         {new Array(3).fill(0).map((_, index) => {

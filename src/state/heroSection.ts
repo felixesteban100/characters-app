@@ -17,7 +17,7 @@ export const useHeroSection = create<useHeroSectionState>()(
   persist(
     (set) => ({
       heroSection: DEFAULT_HERO_SECTION,
-      changeHeroSection: (heroSection: HeroSection) => set((state) => ({ ...state, currentUser: { ...heroSection } })),
+      changeHeroSection: (heroSection: HeroSection) => set((state) => ({ ...state, heroSection: { ...heroSection } })),
     }),
     {
       name: "CHARACTERS_APP_HEROSECTION",

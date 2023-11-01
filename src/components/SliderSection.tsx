@@ -7,6 +7,8 @@ type SliderSectionProps = {}
 function SliderSection({ }: SliderSectionProps) {
     const { heroSection } = useHeroSection()
 
+    console.log(heroSection)
+
     return (
         <div
         // className={`max-w-[100vw] w-full h-[95vh] my-0 mx-auto -translate-y-16 overflow-hidden bg-scroll`}

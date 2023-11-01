@@ -9,12 +9,9 @@ import { resetCharactersSelection } from './functions';
 import useLocalStorage from './hooks/useLocalStorage';
 import { Route, Routes } from 'react-router-dom';
 import SliderSection from './components/SliderSection';
-
 import DialogCharacters from './components/DialogCharacters';
-
 import CharactersNoPagination from './components/CharactersNoPagination';
 import favoriteSound from './assets/favoriteSound.mp3'
-
 import { useToast } from "@/components/ui/use-toast"
 import { useSearchParamsForTheApp } from './hooks/useSearchParamsForTheApp';
 import useQueryCharacters from './api/useQueryCharacters';
@@ -28,7 +25,7 @@ function App() {
 
   const { asHowManyAsPossible, howMany, viewFavorites, setSearchParams } = useSearchParamsForTheApp()
 
-  const { charactersFiltered, refetchCharacters, isLoading, isFetching, isError } = useQueryCharacters()
+  const { charactersFiltered, refetchCharacters, isLoading, isFetching, isError, setSearchDifferentCharacters } = useQueryCharacters()
   const { changeHeroSection } = useHeroSection()
 
   const { favorites } = useFavorites()
@@ -36,7 +33,7 @@ function App() {
   const [withPagination, setWithPagination] = useLocalStorage<boolean>("CHARACTERS_APP_WITHPAGINATION", false)
   const [howManyRows, setHowManyRows] = useLocalStorage("CHARACTERS_APP_HOWMANYROWS", 1)
 
-  useKeyPress('Enter', () => { setViewFavorites(false); refetchCharacters(); });
+  useKeyPress('Enter', () => { setViewFavorites(false); setSearchDifferentCharacters(true); setTimeout(() => refetchCharacters()); });
   useKeyPress('z', () => setViewFavorites(!viewFavorites));
   useKeyPress('r', () => { resetCharactersSelection(setSearchParams, changeHeroSection); setViewFavorites(false); });
 
@@ -65,13 +62,13 @@ function App() {
           path="*"
           element={
             <>
-              <Header>
-                <ChangeCharacters
-                  setWithPagination={setWithPagination}
-                  withPagination={withPagination}
-                  howManyRows={howManyRows}
-                  setHowManyRows={setHowManyRows}
-                />
+              <Header
+                setWithPagination={setWithPagination}
+                withPagination={withPagination}
+                howManyRows={howManyRows}
+                setHowManyRows={setHowManyRows}
+              >
+                <ChangeCharacters />
               </Header>
 
               <SliderSection/>

@@ -8,11 +8,6 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Button } from "./ui/button";
 
 import SwitchWithIcon from "./components/SwitchWithIcon";
-import useWindowWidth from "@/hooks/useWindowWidth";
-
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { Switch } from "./ui/switch";
-import { Separator } from "./ui/separator";
 import { useSearchParamsForTheApp } from "@/hooks/useSearchParamsForTheApp";
 import { useSearchDifferentCharacters } from "@/state/searchDifferentCharacters";
 import useQueryCharacters from "@/api/useQueryCharacters";
@@ -20,13 +15,13 @@ import { useHeroSection } from "../state/heroSection";
 
 
 type ChangeCharactersProps = {
-    setWithPagination: React.Dispatch<React.SetStateAction<boolean>>;
-    withPagination: boolean;
-    howManyRows: number;
-    setHowManyRows: React.Dispatch<React.SetStateAction<number>>;
+    // setWithPagination: React.Dispatch<React.SetStateAction<boolean>>;
+    // withPagination: boolean;
+    // howManyRows: number;
+    // setHowManyRows: React.Dispatch<React.SetStateAction<number>>;
 }
 
-function ModalChangeCharacters({ setWithPagination, withPagination, howManyRows, setHowManyRows }: ChangeCharactersProps) {
+function ModalChangeCharacters({ /* setWithPagination, withPagination, howManyRows, setHowManyRows */ }: ChangeCharactersProps) {
     const { asHowManyAsPossible, characterName, characterOrFullName, gender, howMany, includeNameOrExactName, race, side, team, universe, viewFavorites, setSearchParams } = useSearchParamsForTheApp()
 
     const { setSearchDifferentCharacters } = useSearchDifferentCharacters()
@@ -36,7 +31,7 @@ function ModalChangeCharacters({ setWithPagination, withPagination, howManyRows,
     const { changeHeroSection }= useHeroSection()
 
     const teamByUniverse: { name: string, value: string }[] = getTeamByUniverse(universe)
-    const windowWidth = useWindowWidth()
+    // const windowWidth = useWindowWidth()
 
     return (
         <div className="min-h-fit">
@@ -263,13 +258,13 @@ function ModalChangeCharacters({ setWithPagination, withPagination, howManyRows,
                             return prev
                         }, { replace: true })
                         setSearchDifferentCharacters(true)
-                        setTimeout(() => refetchCharacters())
+                        // setTimeout(() => refetchCharacters())
                     }}
                     forWhat="Reset filters 🔁"
                     variantS={'secondary'}
                 />
 
-                <Separator className="my-2" />
+                {/* <Separator className="my-2" />
                 <p className="text-[1.1rem] font-bold text-center">Characters view settings</p>
                 <div>
                     <div className="flex items-center justify-center gap-2">
@@ -318,9 +313,9 @@ function ModalChangeCharacters({ setWithPagination, withPagination, howManyRows,
                         </div>
                         <p className="flex-shrink-0"># Rows</p>
                     </div>
-                </div>
+                </div> */}
 
-                {
+                {/* {
                     windowWidth > 770 ?
                         <>
                             <Separator className="my-2" />
@@ -366,7 +361,7 @@ function ModalChangeCharacters({ setWithPagination, withPagination, howManyRows,
                         </>
                         :
                         null
-                }
+                } */}
             </div>
         </div>
     )
