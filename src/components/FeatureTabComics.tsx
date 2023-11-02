@@ -1,14 +1,15 @@
-import { useSelectedCharacter } from "@/state/selectedCharacter"
 import FeatureTabContainer from "./components/FeatureTabContainer"
 import ImageZoomDialog from "./ImageZoomDialog";
 import StatContainer from "./components/StatContainer";
 import { useState } from "react";
 import { organizedComicsProperty } from "@/constants";
+import { Character } from "@/types";
 
-type FeatureTabComicsProps = {}
+type FeatureTabComicsProps = {
+    selectedCharacter: Character
+}
 
-function FeatureTabComics({ }: FeatureTabComicsProps) {
-    const { selectedCharacter } = useSelectedCharacter()
+function FeatureTabComics({ selectedCharacter }: FeatureTabComicsProps) {
     const [isAnimating, setIsAnimating] = useState(true);
     const [currentImageToDisplay, setCurrentImageToDisplay] = useState<number>(0)
 

@@ -1,7 +1,7 @@
 import { useInView } from 'react-intersection-observer';
 import { Character } from '../types';
 import { publisherIMG/* , transitionImageCard */ } from '../functions';
-import { useSelectedCharacter } from '@/state/selectedCharacter';
+import { setSelectedCharacter } from '@/flow/selectedCharacter';
 import { useSearchParamsForTheApp } from '@/hooks/useSearchParamsForTheApp';
 
 type CharacterProps = {
@@ -10,8 +10,6 @@ type CharacterProps = {
 }
 
 function CharacterComponent({ currentCharacter, indexForTest }: CharacterProps) {
-    const { changeSelectedCharacter } = useSelectedCharacter()
-
     const { setSearchParams } = useSearchParamsForTheApp()
 
     const { ref, inView } = useInView({
@@ -27,7 +25,7 @@ function CharacterComponent({ currentCharacter, indexForTest }: CharacterProps) 
                     prev.set('selectedCharacterId', currentCharacter.id.toString())
                     return prev
                 })
-                changeSelectedCharacter(currentCharacter)
+                setSelectedCharacter(currentCharacter)
             }}
             className={`cursor-pointer group/item`}
         >

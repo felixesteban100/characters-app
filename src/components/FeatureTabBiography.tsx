@@ -1,4 +1,3 @@
-import { useSelectedCharacter } from "@/state/selectedCharacter"
 import FeatureTabContainer from "./components/FeatureTabContainer"
 import StatContainer from "./components/StatContainer"
 import { Separator } from "./ui/separator"
@@ -6,14 +5,14 @@ import StatString from "./components/StatString"
 import { Accordion } from "./ui/accordion"
 import StatAccordion from "./components/StatAccordion"
 import { publisherIMG } from "@/functions"
-import useWindowWidth from "@/hooks/useWindowWidth"
+import { windowWidth } from "@/flow/windowWidth"
+import { Character } from "@/types"
 
-type FeatureTabBiographyProps = {}
+type FeatureTabBiographyProps = {
+    selectedCharacter: Character
+}
 
-function FeatureTabBiography({ }: FeatureTabBiographyProps) {
-    const { selectedCharacter } = useSelectedCharacter()
-    const windowWidth = useWindowWidth()
-
+function FeatureTabBiography({ selectedCharacter }: FeatureTabBiographyProps) {
     return (
         <FeatureTabContainer
                 valueTab="Biography"
@@ -39,7 +38,7 @@ function FeatureTabBiography({ }: FeatureTabBiographyProps) {
                         <div className="flex items-center gap-2">
                             <p className='text-2xl md:text-3xl'>📚</p>
                             {
-                                windowWidth > 770
+                                windowWidth.value > 770
                                     ? <p>Publisher</p>
                                     : null
                             }

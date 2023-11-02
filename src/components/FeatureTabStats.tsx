@@ -1,14 +1,14 @@
-import { useSelectedCharacter } from "@/state/selectedCharacter"
 import FeatureTabContainer from "./components/FeatureTabContainer"
 import StatContainer from "./components/StatContainer"
 import StatNumber from "./components/StatNumber"
 import { Separator } from "./ui/separator"
+import { Character } from "@/types"
 
-type FeatureTabStatsProps = {}
+type FeatureTabStatsProps = {
+    selectedCharacter: Character
+}
 
-function FeatureTabStats({ }: FeatureTabStatsProps) {
-    const { selectedCharacter } = useSelectedCharacter()
-
+function FeatureTabStats({ selectedCharacter }: FeatureTabStatsProps) {
     return (
         <FeatureTabContainer
             valueTab="Stats"

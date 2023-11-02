@@ -1,94 +1,95 @@
 import { Character } from '../types';
-import { useEffect, useState } from 'react'
 import { usePagination } from "@mantine/hooks";
-
 import CharacterComponent from './CharacterComponent';
 import CharactersContainer from './CharactersContainer';
-import useWindowWidth from '../hooks/useWindowWidth';
+import { windowWidth } from '../flow/windowWidth';
 import SectionCharacters from './SectionCharacters';
 import { Button } from './ui/button';
 import { DialogTrigger } from './ui/dialog';
-import useLocalStorage from '@/hooks/useLocalStorage';
 import { useInView } from 'react-intersection-observer';
+import { computed, signal, effect, Signal } from '@preact/signals-react';
+import { charactersSignal } from '../data/useQueryCharacters'
+import { viewFavorites } from '@/flow/viewFavorites';
+import { favorites } from '@/flow/favorites';
+import { howManyRows } from '@/flow/howManyRows';
 
-type CharactersProps = {
-    charactersFiltered: Character[]
-    viewFavorites: boolean
-    initialRender: boolean
-    setInitialRender: React.Dispatch<React.SetStateAction<boolean>>;
-    howManyRows: number;
+const pageActive = signal(getPageActive())
+
+function getPageActive() {
+    const value = localStorage.getItem("CHARACTERS_APP_PAGEACTIVE");
+    if (value == null) return 1;
+    return JSON.parse(value);
 }
 
-function Characters({ charactersFiltered, viewFavorites, initialRender, setInitialRender, howManyRows }: CharactersProps) {
-    const windowWidth = useWindowWidth()
-    const [charactersPerPage, setCharactersPerPage] = useState(8)
-    const [visibleResults, setVisibleResults] = useLocalStorage<Character[]>("CHARACTERS_APP_VISIBLERESULTS", charactersFiltered.slice(0, charactersPerPage))
+export function setPageActive(page: number) {
+    pageActive.value = page
+}
 
-    const [pageActive, setPageActive] = useLocalStorage<number>("CHARACTERS_APP_PAGEACTIVE", 1)
+effect(() => {
+    localStorage.setItem(
+        "CHARACTERS_APP_PAGEACTIVE",
+        JSON.stringify(pageActive.value)
+    );
+});
 
+const charactersPerPage = computed(getCharactersPerPage)
+function getCharactersPerPage(): number {
+    switch (true) {
+        case windowWidth.value > 782 && windowWidth.value < 1285:
+            return howManyRows.value * 3 //6
+            break;
+        case windowWidth.value < 782:
+            return howManyRows.value * 2 //4;
+            break;
+        default:
+            return howManyRows.value * 4 //8;
+            break;
+    }
+}
+
+const start = computed(() => (pageActive.value - 1) * charactersPerPage.value)
+const end = computed(() => start.value + charactersPerPage.value)
+
+const visibleResults: Signal<Character[]> = computed(() => {
+    if (viewFavorites.value === true) return favorites.value.slice(start.value, end.value)
+    return charactersSignal.value.slice(start.value, end.value)
+})
+
+effect(() => {
+    localStorage.setItem(
+        "CHARACTERS_APP_VISIBLERESULTS",
+        JSON.stringify(visibleResults.value)
+    );
+});
+
+const paginationTotal = computed(() => {
+    return viewFavorites.value === true ? Math.ceil(favorites.value.length / charactersPerPage.value) : Math.ceil(charactersSignal.value.length / charactersPerPage.value)
+})
+
+type CharactersProps = {}
+
+function Characters({ }: CharactersProps) {
     const { ref, inView } = useInView({
         threshold: 0.5,
         initialInView: true,
     });
 
-    useEffect(() => {
-        if (initialRender) {
-            setInitialRender(false);
-        } else {
-            setVisibleResults(charactersFiltered.slice(0, charactersPerPage))
-        }
-    }, [charactersFiltered])
-
-    useEffect(() => {
-        let newValue
-        switch (true) {
-            case windowWidth > 782 && windowWidth < 1285:
-                newValue = howManyRows * 3 //6
-                break;
-            case windowWidth < 782:
-                newValue = howManyRows * 2 //4;
-                break;
-            default:
-                newValue = howManyRows * 4 //8;
-                break;
-        }
-        setCharactersPerPage(newValue);
-        if (!initialRender) {
-            pagination.setPage(1);
-            setVisibleResults(charactersFiltered.slice(0, newValue));
-        }
-    }, [windowWidth, howManyRows])
-
     const pagination = usePagination({
-        total: Math.ceil(charactersFiltered.length / charactersPerPage),
-        page: pageActive,
-        onChange(page: number) {
-            const start = (page - 1) * charactersPerPage
-            const end = start + charactersPerPage
-            const newVisibleResults = charactersFiltered.slice(start, end)
-            setVisibleResults(newVisibleResults)
-            setPageActive(page)
-            // if(howManyRows === 2){
-            //     setTimeout(() => {
-            //         if (ref.current) {
-            //             ref.current.scrollIntoView({ behavior: "smooth" });
-            //         }
-            //     }, 600);
-            // }
-        },
+        total: paginationTotal.value,
+        page: pageActive.value,
+        onChange: setPageActive,
         boundaries: 1,
         siblings: 1
     })
 
     return (
         <SectionCharacters>
-
             {
-                visibleResults.length > 0 ?
+                visibleResults.value.length > 0 ?
                     <CharactersContainer>
                         <>
                             {
-                                visibleResults.map((currentCharacter, index) => {
+                                visibleResults.value.map((currentCharacter, index) => {
                                     return (
                                         <DialogTrigger className='grid h-fit' key={currentCharacter._id}>
                                             <CharacterComponent
@@ -102,26 +103,34 @@ function Characters({ charactersFiltered, viewFavorites, initialRender, setIniti
                         </>
                     </CharactersContainer>
                     :
-                    <div>
-                        <p className='text-primary text-4xl text-center'>
-                            {
+                    charactersSignal.value.length > 0 ?
+                        <div>
+                            <p className='text-primary text-4xl text-center'>
+                                Wrong page in the pagination 😐
+                            </p>
+                        </div>
+                        :
+                        <div>
+                            <p className='text-primary text-4xl text-center'>
+                                {/* {
                                 viewFavorites ?
                                     "No favorites"
                                     :
                                     "No characters found"
-                            }
-                        </p>
-                    </div>
+                            } */}
+                                No characters Founded 😥
+                            </p>
+                        </div>
             }
 
             {
                 pagination.range.length > 1 ?
                     <div ref={ref} id="pagination-buttons" className={`w-[70%] flex justify-center ${inView ? "scale-100" : "scale-0"} duration-500 transition-all`}>
-                        <Button size={windowWidth < 700 ? 'sm' : "default"} variant={'outline'} disabled={1 === pagination.active ? true : false} data-test="paginationBtn-prev" onClick={() => { pagination.setPage(pagination.active - 1); }} className={`text-xl -pt-2`}>«</Button>
+                        <Button size={windowWidth.value < 700 ? 'sm' : "default"} variant={'outline'} disabled={1 === pagination.active ? true : false} data-test="paginationBtn-prev" onClick={() => { pagination.setPage(pagination.active - 1); }} className={`text-xl -pt-2`}>«</Button>
                         {pagination.range.map((currentPage, index) => {
                             return (
                                 <Button
-                                    size={windowWidth < 700 ? 'sm' : "default"}
+                                    size={windowWidth.value < 700 ? 'sm' : "default"}
                                     variant={'outline'}
                                     data-test={currentPage === 'dots' ? "paginationBtnDisabled" : `paginationBtn-${index}`}
                                     key={`${currentPage}-${index}`}
@@ -133,12 +142,11 @@ function Characters({ charactersFiltered, viewFavorites, initialRender, setIniti
                                 </Button>
                             )
                         })}
-                        <Button size={windowWidth < 700 ? 'sm' : "default"} variant={'outline'} disabled={pagination.range[pagination.range.length - 1] === pagination.active ? true : false} data-test="paginationBtn-next" onClick={() => { pagination.setPage(pagination.active + 1); }} className={`join-item btn btn-primary text-xl -pt-2`}>»</Button>
+                        <Button size={windowWidth.value < 700 ? 'sm' : "default"} variant={'outline'} disabled={pagination.range[pagination.range.length - 1] === pagination.active ? true : false} data-test="paginationBtn-next" onClick={() => { pagination.setPage(pagination.active + 1); }} className={`join-item btn btn-primary text-xl -pt-2`}>»</Button>
                     </div>
                     :
                     <div className="w-[70%] flex justify-center"></div>
             }
-
 
         </SectionCharacters>
     )

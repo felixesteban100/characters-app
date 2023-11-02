@@ -1,59 +1,45 @@
-import { useEffect, useState } from 'react'
-import Characters from "./components/Characters"
+import Characters, { setPageActive } from "./components/Characters"
 import Header from './components/Header';
 import ChangeCharacters from './components/ChangeCharacters';
 import LoadingCharacters from './components/LoadingCharacters';
 import SectionCharacters from './components/SectionCharacters';
 import useKeyPress from './hooks/useKeyPress';
 import { resetCharactersSelection } from './functions';
-import useLocalStorage from './hooks/useLocalStorage';
 import { Route, Routes } from 'react-router-dom';
 import SliderSection from './components/SliderSection';
 import DialogCharacters from './components/DialogCharacters';
 import CharactersNoPagination from './components/CharactersNoPagination';
-import favoriteSound from './assets/favoriteSound.mp3'
-import { useToast } from "@/components/ui/use-toast"
 import { useSearchParamsForTheApp } from './hooks/useSearchParamsForTheApp';
-import useQueryCharacters from './api/useQueryCharacters';
-import { useHeroSection } from './state/heroSection';
-import { useFavorites } from './state/favorites';
+import useQueryCharacters, { charactersSignal } from './data/useQueryCharacters';
+import { setHeroSection } from './flow/heroSection';
+import { favorites } from './flow/favorites'
+import { viewFavorites, setViewFavorites } from './flow/viewFavorites'
+import { selectedCharacter } from './flow/selectedCharacter';
+import { withPagination, setWithPagination } from './flow/withPagination';
+import { howManyRows, setHowManyRows } from './flow/howManyRows';
 
 function App() {
-  const { toast, dismiss } = useToast()
+  const { asHowManyAsPossible, howMany, setSearchParams } = useSearchParamsForTheApp()
 
-  const [initialRender, setInitialRender] = useState(true);
+  const { refetchCharacters, isLoading, isFetching, isError, setSearchDifferentCharacters } = useQueryCharacters()
 
-  const { asHowManyAsPossible, howMany, viewFavorites, setSearchParams } = useSearchParamsForTheApp()
-
-  const { charactersFiltered, refetchCharacters, isLoading, isFetching, isError, setSearchDifferentCharacters } = useQueryCharacters()
-  const { changeHeroSection } = useHeroSection()
-
-  const { favorites } = useFavorites()
-
-  const [withPagination, setWithPagination] = useLocalStorage<boolean>("CHARACTERS_APP_WITHPAGINATION", false)
-  const [howManyRows, setHowManyRows] = useLocalStorage("CHARACTERS_APP_HOWMANYROWS", 1)
-
-  useKeyPress('Enter', () => { setViewFavorites(false); setSearchDifferentCharacters(true); setTimeout(() => refetchCharacters()); });
-  useKeyPress('z', () => setViewFavorites(!viewFavorites));
-  useKeyPress('r', () => { resetCharactersSelection(setSearchParams, changeHeroSection); setViewFavorites(false); });
-
-  useEffect(() => {
-    if (viewFavorites === true) {
-      toast({ title: "Favorites 🌟", description: "Your favorites characters ", })
-      new Audio(favoriteSound).play()
+  useKeyPress('Enter', () => {
+    if (viewFavorites.value === true) {
+      setViewFavorites(false);
+      setSearchDifferentCharacters(true);
+      setTimeout(() => {
+        if (viewFavorites.value === false) refetchCharacters()
+      });
     }
-    if (viewFavorites === false) {
-      dismiss()
-      new Audio(favoriteSound).pause()
-    }
-  }, [viewFavorites])
-
-  function setViewFavorites(f: boolean) {
-    setSearchParams((prev) => {
-      prev.set('viewFavorites', f.toString())
-      return prev
-    }, { replace: true })
-  }
+  });
+  useKeyPress('z', () => {
+    setPageActive(1)
+    setViewFavorites(!viewFavorites.value)
+  });
+  useKeyPress('r', () => {
+    resetCharactersSelection(setSearchParams, setHeroSection);
+    setViewFavorites(false);
+  });
 
   return (
     <>
@@ -64,40 +50,37 @@ function App() {
             <>
               <Header
                 setWithPagination={setWithPagination}
-                withPagination={withPagination}
-                howManyRows={howManyRows}
+                withPagination={withPagination.value}
+                howManyRows={howManyRows.value}
                 setHowManyRows={setHowManyRows}
               >
                 <ChangeCharacters />
               </Header>
 
-              <SliderSection/>
+              <SliderSection />
+              
               <>
                 {
-                  isLoading || isFetching ?
-                    <LoadingCharacters howManyRows={howManyRows} withPagination={withPagination} howMany={asHowManyAsPossible ? 710 : howMany} />
+                  viewFavorites.value === false && (isLoading || isFetching) ?
+                    <LoadingCharacters howManyRows={howManyRows.value} withPagination={withPagination.value} howMany={asHowManyAsPossible ? 710 : howMany} />
                     :
-                    isError || charactersFiltered === undefined ?
+                    viewFavorites.value === false && (isError || charactersSignal.value === undefined) ?
                       <SectionCharacters>
                         <p>Sorry</p>
                         <p>😢 Opps... something happend. Please try again. </p>
                       </SectionCharacters>
                       :
                       <>
-                        <DialogCharacters>
+                        <DialogCharacters
+                          selectedCharacter={selectedCharacter.value}
+                        >
                           {
-                            withPagination ?
-                              <Characters
-                                charactersFiltered={viewFavorites ? favorites : charactersFiltered}
-                                viewFavorites={viewFavorites}
-                                initialRender={initialRender}
-                                setInitialRender={setInitialRender}
-                                howManyRows={howManyRows}
-                              />
+                            withPagination.value === true ?
+                              <Characters />
                               :
                               <CharactersNoPagination
-                                charactersFiltered={viewFavorites ? favorites : charactersFiltered}
-                                viewFavorites={viewFavorites}
+                                charactersFiltered={viewFavorites.value === true ? favorites.value : charactersSignal.value}
+                                viewFavorites={viewFavorites.value}
                               />
                           }
                         </DialogCharacters>

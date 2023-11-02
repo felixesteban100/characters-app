@@ -1,6 +1,6 @@
-import useWindowWidth from "@/hooks/useWindowWidth"
+import { windowWidth } from "@/flow/windowWidth"
 import { Progress } from "../ui/progress"
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 type StatNumberProps = {
     statName: string
@@ -9,21 +9,22 @@ type StatNumberProps = {
 }
 
 export default function StatNumber({ statName, statValue, icon }: StatNumberProps) {
-    const windowWidth = useWindowWidth()
-
     const [progress, setProgress] = useState(0)
 
-    useEffect(() => {
-        const timer = setTimeout(() => setProgress(statValue), 500)
-        return () => clearTimeout(timer)
-    }, [])
+    const updateProgress = () => {
+        const timer = setTimeout(() => {
+            setProgress(statValue);
+        }, 500);
+        return () => clearTimeout(timer);
+    };
+    updateProgress();
 
     return (
         <div className="grid grid-cols-8 justify-between items-center gap-6 my-5">
             <div className="flex items-center gap-2 col-span-1 md:col-span-2">
                 <p className='text-2xl md:text-3xl'>{icon}</p>
                 {
-                    windowWidth > 770
+                    windowWidth.value > 770
                         ? <div className="fond-bold">{statName}</div>
                         : null
                 }

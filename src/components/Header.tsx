@@ -33,13 +33,12 @@ import { Input } from "./ui/input";
 //     )
 // );
 
-
 type HeaderProps = {
     children: JSX.Element;
-    setWithPagination: React.Dispatch<React.SetStateAction<boolean>>
+    setWithPagination: (value: boolean) => void
     withPagination: boolean;
     howManyRows: number;
-   setHowManyRows: React.Dispatch<React.SetStateAction<number>>;
+    setHowManyRows: (value: number) => void;
 }
 
 function Header({ children, withPagination, howManyRows, setHowManyRows, setWithPagination }: HeaderProps) {

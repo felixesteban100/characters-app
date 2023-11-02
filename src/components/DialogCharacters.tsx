@@ -4,20 +4,19 @@ import { useEffect, useState } from 'react';
 import CharacterFeatures from "./CharacterFeatures";
 import { motion } from "framer-motion"
 import ImageZoomDialog from "./ImageZoomDialog";
-import { useSelectedCharacter } from "@/state/selectedCharacter";
 import { useSearchParamsForTheApp } from "@/hooks/useSearchParamsForTheApp";
 import { DialogDescription } from "@radix-ui/react-dialog";
+import { Character } from "@/types";
 
 type DialogCharactersProps = {
     children: JSX.Element;
+    selectedCharacter: Character
 }
 
-function DialogCharacters({ children }: DialogCharactersProps) {
+function DialogCharacters({ children, selectedCharacter }: DialogCharactersProps) {
     const [isAnimating, setIsAnimating] = useState(true);
     const [currentImageToDisplay, setCurrentImageToDisplay] = useState<number>(0)
     const [lastCharacter, setLastCharacter] = useState("")
-
-    const { selectedCharacter } = useSelectedCharacter()
 
     const { isDialogOpen, setSearchParams } = useSearchParamsForTheApp()
 

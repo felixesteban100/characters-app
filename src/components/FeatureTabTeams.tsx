@@ -1,16 +1,17 @@
-import { useSelectedCharacter } from "@/state/selectedCharacter"
 import FeatureTabContainer from "./components/FeatureTabContainer"
 import StatContainer from "./components/StatContainer"
 import { getTeamsImagesByCharacter } from "@/functions"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { useSearchParamsForTheApp } from "@/hooks/useSearchParamsForTheApp"
-import useQueryCharacters from "@/api/useQueryCharacters"
+import useQueryCharacters from "@/data/useQueryCharacters"
 import { DialogClose } from "./ui/dialog"
+import { Character } from "@/types"
 
-type FeatureTabTeamsProps = {}
+type FeatureTabTeamsProps = {
+    selectedCharacter: Character
+}
 
-function FeatureTabTeams({ }: FeatureTabTeamsProps) {
-    const { selectedCharacter } = useSelectedCharacter()
+function FeatureTabTeams({ selectedCharacter }: FeatureTabTeamsProps) {
     const { setSearchParams } = useSearchParamsForTheApp()
     const { refetchCharacters, setSearchDifferentCharacters } = useQueryCharacters()
 

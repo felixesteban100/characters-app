@@ -5,6 +5,7 @@ import type {
   ToastActionElement,
   ToastProps,
 } from "@/components/ui/toast"
+import { effect, signal } from "@preact/signals-react"
 
 const TOAST_LIMIT = 1
 // const TOAST_REMOVE_DELAY = 1000000
@@ -170,21 +171,25 @@ function toast({ ...props }: Toast) {
   }
 }
 
-function useToast() {
-  const [state, setState] = React.useState<State>(memoryState)
+export const toastSignal = signal(memoryState)
 
-  React.useEffect(() => {
-    listeners.push(setState)
+function setToastSignal(toastsS: State){
+  toastSignal.value = toastsS
+}
+
+effect(() => {
+  listeners.push(setToastSignal)
     return () => {
-      const index = listeners.indexOf(setState)
+      const index = listeners.indexOf(setToastSignal)
       if (index > -1) {
         listeners.splice(index, 1)
       }
     }
-  }, [state])
+})
 
+function useToast() {
   return {
-    ...state,
+    toasts: [...toastSignal.value.toasts],
     toast,
     dismiss: (toastId?: string) => dispatch({ type: "DISMISS_TOAST", toastId }),
   }

@@ -6,32 +6,21 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Button } from "./ui/button";
-
 import SwitchWithIcon from "./components/SwitchWithIcon";
 import { useSearchParamsForTheApp } from "@/hooks/useSearchParamsForTheApp";
-import { useSearchDifferentCharacters } from "@/state/searchDifferentCharacters";
-import useQueryCharacters from "@/api/useQueryCharacters";
-import { useHeroSection } from "../state/heroSection";
+import { setSearchDifferentCharacters } from "@/flow/searchDifferentCharacters";
+import useQueryCharacters from "@/data/useQueryCharacters";
+import { setHeroSection } from "../flow/heroSection";
+import { setViewFavorites, viewFavorites } from "@/flow/viewFavorites";
 
+type ChangeCharactersProps = {}
 
-type ChangeCharactersProps = {
-    // setWithPagination: React.Dispatch<React.SetStateAction<boolean>>;
-    // withPagination: boolean;
-    // howManyRows: number;
-    // setHowManyRows: React.Dispatch<React.SetStateAction<number>>;
-}
-
-function ModalChangeCharacters({ /* setWithPagination, withPagination, howManyRows, setHowManyRows */ }: ChangeCharactersProps) {
-    const { asHowManyAsPossible, characterName, characterOrFullName, gender, howMany, includeNameOrExactName, race, side, team, universe, viewFavorites, setSearchParams } = useSearchParamsForTheApp()
-
-    const { setSearchDifferentCharacters } = useSearchDifferentCharacters()
+function ModalChangeCharacters({ }: ChangeCharactersProps) {
+    const { asHowManyAsPossible, characterName, characterOrFullName, gender, howMany, includeNameOrExactName, race, side, team, universe, setSearchParams } = useSearchParamsForTheApp()
 
     const { isLoading, isFetching, refetchCharacters } = useQueryCharacters()
 
-    const { changeHeroSection }= useHeroSection()
-
     const teamByUniverse: { name: string, value: string }[] = getTeamByUniverse(universe)
-    // const windowWidth = useWindowWidth()
 
     return (
         <div className="min-h-fit">
@@ -151,7 +140,6 @@ function ModalChangeCharacters({ /* setWithPagination, withPagination, howManyRo
                 value={gender}
                 options={ALLGENDERS}
                 onChangeFunction={(valueS) => setSearchParams((prev) => {
-                    console.log(valueS)
                     prev.set('gender', valueS)
                     return prev
                 }, { replace: true })}
@@ -239,10 +227,7 @@ function ModalChangeCharacters({ /* setWithPagination, withPagination, howManyRo
                     dataTest="btn-Favorites"
                     classNameSended="btn-warning"
                     functionSended={() => {
-                        setSearchParams((prev) => {
-                            prev.set('viewFavorites', (!viewFavorites).toString())
-                            return prev
-                        }, { replace: true })
+                        setViewFavorites(!viewFavorites.value)
                     }}
                     forWhat="Favorites ⭐"
                     variantS={'warning'}
@@ -252,116 +237,16 @@ function ModalChangeCharacters({ /* setWithPagination, withPagination, howManyRo
                     dataTest="btn-Reset"
                     classNameSended="btn-danger"
                     functionSended={() => {
-                        resetCharactersSelection(setSearchParams, changeHeroSection)
+                        resetCharactersSelection(setSearchParams, setHeroSection)
                         setSearchParams((prev) => {
                             prev.set('viewFavorites', (false).toString())
                             return prev
                         }, { replace: true })
                         setSearchDifferentCharacters(true)
-                        // setTimeout(() => refetchCharacters())
                     }}
                     forWhat="Reset filters 🔁"
                     variantS={'secondary'}
                 />
-
-                {/* <Separator className="my-2" />
-                <p className="text-[1.1rem] font-bold text-center">Characters view settings</p>
-                <div>
-                    <div className="flex items-center justify-center gap-2">
-                        <Switch
-                            id="setPagination"
-                            checked={withPagination}
-                            onCheckedChange={() => setWithPagination(prev => !prev)}
-                        />
-                        <Label htmlFor="setPagination">
-                            With Pagination
-                        </Label>
-                    </div>
-
-                    <div className="w-full flex flex-row justify-center items-center gap-2">
-                        <div className="grid grid-cols-4 items-center gap-2 mx-auto py-5 flex-shrink">
-                            <Button
-                                variant={'outline'}
-                                onClick={() => {
-                                    setHowManyRows(prev => prev - 1)
-                                }}
-                                disabled={howManyRows === 1}
-                            >
-                                {`-`}
-                            </Button>
-                            <Input
-                                type={'number'}
-                                id="howManyRows"
-                                value={howManyRows}
-                                className="col-span-2 text-center disabled:opacity-100 disabled:cursor-default"
-                                min={1}
-                                max={4}
-                                onChange={(event) => {
-                                    setHowManyRows(parseInt(event.target.value))
-                                }}
-                                disabled={true}
-                            />
-                            <Button
-                                variant={'outline'}
-                                onClick={() => {
-                                    setHowManyRows(prev => prev + 1)
-                                }}
-                                disabled={howManyRows === 4}
-                            >
-                                {`+`}
-                            </Button>
-                        </div>
-                        <p className="flex-shrink-0"># Rows</p>
-                    </div>
-                </div> */}
-
-                {/* {
-                    windowWidth > 770 ?
-                        <>
-                            <Separator className="my-2" />
-                            <div className="flex flex-col gap-2">
-                                <p className="text-[1.1rem] font-bold text-center">Shortcuts</p>
-                                <Accordion type="single" collapsible className="w-full">
-                                    <AccordionItem value="item-1">
-                                        <AccordionTrigger>Is it accessible?</AccordionTrigger>
-                                        <AccordionContent>
-                                            <div className="flex items-center gap-2">
-                                                <p>Press</p>
-                                                <kbd className="bg-primary text-primary-foreground p-1 rounded-md shadow-sm shadow-accent">Enter</kbd>
-                                                <p>to Search 🔍</p>
-                                            </div>
-                                        </AccordionContent>
-                                    </AccordionItem>
-                                    <AccordionItem value="item-2">
-                                        <AccordionTrigger>Is it styled?</AccordionTrigger>
-                                        <AccordionContent>
-                                            <div className="flex items-center gap-2">
-                                                <p>Press</p>
-                                                <kbd className="bg-primary text-primary-foreground p-1 rounded-md shadow-sm shadow-accent">Ctrl</kbd>
-                                                <p>+</p>
-                                                <kbd className="bg-primary text-primary-foreground p-1 rounded-md shadow-sm shadow-accent">z</kbd>
-                                                <p>to Favorites ⭐</p>
-                                            </div>
-                                        </AccordionContent>
-                                    </AccordionItem>
-                                    <AccordionItem value="item-3">
-                                        <AccordionTrigger>Is it animated?</AccordionTrigger>
-                                        <AccordionContent>
-                                            <div className="flex items-center gap-2">
-                                                <p>Press</p>
-                                                <kbd className="bg-primary text-primary-foreground p-1 rounded-md shadow-sm shadow-accent">Ctrl</kbd>
-                                                <p>+</p>
-                                                <kbd className="bg-primary text-primary-foreground p-1 rounded-md shadow-sm shadow-accent">r</kbd>
-                                                <p>to Reset 🔁</p>
-                                            </div>
-                                        </AccordionContent>
-                                    </AccordionItem>
-                                </Accordion>
-                            </div>
-                        </>
-                        :
-                        null
-                } */}
             </div>
         </div>
     )

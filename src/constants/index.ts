@@ -1,4 +1,4 @@
-import { HeroSection } from "../state/heroSection"
+import { HeroSection } from "../flow/heroSection"
 import { Character } from "../types"
 
 export const characterEmpty: Character = {
@@ -912,7 +912,7 @@ export const DEFAULT_SEARCHPARAMS = {
 
 export function getSearchParamsFormatted(searchParams: URLSearchParams) {
     return {
-        viewFavorites: searchParams.get("viewFavorites") === "" ? true : searchParams.get("viewFavorites") === "true",
+        // viewFavorites: searchParams.get("viewFavorites") === "" ? true : searchParams.get("viewFavorites") === "true",
         characterName: searchParams.get("characterName") ?? "",
         howMany: parseInt(searchParams.get("howMany") ?? "8"),
         asHowManyAsPossible: searchParams.get("asHowManyAsPossible") === "true",

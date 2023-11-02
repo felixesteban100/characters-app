@@ -1,5 +1,5 @@
 import LoadingCard from "../components/components/LoadingCard";
-import useWindowWidth from '../hooks/useWindowWidth';
+import { windowWidth } from '../flow/windowWidth';
 import { getLoadingCards } from '../functions';
 import SectionCharacters from '../components/SectionCharacters';
 import CharactersContainer from "../components/CharactersContainer";
@@ -13,15 +13,12 @@ type LoadingCharactersProps = {
 }
 
 function LoadingCharacters({ howMany, howManyRows, withPagination }: LoadingCharactersProps) {
-    const windowWidth = useWindowWidth()
-
     return (
         <SectionCharacters>
-
             <CharactersContainer>
                 <>
                     {
-                        Array(getLoadingCards(windowWidth, howMany, howManyRows, withPagination)).fill(characterEmpty).map((_, index) => {
+                        Array(getLoadingCards(windowWidth.value, howMany, howManyRows, withPagination)).fill(characterEmpty).map((_, index) => {
                             return (
                                 <div key={index}>
                                     <LoadingCard />

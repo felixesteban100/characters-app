@@ -1,13 +1,12 @@
 import { SetURLSearchParams } from "react-router-dom";
 import { DEFAULT_HERO_SECTION, getTeamByUniverse } from "../constants";
 import { Character } from "../types";
-import { HeroSection } from "../state/heroSection";
+import { HeroSection } from "../flow/heroSection";
 
 export function resetCharactersSelection(
   setSearchParams: SetURLSearchParams,
-  changeHeroSection: (heroSection: HeroSection) => void,
+  changeHeroSection: (heroSection: HeroSection) => void
 ) {
- 
   localStorage.removeItem("CHARACTERS_APP_HEROSECTION");
   localStorage.removeItem("CHARACTERS_APP_SEARCHPARAMS");
 
@@ -37,18 +36,14 @@ export function manageFavorite(
   action: string,
   characterSelected: Character,
   favorites: Character[],
-  setFavorites: (
-    favoritesS: Character[]
-  ) => void /* setFavorites: React.Dispatch<React.SetStateAction<[] | Character[]>> */
+  setFavorites: (favoritesS: Character[]) => void
 ) {
   switch (action) {
     case "add":
-      // setFavorites(prev => [...prev, characterSelected])
       setFavorites([...favorites, characterSelected]);
       break;
 
     case "remove":
-      // setFavorites(prev => prev.filter(current => current.slug !== characterSelected.slug))
       setFavorites(
         favorites.filter((current) => current.slug !== characterSelected.slug)
       );
@@ -211,7 +206,6 @@ export function getTeamsImagesByCharacter(selectedCharacter: Character) {
     }
     return false;
   });
-  // console.log(filteredArray)
 
   return filteredArray;
 }

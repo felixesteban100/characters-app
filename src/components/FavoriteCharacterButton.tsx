@@ -1,31 +1,27 @@
-import { useFavorites } from '@/state/favorites'
 import { manageFavorite } from '../functions'
 
 import { Label } from './ui/label'
 import { Switch } from './ui/switch'
-import { useSelectedCharacter } from '@/state/selectedCharacter'
+import { selectedCharacter } from '@/flow/selectedCharacter'
+import { favorites, setFavorites } from '../flow/favorites'
 
-type FavoriteCharacterButtonProps = {
-}
+type FavoriteCharacterButtonProps = {}
 
 function FavoriteCharacterButton({ }: FavoriteCharacterButtonProps) {
-    const { favorites, setFavorites } = useFavorites()
-    const { selectedCharacter } = useSelectedCharacter()
-
     return (
         <div className="flex items-center gap-2">
             <Switch
                 id="favorite"
-                checked={favorites.find(c => c._id === selectedCharacter._id) ? true : false}
+                checked={favorites.value.find(c => c._id === selectedCharacter.value._id) ? true : false}
                 onCheckedChange={() => {
-                    if (favorites.find(c => c._id === selectedCharacter._id)) {
-                        manageFavorite("remove", selectedCharacter, favorites, setFavorites)
+                    if (favorites.value.find(c => c._id === selectedCharacter.value._id)) {
+                        manageFavorite("remove", selectedCharacter.value, favorites.value, setFavorites)
                     } else {
-                        manageFavorite("add", selectedCharacter, favorites, setFavorites)
+                        manageFavorite("add", selectedCharacter.value, favorites.value, setFavorites)
                     }
                 }}
             />
-            <Label className='text-2xl pb-[7.5px]' htmlFor="favorite">{favorites.find(c => c._id === selectedCharacter._id) ? '🌟' : '⭐'}</Label>
+            <Label className='text-2xl pb-[7.5px]' htmlFor="favorite">{favorites.value.find(c => c._id === selectedCharacter.value._id) ? '🌟' : '⭐'}</Label>
         </div>
     )
 }

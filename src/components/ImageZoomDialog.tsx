@@ -3,7 +3,7 @@ import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { Button } from "./ui/button";
 
 import { ArrowBigLeft, ArrowBigRight, PlusIcon, MinusIcon, RotateCcw } from 'lucide-react'
-import { useSelectedCharacter } from '@/state/selectedCharacter';
+import { selectedCharacter } from '@/flow/selectedCharacter';
 
 type ImageZoomDialogProps = {
     children: JSX.Element;
@@ -15,7 +15,6 @@ type ImageZoomDialogProps = {
 }
 
 function ImageZoomDialog({ children, isAnimating, setIsAnimating, currentImageToDisplay, setCurrentImageToDisplay, allImages }: ImageZoomDialogProps) {
-    const { selectedCharacter } = useSelectedCharacter()
 
     return (
         <Dialog>
@@ -24,7 +23,7 @@ function ImageZoomDialog({ children, isAnimating, setIsAnimating, currentImageTo
             </DialogTrigger>
 
             <DialogContent
-                className="w-[80vw] max-w-[500px] h-[80vh] xl:w-[80vw] xl:max-w-[600px] xl:h-[95vh] bg-card"
+                className="w-[80vw] max-w-[500px] h-[80vh] xl:w-[80vw] xl:max-w-[600px] xl:h-[95vh] bg-card border-none"
             >
                 {/* <div
                     style={{ 
@@ -37,7 +36,7 @@ function ImageZoomDialog({ children, isAnimating, setIsAnimating, currentImageTo
                 >
                 </div> */}
                 {/* w-[80vw] max-w-[500px] h-[80vh] */}
-                <img className={`${isAnimating ? "opacity-100 " : "opacity-0"} duration-1000 absolute blur-sm h-full w-full object-cover`} src={allImages[currentImageToDisplay]} alt="" />
+                <img className={`${isAnimating ? "opacity-100 " : "opacity-0"} animate-pulse duration-1000 absolute blur-xl h-full w-full object-cover`} src={allImages[currentImageToDisplay]} alt="" />
                 <TransformWrapper
                     initialScale={1}
                     initialPositionX={0}
@@ -57,7 +56,7 @@ function ImageZoomDialog({ children, isAnimating, setIsAnimating, currentImageTo
                                             object-cover rounded-md xl:translate-y-10`
                                         }
                                         src={allImages[currentImageToDisplay]}
-                                        alt={selectedCharacter.name}
+                                        alt={selectedCharacter.value.name}
                                         loading="lazy"
                                     />
                                 </TransformComponent>
