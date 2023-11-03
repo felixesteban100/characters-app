@@ -37,13 +37,10 @@ function getCharactersPerPage(): number {
     switch (true) {
         case windowWidth.value > 782 && windowWidth.value < 1285:
             return howManyRows.value * 3 //6
-            break;
         case windowWidth.value < 782:
             return howManyRows.value * 2 //4;
-            break;
         default:
             return howManyRows.value * 4 //8;
-            break;
     }
 }
 

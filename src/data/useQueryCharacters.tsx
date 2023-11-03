@@ -41,7 +41,7 @@ function useQueryCharacters() {
             } else {
                 toast({ title: "Success ❔", description: "😐 No Characters founded" })
             }
-            setHeroSection({imgs: teamIMG(team), title: team, description: team})
+            setHeroSection({imgs: teamIMG(team).slice().sort(() => Math.random() - 0.5), title: team, description: team})
             if (howMany === 710) {
                 setSearchParams((prev) => {
                     prev.set('howMany', data.length.toString())

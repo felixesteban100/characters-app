@@ -12,6 +12,7 @@ import { setSearchDifferentCharacters } from "@/flow/searchDifferentCharacters";
 import useQueryCharacters from "@/data/useQueryCharacters";
 import { setHeroSection } from "../flow/heroSection";
 import { setViewFavorites, viewFavorites } from "@/flow/viewFavorites";
+import { setPageActive } from "./Characters";
 
 type ChangeCharactersProps = {}
 
@@ -212,6 +213,7 @@ function ModalChangeCharacters({ }: ChangeCharactersProps) {
                     classNameSended="btn-success"
                     functionSended={() => {
                         setSearchDifferentCharacters(true)
+                        setPageActive(1)
                         setTimeout(() => refetchCharacters())
                         setSearchParams((prev) => {
                             prev.set('viewFavorites', (false).toString())

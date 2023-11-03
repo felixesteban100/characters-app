@@ -21,7 +21,11 @@ effect(() => {
   );
 });
 
-export function setHeroSection(value: HeroSection) {
+export function setHeroSection(value: {
+  imgs: string[],
+  title: string,
+  description: string
+}) {
   heroSection.value = value;
 }
 

@@ -4,48 +4,80 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 72.2% 50.6%;
-    --primary-foreground: 0 85.7% 97.3%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
+    /* Name: custom color palette
+       Author: Ilias Ism
+       URL: https://gradient.page */
+
+    /* CSS: .bg-gradient { background: var(--gradient) } */
+    --gradient: #004680;
+    --background: 220 100% 98.5%;
+    --foreground: 220 10% 1%;
+
+    --muted: 220 10% 92.5%;
+    --muted-foreground: 220 5% 42.5%;
+
+    --popover: 220 10% 92.5%;
+    --popover-foreground: 220 10% 1.25%;
+
+    --card: 220 10% 92.5%;
+    --card-foreground: 220 10% 1.25%;
+
+    --border: 220 15% 90%;
+    --input: 220 15% 90%;
+
+    --primary: 220 100% 25%;
+    --primary-foreground: 220 2% 92.5%;
+
+    --secondary: 220 5% 96.25%;
+    --secondary-foreground: 220 7% 12.5%;
+
+    --accent: 220 5% 96.25%;
+    --accent-foreground: 220 7% 12.5%;
+
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 72.2% 50.6%;
+
+    --ring: 220 100% 25%;
+
     --radius: 0.5rem;
   }
  
   .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 72.2% 50.6%;
-    --primary-foreground: 0 85.7% 97.3%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
+    /* Name: custom color palette
+       Author: Ilias Ism
+       URL: https://gradient.page */
+
+    /* CSS: .bg-gradient { background: var(--gradient) } */
+    --gradient: #007991;
+
+    --background: 202 65% 2.32%;
+    --foreground: 202 10% 96.45%;
+
+    --muted: 202 50% 8.7%;
+    --muted-foreground: 202 10% 52.9%;
+
+    --popover: 202 45% 3.7699999999999996%;
+    --popover-foreground: 202 10% 96.45%;
+
+    --card: 202 45% 3.7699999999999996%;
+    --card-foreground: 202 10% 96.45%;
+
+    --border: 202 50% 8.7%;
+    --input: 202 50% 8.7%;
+
+    --primary: 202 100% 29%;
+    --primary-foreground: 202 10% 96.45%;
+
+    --secondary: 202 50% 8.7%;
+    --secondary-foreground: 202 10% 96.45%;
+
+    --accent: 202 50% 8.7%;
+    --accent-foreground: 202 10% 96.45%;
+
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 72.2% 50.6%;
+    --destructive-foreground: 202 10% 96.45%;
+
+    --ring: 202 100% 29%;
   }
 }
 

@@ -1,11 +1,10 @@
 import FeatureTabContainer from "./components/FeatureTabContainer"
 import StatContainer from "./components/StatContainer"
 import { getTeamsImagesByCharacter } from "@/functions"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { useSearchParamsForTheApp } from "@/hooks/useSearchParamsForTheApp"
 import useQueryCharacters from "@/data/useQueryCharacters"
-import { DialogClose } from "./ui/dialog"
 import { Character } from "@/types"
+import { setPageActive } from "./Characters"
 
 type FeatureTabTeamsProps = {
     selectedCharacter: Character
@@ -24,14 +23,14 @@ function FeatureTabTeams({ selectedCharacter }: FeatureTabTeamsProps) {
                 <StatContainer>
                     {
                         getTeamsImagesByCharacter(selectedCharacter).length > 0 ?
-                            <TooltipProvider>
+                            // <TooltipProvider>
                                 <div className="w-full flex flex-col flex-wrap justify-center items-center gap-5 my-5">
                                     {
                                         getTeamsImagesByCharacter(selectedCharacter).map((teamFound) => {
                                             return (
                                                 <div
                                                     key={teamFound.name}
-                                                    className="tooltip mt-5 mx-auto w-[70%]"
+                                                    className="tooltip mt-5 mx-auto flex gap-1 flex-col cursor-pointer group/items"
                                                     data-tip={teamFound.name}
                                                     onClick={() => {
                                                         setSearchParams((prev) => {
@@ -45,29 +44,32 @@ function FeatureTabTeams({ selectedCharacter }: FeatureTabTeamsProps) {
                                                             prev.set("race", "All");
                                                             prev.set("includeNameOrExactName", "true");
                                                             prev.set("characterOrFullName", "false");
+                                                            prev.set("isDialogOpen", "false");
                                                             return prev
                                                         })
-
                                                         setSearchDifferentCharacters(true)
                                                         setTimeout(() => refetchCharacters())
+                                                        setPageActive(1)
                                                     }}
                                                 >
-                                                    <DialogClose>
+                                                    <img className="hover:pointer-events-none active:pointer-events-none" src={teamFound?.img} alt={teamFound?.name} />
+                                                    <p className="font-semibold text-primary text-xl group-hover/items:underline">{teamFound?.name}</p>
+                                                    {/* <DialogClose>
                                                         <Tooltip>
-                                                            <TooltipTrigger asChild>
-                                                                <img className="hover:pointer-events-none active:pointer-events-none" src={teamFound?.img} alt={teamFound?.name} />
+                                                            <TooltipTrigger className="flex justify-center items-center" asChild>
+                                                                
                                                             </TooltipTrigger>
                                                             <TooltipContent>
                                                                 <p>{teamFound?.name}</p>
                                                             </TooltipContent>
                                                         </Tooltip>
-                                                    </DialogClose>
+                                                    </DialogClose> */}
                                                 </div>
                                             )
                                         })
                                     }
                                 </div>
-                            </TooltipProvider>
+                            // </TooltipProvider>
                             :
                             <div className="text-xl font-bold text-center my-5">No teams</div>
                     }
